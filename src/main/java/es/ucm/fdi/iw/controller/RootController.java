@@ -39,4 +39,9 @@ public class RootController {
 	public String upload() {
 		return "upload";
 	}
+	
+	@GetMapping("/search")
+	public String search() {
+		return "search";
+	}
 }
