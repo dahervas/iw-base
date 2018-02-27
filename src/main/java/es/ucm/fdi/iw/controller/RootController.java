@@ -44,4 +44,9 @@ public class RootController {
 	public String search() {
 		return "search";
 	}
+	
+	@GetMapping("/collections")
+	public String collections() {
+		return "collections";
+	}
 }
