@@ -6,96 +6,92 @@
 
 <%@ include file="../jspf/header.jspf"%>
 
- <link href="/static/css/profile.css" rel="stylesheet">
+<link href="/static/css/profile.css" rel = "stylesheet">
+ <link href="${s}/css/bootstrap.min.css" rel="stylesheet">
  
-<div class="starter-template">
-	<h1>Profile</h1>
-	
-	    <!-- Page Content -->
-    <div class="container">
-
-      <!-- Page Heading -->
-      <h1 class="my-4">Page Heading
-        <small>Secondary Text</small>
-      </h1>
-
-      <div class="row">
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project One</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project Two</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project Three</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project Four</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project Five</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project Six</a>
-              </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /.row -->
-
-
-    </div>
-    <!-- /.container -->
+ <div class="container">
+ 		<button id="sesion" type="button" class="btn btn-default btn-lg">
+  			<span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cerrar sesión
+		</button>
+        <img class="img-fluid mb-5 d-block mx-auto" id="fotoperfil" src="https://cdn.pixabay.com/photo/2017/11/16/09/35/girl-2953888_960_720.jpg" alt="">
+        <h1 class=" mb-0" id="nombre">Marta 
+       
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+       
+        </h1>
+        
 </div>
 
-  <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <!-- Page Content -->
+    <div class="container">
+
+      <h1 class="my-4 text-center text-lg-left">Mis productos
+      </h1>
+
+      <div class="row text-center text-lg-left">
+
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+          </a>
+        </div>
+      </div>
+
+    </div>
 
 <%@ include file="../jspf/footer.jspf"%>
