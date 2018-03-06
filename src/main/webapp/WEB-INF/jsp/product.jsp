@@ -8,6 +8,7 @@
 
 <link href="/static/css/profile.css" rel = "stylesheet">
  <link href="${s}/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/stars.css" rel = "stylesheet">
  
  <div class="container">
  		<button id="sesion" type="button" class="btn btn-default btn-lg">
@@ -19,8 +20,29 @@
         <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
        
         </h1>
+      <div id="wrapper"> 
+        <form action="" method="post">        	
+        	<p class="clasificacion">
+        		<label>Valoración</label>
+        		<br>
+        		<input id="radio1" name="estrellas" value="5" type="radio">
+        		<label for="radio1"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio2" name="estrellas" value="4" type="radio">
+        		<label for="radio2"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio3" name="estrellas" value="3" type="radio">
+        		<label for="radio3"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio4" name="estrellas" value=2" type="radio">
+        		<label for="radio4"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio5" name="estrellas" value="1" type="radio">
+        		<label for="radio5"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        	</p>
         
-        <h2> Valoración:  </h2>
+        </form>
+       </div>
         
 </div>
 
@@ -28,7 +50,7 @@
  	<div class="card-block">
  		<label>Descripción:</label>
  		<div class="form-group">
- 			<input id="Descripción" class="form-control" type="text" name="descripcion">
+ 			<p>Encontraremos una descripción del producto que ofrecemos</p>
  		</div>
  	
  	</div>
@@ -36,7 +58,7 @@
  	<div class="card-block">
  		<label>Información:</label>
  		<div class="form-group">
- 			<input id="valoración" class="form-control" type="text" name="valoracion">
+ 			<p>Encontraremos información relevante al producto, período del prestamo...</p>
  		</div>
  	
  	</div>
@@ -45,78 +67,12 @@
  		<label>Opiniones:</label>
  		<div class="form-group">
  			<input id="valoración" class="form-control" type="text" name="valoracion">
+ 			<button id="sesion" type="button">
+  			 Enviar
+			</button>
  		</div>
  	
- 	</div>
+ 	</div> 	
  	
- 	
- 	
-    <div class="container">
-
-      <div class="row text-center text-lg-left">
-
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-      </div>
-
-    </div>
 
 <%@ include file="../jspf/footer.jspf"%>
