@@ -1,12 +1,25 @@
+html, body{
+	height:100%;
+	padding-top:0px;
+	
+}
+.container{
+	height:100%;
+	width:100%;
+
+	padding-left:0px;
+	padding-right: 0;
+	padding-left: 0;
+	margin-right: auto;
+	margin-left: 0;
+}
 td, th {
     vertical-align: middle !important;
     }
-.left, .right {
-        float:left;
-        height:100vh;
-    }
-    
+
 .left {
+		height:100%;
+		float:left;
         background: #337ab7;
         display: inline-block;
         white-space: nowrap;
@@ -14,14 +27,7 @@ td, th {
         transition: width 1s ;
     }
 
-.right {
-        background: #fff;
-        width: 350px;
-        transition: width 1s;
-        border-style:solid;
-        border-color:#ccc;
-        border-width:1px;
-    }    
+
 
 .left:hover {
         width: 250px;
@@ -98,35 +104,3 @@ input[type=search]:focus {
     }
         
 
-.barraLateral {
-	position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
-	left: 0; /* Establecemos la barra en la izquierda */
-	top: 200px; /* Bajamos la barra 200px de arriba a abajo */
-	z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
-}
- 
-.barraLateral ul {
-	list-style: none;
-}
- 
-.barraLateral ul li a {
-	display: inline-block;
-	color:#fff;
-	background: #000;
-	padding: 10px 15px;
-	text-decoration: none;
-	-webkit-transition:all 500ms ease;
-	-o-transition:all 500ms ease;
-	transition:all 500ms ease; /* Establecemos una transición a todas las propiedades */
-}
- 
-.barraLateral ul li .icon-facebook {background:#3b5998;} /* Establecemos los colores de cada red social, aprovechando su class */
-.barraLateral ul li .icon-twitter {background: #00abf0;}
-.barraLateral ul li .icon-googleplus {background: #d95232;}
-.barraLateral ul li .icon-pinterest {background: #ae181f;}
-.barraLateral ul li .icon-mail {background: #666666;}
-
-.barraLateral ul li a:hover {
-	background: #000; /* Cambiamos el fondo cuando el usuario pase el mouse */
-	padding: 10px 30px; /* Hacemos mas grande el espacio cuando el usuario pase el mouse */
-}

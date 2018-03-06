@@ -79,10 +79,7 @@
       </div>
 
     </div>
-
-<%@ include file="../jspf/footer.jspf"%>
-
-	<%@ include file="../jspf/authinfo.jspf"%>		
+	
 </div>
 
 <%@ include file="../jspf/footer.jspf"%>
