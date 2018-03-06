@@ -54,4 +54,14 @@ public class RootController {
 	public String collections() {
 		return "collections";
 	}
+	
+	@GetMapping("/product")
+	public String product() {
+		return "product";
+	}
+	
+	@GetMapping("/nuevoProducto")
+	public String nuevoProducto() {
+		return "nuevoProducto";
+	}
 }
