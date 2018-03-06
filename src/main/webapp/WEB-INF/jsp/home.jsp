@@ -14,9 +14,6 @@
  <!-- Page Content -->
     <div class="container">
 
-      <h1 class="my-4 text-center text-lg-left">Mis productos
-      </h1>
-
       <div class="row text-center text-lg-left">
 
         <div class="col-lg-3 col-md-4 col-xs-6">
