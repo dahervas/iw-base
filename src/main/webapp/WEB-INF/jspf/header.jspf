@@ -17,7 +17,7 @@
     <link href="${s}/css/freelancer.min.css" rel = "stylesheet">
     
     <!--  Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
   </head>
   <body>
   

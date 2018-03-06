@@ -7,15 +7,49 @@
 <%@ include file="../jspf/header.jspf"%>
 
 
+<link href="/static/css/collections.css" rel = "stylesheet">
     
- 
-<div class="starter-template">
-	<h1>COLLECTIONS</h1>
-	<p class="lead">Esto es una colección</p>
-	
-	<h2> Título nuevo </h2>
-
-	<%@ include file="../jspf/authinfo.jspf"%>		
-</div>
+ <div id="fh5co-featured-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					
+					<a href="#" class="featured-grid" style="background-image: url(images/image_6.jpg);">
+						<div class="desc">
+							<h3>Work with love</h3>
+							<span>Web Design</span>
+						</div>
+					</a>
+					
+				</div>
+				<div class="col-md-6">
+					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(images/image_6.jpg);">
+						<div class="desc">
+							<h3>Music Lover</h3>
+							<span>Application</span>
+						</div>
+					</a>
+					<div class="row">
+						<div class="col-md-6">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(unknown-user.jpg);">
+								<div class="desc">
+									<h3>Travel</h3>
+									<span>Illustration</span>
+								</div>
+							</a>
+						</div>
+						<div class="col-md-6">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(images/image_6.jpg);">
+								<div class="desc">
+									<h3>Captured</h3>
+									<span>Photo</span>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <%@ include file="../jspf/footer.jspf"%>

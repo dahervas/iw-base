@@ -5,7 +5,7 @@
  */
 
 .container {
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	color: #674ea7;
 }
 #fotoperfil {
@@ -25,5 +25,5 @@
 }
 
 #nombre {
-	margin-left: 525px;
+	margin-left: 510px;
 }
