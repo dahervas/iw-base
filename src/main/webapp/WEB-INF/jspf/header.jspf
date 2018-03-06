@@ -15,12 +15,13 @@
     <link href="${s}/css/starter-template.css" rel="stylesheet">
     <link href="${s}/css/freelancer.css" rel = "stylesheet">
     <link href="${s}/css/freelancer.min.css" rel = "stylesheet">
+    <link href="${s}/css/estilo.css" rel = "stylesheet">
     
     <!--  Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
   </head>
   <body>
-  
+  		
       <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
