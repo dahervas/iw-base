@@ -7,7 +7,6 @@
 <%@ include file="../jspf/header.jspf"%>
 
 <link href="/static/css/profile.css" rel = "stylesheet">
- <link href="${s}/css/bootstrap.min.css" rel="stylesheet">
  
  <div class="container">
  		<button id="sesion" type="button" class="btn btn-default btn-lg">
