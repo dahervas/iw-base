@@ -6,7 +6,7 @@
 	<link href="{s}/css/search.css" rel="stylesheet">
 	
 <%@ include file="../jspf/header.jspf"%>
-<div class="starter-template">
+<div class="starter-template todoAlCentro">
 	<h1>Búsqueda</h1>
 	<form action="/search" method="post">               
 		<fieldset>
