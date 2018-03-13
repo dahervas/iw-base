@@ -5,8 +5,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <%@ include file="../jspf/header.jspf"%>
-
-<div class="starter-template">
+<link href="/static/css/login.css" rel = "stylesheet">
+<div class="starter-template todoAlCentro">
 	<h1>Registro</h1>
 
     <form action="/login" method="post">               
