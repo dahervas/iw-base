@@ -7,10 +7,10 @@
 <%@ include file="../jspf/header.jspf"%>
 
 <link href="/static/css/profile.css" rel = "stylesheet">
- <link href="${s}/css/bootstrap.min.css" rel="stylesheet">
 <link href="/static/css/stars.css" rel = "stylesheet">
  
- <div class="container">
+<div class="todoAlCentro"> 
+	<div class="container">
  		<button id="sesion" type="button" class="btn btn-default btn-lg">
   			<span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cerrar sesión
 		</button>
@@ -43,8 +43,7 @@
         
         </form>
        </div>
-        
-</div>
+	</div>
 
  <!-- Page Content -->
  	<div class="card-block">
@@ -74,5 +73,5 @@
  	
  	</div> 	
  	
-
+</div>
 <%@ include file="../jspf/footer.jspf"%>

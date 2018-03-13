@@ -7,7 +7,7 @@
 <%@ include file="../jspf/header.jspf"%>
 
 <link href="/static/css/profile.css" rel = "stylesheet">
- 
+ <div class="todoAlCentro">
  <div class="container">
  		<button id="sesion" type="button" class="btn btn-default btn-lg">
   			<span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cerrar sesión
@@ -93,5 +93,6 @@
       </div>
 
     </div>
+   </div>
 
 <%@ include file="../jspf/footer.jspf"%>
