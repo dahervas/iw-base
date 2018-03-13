@@ -32,6 +32,10 @@ td, th {
 	
 }
 
+.todoAlCentro {
+	margin-left:85px;
+}
+
 .logoBarra {
     width: 100%;
     margin-left: 7px;
