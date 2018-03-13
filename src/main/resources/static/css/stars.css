@@ -10,8 +10,17 @@
 	height: 50px;
 }
 
-#form p{
+#textoCentrado{
 	text-align: center;
+}
+
+#texto{
+	margin-right: 550px;
+}
+
+#sesion{
+	margin-top:20px;
+	margin-right: 850px;
 }
 
 #form label{
