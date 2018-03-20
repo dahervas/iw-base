@@ -9,6 +9,10 @@
 <link href="/static/css/profile.css" rel = "stylesheet">
 <link href="/static/css/stars.css" rel = "stylesheet">
  
+ <c:forEach var="i" items="${elementos}">
+<li>${i}</li>
+</c:forEach>
+ 
 <div class="todoAlCentro"> 
 	<div class="container">
  		<button id="sesion" type="button" class="btn btn-default btn-lg">

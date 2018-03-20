@@ -2,7 +2,10 @@ package es.ucm.fdi.iw.controller;
 
 import java.security.Principal;
 
+import javax.persistence.EntityManager;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class RootController {
 
 	private static Logger log = Logger.getLogger(RootController.class);
+	
+	@Autowired
+	private EntityManager entityManager;
+
 	
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -56,7 +63,8 @@ public class RootController {
 	}
 	
 	@GetMapping("/product")
-	public String product() {
+	public String product(Model m) {
+		m.addAttribute("elementos", entityManager.createQuery("select u from User u").getResultList());
 		return "product";
 	}
 	

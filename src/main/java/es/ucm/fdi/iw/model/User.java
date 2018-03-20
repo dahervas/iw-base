@@ -55,4 +55,6 @@ public class User {
 	public void setEnabled(byte enabled) {
 		this.enabled = enabled;
 	}
+	
+	
 }

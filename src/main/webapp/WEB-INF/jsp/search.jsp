@@ -2,10 +2,10 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
-<link href="{s}/css/search.css" rel="stylesheet">
+<link href="static/css/search.css" rel="stylesheet">
 
 
-<body>
+<body style="background-image: url(/static/img/libros.jpg);">
 <%@ include file="../jspf/header.jspf"%>
 <div class="starter-template todoAlCentro" >
 	
