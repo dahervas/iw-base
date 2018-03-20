@@ -4,10 +4,7 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-3-col-portfolio/blob/master/LICENSE)
  */
 
-.container {
-	font-family: 'Noto Sans', sans-serif;
-	color: #674ea7;
-}
+
 #fotoperfil {
 	margin-top: 50px;
 	margin-left: 425px;
@@ -25,5 +22,10 @@
 }
 
 #nombre {
-	margin-left: 510px;
+	margin-left: 600px;
+}
+
+#botones {
+	margin-left: 520px;
+	margin-bottom:20px;
 }

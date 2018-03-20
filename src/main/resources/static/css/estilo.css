@@ -12,6 +12,8 @@ html, body{
 	padding-left: 0;
 	margin-right: auto;
 	margin-left: 0;
+	font-family: 'Noto Sans', sans-serif;
+	color: #674ea7;
 }
 td, th {
     vertical-align: middle !important;
@@ -33,7 +35,7 @@ td, th {
 }
 
 .todoAlCentro{
-	margin-left: 70px;
+	margin-left: 80px;
 }
 
 
