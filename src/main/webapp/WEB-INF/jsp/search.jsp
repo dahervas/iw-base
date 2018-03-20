@@ -1,29 +1,32 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-	<link href="{s}/css/search.css" rel="stylesheet">
-	
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<link href="{s}/css/search.css" rel="stylesheet">
+
+
+<body>
 <%@ include file="../jspf/header.jspf"%>
-<div class="starter-template todoAlCentro">
-	<h1>Búsqueda</h1>
-	<form action="/search" method="post">               
-		<fieldset>
-			<div class = "custom-search-form" align="centre">
-				<div class="row">
+<div class="starter-template todoAlCentro" >
+	
+		<h1>Búsqueda</h1>
+		
+		
+		<form action="/search" method="post">               
+			<fieldset>
+				<div>
 					<input type="text" class="from-control"/>      
-					<span class = "input-group-btn">
-						<button class ="btn btn-primary" type="button">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-					</span>
+					<button class ="btn btn-primary" type="button">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
 				</div>
-			</div>
-		</fieldset>
-	</form>
- 
+			</fieldset>
+		</form>
+		 
+		
+	 <%@ include file="../jspf/authinfo.jspf"%>	
+	
  </div>
- <%@ include file="../jspf/authinfo.jspf"%>		
+ </body>	
 
 <%@ include file="../jspf/footer.jspf"%>
