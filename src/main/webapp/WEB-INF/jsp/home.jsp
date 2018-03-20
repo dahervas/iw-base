@@ -16,6 +16,18 @@
 
       <div class="row text-center text-lg-left">
 
+		<table>
+	<thead>
+	<tr><th>id<th>login<th>roles</tr>
+	</thead>
+	<tbody>
+	<c:forEach items="${users}" var="u">
+		<tr>
+		<td>${u.id}<td>${u.login}<td>${u.roles}
+		</tr>	
+	</c:forEach>
+	</tbody>
+	</table>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="/product" class="d-block mb-4 h-100">
             <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
