@@ -5,7 +5,7 @@
 <link href="static/css/search.css" rel="stylesheet">
 
 
-<body style="background-image: url(/static/img/libros.jpg);">
+<body style="background-image: url(/static/img/libs.jpg);">
 <%@ include file="../jspf/header.jspf"%>
 <div class="starter-template todoAlCentro" >
 	
