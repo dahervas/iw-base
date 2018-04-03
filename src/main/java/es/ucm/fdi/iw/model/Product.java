@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Product {
 	private long id;
-	private long idPropietario;
+	private User propietario;
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
@@ -28,12 +28,12 @@ public class Product {
 	}	
 
 	@ManyToOne(targetEntity=User.class)
-	public long getPropietario() {
-		return idPropietario;
+	public User getPropietario() {
+		return propietario;
 	}
 	
-	public void setPropietario(long id) {
-		this.idPropietario = id;
+	public void setPropietario(User u) {
+		this.propietario = u;
 	}
 	public String getNombre() {
 		return nombre;
