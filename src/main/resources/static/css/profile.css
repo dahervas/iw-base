@@ -5,8 +5,9 @@
  */
 
 
-body {
+.todoAlCentro {
 	font-family: 'Noto Sans', sans-serif;
+	
 }
 
 #fotoperfil {
@@ -19,5 +20,14 @@ body {
 }
 
 #collections {
-	display: block;
+	display: none;
+}
+
+#botonesPC {
+	margin-bottom: 10px;
+	
+}
+#btnGroupDrop2 {
+	margin-left: 5px;
+	margin-bottom: 10px;
 }
