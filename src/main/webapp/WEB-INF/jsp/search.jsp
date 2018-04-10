@@ -5,28 +5,24 @@
 <link href="static/css/search.css" rel="stylesheet">
 
 
-<body style="background-image: url(/static/img/libs.jpg);">
+<!-- <body style="background-image: url(/static/img/libs.jpg);"> -->
 <%@ include file="../jspf/header.jspf"%>
 <div class="starter-template todoAlCentro" >
+	<div class="myContainer">
 	
-		<h1>Búsqueda</h1>
+
 		
 		
-		<form action="/search" method="post">               
-			<fieldset>
-				<div>
-					<input type="text" class="from-control"/>      
-					<button class ="btn btn-primary" type="button">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</div>
-			</fieldset>
+		<form action="/search" method="post">               	
+			<div>
+				<input type="text" class="entr" placeholder="Search"/>      
+			</div>		
 		</form>
 		 
 		
-	 <%@ include file="../jspf/authinfo.jspf"%>	
 	
- </div>
+	</div>	
+</div>
  </body>	
 
 <%@ include file="../jspf/footer.jspf"%>
