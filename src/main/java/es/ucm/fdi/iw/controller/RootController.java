@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.Product;
 
 @Controller	
@@ -28,6 +29,11 @@ public class RootController {
 		p.setPrestado((byte)0);
 		p.setCantidad(2);
 		entityManager.persist(p);
+		
+		Photo f = new Photo();
+		f.setUrl("http://placehold.it/400x300");
+		f.setIdExterno(p.getId());
+		entityManager.persist(f);
 		
 		Product p2 = new Product();
 		p2.setCantidad(2);
@@ -56,14 +62,22 @@ public class RootController {
 				.createQuery("select u from User u").getResultList());
 		model.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
+		/*model.addAttribute("ps", entityManager
+				.createQuery("select p, f from Product p join Photo f on (p.id = f.idExterno)").getResultList());
+		/*model.addAttribute("photo", entityManager
+				.createQuery("select t from Photos t").getResultList());*/
 		return "home";
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/bd")
 	@Transactional
-	public String login() {
+	public String bd() {
 		insertarMuchosProductos();
-		
+		return "bd";
+	}
+	@GetMapping("/login")
+	
+	public String login() {
 		return "login";
 	}
 	
