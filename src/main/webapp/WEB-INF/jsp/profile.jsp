@@ -75,7 +75,7 @@
 					aria-haspopup="true" aria-expanded="false" onclick="showProducts()">Mis
 					productos</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-					<a class="dropdown-item" href="#">Subir Producto</a>
+					<a class="dropdown-item" href="nuevoProducto">Subir Producto</a>
 				</div>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 				aria-haspopup="true" aria-expanded="false"
 				onclick="showCollections()">Mis colecciones</button>
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-				<a class="dropdown-item" href="#">Crear una nueva collección </a>
+				<a class="dropdown-item" href="nuevaColeccion">Crear una nueva collección </a>
 			</div>
 		</div>
 	</div>
