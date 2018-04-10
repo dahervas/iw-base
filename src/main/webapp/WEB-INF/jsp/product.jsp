@@ -8,6 +8,7 @@
 
 <link href="/static/css/profile.css" rel = "stylesheet">
 <link href="/static/css/stars.css" rel = "stylesheet">
+<<<<<<< HEAD
 
 <!-- 
 <<<<<<< HEAD
@@ -16,6 +17,11 @@
 </c:forEach>
  -->
 <div class="todoAlCentro"> 
+=======
+ 
+<div class="todoAlCentro"> 
+
+>>>>>>> master
 	<div class="container">
 		<div class="row text-center text-lg-left ">
         <img class="img-fluid mb-5 d-block mx-auto" id="fotoperfil" src="https://cdn.pixabay.com/photo/2017/11/16/09/35/girl-2953888_960_720.jpg" alt="">
