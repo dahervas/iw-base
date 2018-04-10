@@ -3,6 +3,8 @@ package es.ucm.fdi.iw.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Photo {
@@ -20,7 +22,6 @@ public class Photo {
 	public void setId(long id) {
 		this.id = id;
 	}	
-
 	
 	public long getIdExterno() {
 		return idExterno;
