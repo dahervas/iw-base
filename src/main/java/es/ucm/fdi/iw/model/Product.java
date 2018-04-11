@@ -1,10 +1,13 @@
 package es.ucm.fdi.iw.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,13 +20,14 @@ public class Product {
 	private int estrellitas; //del 0 al 5
 	private int cantidad;
 	private Photo imagenPrincipal;
+	private List<Photo> fotos;
 	
 	//idPropietario??
 	
 	@Id
 	@GeneratedValue
 	public long getId() {
-	return id;
+		return id;
 	}
 	
 	public void setId(long id) {
@@ -84,5 +88,14 @@ public class Product {
 	
 	public void setImagenPrincipal(Photo imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
+	}
+	
+	@OneToMany(targetEntity=Photo.class)
+	public List<Photo> getFotos() {
+		return fotos;
+	}
+
+	public void setFotos(List<Photo> fotos) {
+		this.fotos = fotos;
 	}
 }

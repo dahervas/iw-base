@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
@@ -42,15 +44,40 @@ public class RootController {
 		p.setEstrellitas(2);
 		p.setPrestado((byte)0);
 		p.setCantidad(2);
-		entityManager.persist(p);
+		//entityManager.persist(p);
 		
 		Photo f = new Photo();
 		f.setUrl("http://www.proembal.com.co/img/productos-1/1-b.jpg");
-		f.setIdExterno(p.getId());
+		f.setIdExterno(p);
 		entityManager.persist(f);
 		
-		Product p3 = entityManager.getReference(Product.class, f.getIdExterno());
-		p3.setImagenPrincipal(f);		
+		Photo f3 = new Photo();
+		f3.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f3.setIdExterno(p);
+		entityManager.persist(f3);
+		Photo f4 = new Photo();
+		f4.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f4.setIdExterno(p);
+		entityManager.persist(f4);
+		Photo f5 = new Photo();
+		f5.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f5.setIdExterno(p);
+		entityManager.persist(f5);
+		Photo f6 = new Photo();
+		f6.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f6.setIdExterno(p);
+		entityManager.persist(f6);
+		
+		List<Photo> lista = new ArrayList<>();
+		lista.add(f3);
+		lista.add(f4);
+		lista.add(f5);
+		lista.add(f6);
+		
+		//Product p3 = entityManager.getReference(Product.class, f.getIdExterno());
+		p.setImagenPrincipal(f);
+		p.setFotos(lista);
+		entityManager.persist(p);
 		
 		Product p2 = new Product();
 		p2.setCantidad(2);
@@ -59,15 +86,44 @@ public class RootController {
 		p2.setEstrellitas(5);
 		p2.setPrestado((byte)0);
 		p2.setCantidad(3);
-		entityManager.persist(p2);
+		//entityManager.persist(p2);
 		
 		Photo f2 = new Photo();
 		f2.setUrl("http://placehold.it/400x300");
-		f2.setIdExterno(p2.getId());
+		f2.setIdExterno(p2);
 		entityManager.persist(f2);
 		
-		Product p4 = entityManager.getReference(Product.class, f2.getIdExterno());
-		p4.setImagenPrincipal(f2);
+		Photo f7 = new Photo();
+		f7.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f7.setIdExterno(p2);
+		entityManager.persist(f7);
+		
+		Photo f8 = new Photo();
+		f8.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f8.setIdExterno(p2);
+		entityManager.persist(f8);
+		
+		Photo f9 = new Photo();
+		f9.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f9.setIdExterno(p2);
+		entityManager.persist(f9);
+		
+		Photo f0 = new Photo();
+		f0.setUrl("http://insurgente.org/wp-content/uploads/2017/06/comparitrparacre.png");
+		f0.setIdExterno(p2);
+		entityManager.persist(f0);
+		
+		List<Photo> lista2 = new ArrayList<>();
+		lista2.add(f7);
+		lista2.add(f8);
+		lista2.add(f9);
+		lista2.add(f0);
+		
+		//Product p3 = entityManager.getReference(Product.class, f.getIdExterno());
+		p2.setImagenPrincipal(f2);
+		p2.setFotos(lista2);
+		entityManager.persist(p2);
+		
 
 
 	}
