@@ -20,6 +20,9 @@ public class RootController {
 
 	private static Logger log = Logger.getLogger(RootController.class);
 	
+	@Autowired
+	private EntityManager entityManager;
+	
 	public void insertarMuchosProductos() {
 		Product p = new Product();
 		p.setCantidad(1);
@@ -31,9 +34,12 @@ public class RootController {
 		entityManager.persist(p);
 		
 		Photo f = new Photo();
-		f.setUrl("http://placehold.it/400x300");
+		f.setUrl("http://www.proembal.com.co/img/productos-1/1-b.jpg");
 		f.setIdExterno(p.getId());
 		entityManager.persist(f);
+		
+		Product p3 = entityManager.getReference(Product.class, f.getIdExterno());
+		p3.setImagenPrincipal(f);		
 		
 		Product p2 = new Product();
 		p2.setCantidad(2);
@@ -43,11 +49,18 @@ public class RootController {
 		p2.setPrestado((byte)0);
 		p2.setCantidad(3);
 		entityManager.persist(p2);
+		
+		Photo f2 = new Photo();
+		f2.setUrl("http://placehold.it/400x300");
+		f2.setIdExterno(p2.getId());
+		entityManager.persist(f2);
+		
+		Product p4 = entityManager.getReference(Product.class, f2.getIdExterno());
+		p4.setImagenPrincipal(f2);
+
+
 	}
 	
-	@Autowired
-	private EntityManager entityManager;
-
 	
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -62,8 +75,6 @@ public class RootController {
 				.createQuery("select u from User u").getResultList());
 		model.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
-		/*model.addAttribute("ps", entityManager
-				.createQuery("select p, f from Product p join Photo f on (p.id = f.idExterno)").getResultList());
 		/*model.addAttribute("photo", entityManager
 				.createQuery("select t from Photos t").getResultList());*/
 		return "home";
