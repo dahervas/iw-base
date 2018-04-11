@@ -1,16 +1,27 @@
 package es.ucm.fdi.iw.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.Product;
@@ -117,9 +128,11 @@ public class RootController {
 		return "collections";
 	}
 	
-	@GetMapping("/product")
-	public String product(Model m) {
-		m.addAttribute("elementos", entityManager.createQuery("select p from Product p").getResultList());
+	
+	@GetMapping("/product/{id}")
+	public String product(Model m, @PathVariable long id) {
+		String query = "select p from Product p where p.id = " + id;
+		m.addAttribute("elementos", entityManager.createQuery(query).getResultList());
 		return "product";
 	}
 	

@@ -8,24 +8,15 @@
 
 <link href="/static/css/profile.css" rel = "stylesheet">
 <link href="/static/css/stars.css" rel = "stylesheet">
-<<<<<<< HEAD
-
-<!-- 
-<<<<<<< HEAD
- <c:forEach var="i" items="${elementos}">
-<li>${i}</li>
-</c:forEach>
- -->
-<div class="todoAlCentro"> 
-=======
+ 
+<c:forEach var="i" items="${elementos}">
  
 <div class="todoAlCentro"> 
-
->>>>>>> master
 	<div class="container">
+
 		<div class="row text-center text-lg-left ">
-        <img class="img-fluid mb-5 d-block mx-auto" id="fotoperfil" src="https://cdn.pixabay.com/photo/2017/11/16/09/35/girl-2953888_960_720.jpg" alt="">
-        <h1 class=" mb-0" id="nombre">Peine
+        <img class="img-fluid mb-5 d-block mx-auto" id="fotoperfil" src="${i.imagenPrincipal.url}" alt="">
+        <h1 class=" mb-0" id="nombre">${i.nombre}
        
         <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
        
@@ -60,7 +51,7 @@
  	<div class="card-block">
  		<label>Descripción:</label>
  		<div class="form-group" id="texto">
- 			<p>Encontraremos una descripción del producto que ofrecemos</p>
+ 			<p>${i.descripcion}</p>
  		</div>
  	
  	</div>
@@ -68,7 +59,8 @@
  	<div class="card-block">
  		<label>Información:</label>
  		<div class="form-group" id="texto">
- 			<p>Encontraremos información relevante al producto, período del prestamo...</p>
+ 			<p>Prestado: ${i.prestado }</p>
+ 			<p>Cantidad: ${i.cantidad }</p>
  		</div>
  	
  	</div>
@@ -112,4 +104,5 @@
 
 	</div>
 </div>
+</c:forEach>
 <%@ include file="../jspf/footer.jspf"%>
