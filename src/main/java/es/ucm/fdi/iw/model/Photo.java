@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Photo {
 	private long id;
-	private long idExterno;
+	private Product idExterno;
 	private String url;
 	
 	
@@ -23,11 +23,12 @@ public class Photo {
 		this.id = id;
 	}	
 	
-	public long getIdExterno() {
+	@ManyToOne(targetEntity=Product.class)
+	public Product getIdExterno() {
 		return idExterno;
 	}
 
-	public void setIdExterno(long idExterno) {
+	public void setIdExterno(Product idExterno) {
 		this.idExterno = idExterno;
 	}
 
