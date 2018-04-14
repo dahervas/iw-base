@@ -101,9 +101,9 @@
 			<div class="col-lg-3 col-md-4 col-xs-6">
 				<a href="#" class="d-block mb-4 h-100"> <img
 					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-
 				</a>
-
+				<h3> Nombre producto </h3>
+				
 			</div>
 			<div class="col-lg-3 col-md-4 col-xs-6">
 				<a href="#" class="d-block mb-4 h-100"> <img
