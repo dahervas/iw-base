@@ -76,8 +76,8 @@
  	<div>
  		<details>
  			<summary>Comentarios:</summary>
- 			<c:forEach items="${c.comentario}" var="comentario">
-    			<p>${c.comentario}</p>
+ 			<c:forEach items="${c.comment}" var="comment">
+    			<p>${c.comment}</p>
 			</c:forEach>
  		</details>
  	</div>	
