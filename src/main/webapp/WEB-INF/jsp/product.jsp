@@ -10,6 +10,7 @@
 <link href="/static/css/stars.css" rel = "stylesheet">
  
 <c:forEach var="i" items="${elementos}">
+<c:forEach var="c" items="${elementos}">
  
 <div class="todoAlCentro"> 
 	<div class="container">
@@ -75,8 +76,8 @@
  	<div>
  		<details>
  			<summary>Comentarios:</summary>
- 			<c:forEach items="${i.fotos}" var="fotos">
-    			<p>Lista de comentarios</p>
+ 			<c:forEach items="${c.comentario}" var="comentario">
+    			<p>${c.comentario}</p>
 			</c:forEach>
  		</details>
  	</div>	
@@ -94,5 +95,6 @@
 
 	</div>
 </div>
+</c:forEach>
 </c:forEach>
 <%@ include file="../jspf/footer.jspf"%>
