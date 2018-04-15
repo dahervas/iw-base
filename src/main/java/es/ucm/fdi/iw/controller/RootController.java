@@ -233,6 +233,8 @@ public class RootController {
     public void addAttributes(Model model) {
         model.addAttribute("s", "/static");
     }
+    
+ 
 
 	@GetMapping({"/", "/index"})
 	public String root(Model model, Principal principal) {
