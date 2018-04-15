@@ -29,6 +29,8 @@ import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
+import es.ucm.fdi.iw.model.Comment;
+import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -39,6 +41,8 @@ public class RootController {
 	private EntityManager entityManager;
 	
 	public void insertarProductosYColecciones() {
+		
+		
 		Product p = new Product();
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
