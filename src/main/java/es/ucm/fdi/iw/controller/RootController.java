@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
+import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
 
 @Controller	
@@ -36,7 +38,7 @@ public class RootController {
 	@Autowired
 	private EntityManager entityManager;
 	
-	public void insertarMuchosProductos() {
+	public void insertarProductosYColecciones() {
 		Product p = new Product();
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
@@ -77,7 +79,7 @@ public class RootController {
 		//Product p3 = entityManager.getReference(Product.class, f.getIdExterno());
 		p.setImagenPrincipal(f);
 		p.setFotos(lista);
-		entityManager.persist(p);
+		//entityManager.persist(p);
 		
 		Product p2 = new Product();
 		p2.setCantidad(2);
@@ -122,11 +124,109 @@ public class RootController {
 		//Product p3 = entityManager.getReference(Product.class, f.getIdExterno());
 		p2.setImagenPrincipal(f2);
 		p2.setFotos(lista2);
+		//entityManager.persist(p2);
+		
+		
+		
+		Collection c = new Collection();
+		c.setNombre("Utensilios de cocina");
+		c.setDescripcion("Encuentra todo lo que necesites para organizar una cena!");
+		
+		List<Product> listaProductos = new ArrayList<>();
+		listaProductos.add(p);
+		listaProductos.add(p2);
+		
+		c.setProductos(listaProductos);
+		
+				
+		PhotoCollection imagenPrincipal = new PhotoCollection();
+		imagenPrincipal.setUrl("/static/img/cocina.jpg");
+		imagenPrincipal.setIdExterno(c);
+		entityManager.persist(imagenPrincipal);
+		
+		c.setImagenPrincipal(imagenPrincipal);
+		
+		entityManager.persist(c);
+		
+		Collection c2 = new Collection();
+		c2.setNombre("Ropa deportiva");
+		c2.setDescripcion("¿Necesitas unas deportivas para un partido? Aquí las encontrarás");
+		
+		List<Product> listaProductos2 = new ArrayList();
+		listaProductos2.add(p);
+		listaProductos2.add(p2);
+		
+		c2.setProductos(listaProductos2);
+		
+				
+		PhotoCollection imagenPrincipal2 = new PhotoCollection();
+		imagenPrincipal2.setUrl("/static/img/deporte.jpg");
+		imagenPrincipal2.setIdExterno(c2);
+		entityManager.persist(imagenPrincipal2);
+		
+		c2.setImagenPrincipal(imagenPrincipal2);
+		
+		entityManager.persist(c2);
+		
+		
+		Collection c3 = new Collection();
+		c3.setNombre("Libros");
+		c3.setDescripcion("¡Culturicémonos entre todos!");
+		
+		List<Product> listaProductos3 = new ArrayList();
+		listaProductos3.add(p);
+		listaProductos3.add(p2);
+		
+		c3.setProductos(listaProductos3);
+		
+				
+		PhotoCollection imagenPrincipal3 = new PhotoCollection();
+		imagenPrincipal3.setUrl("/static/img/libros.jpg");
+		imagenPrincipal3.setIdExterno(c3);
+		entityManager.persist(imagenPrincipal3);
+		
+		c3.setImagenPrincipal(imagenPrincipal3);
+		
+		entityManager.persist(c3);
+		
+		
+		Collection c4 = new Collection();
+		c4.setNombre("Música");
+		c4.setDescripcion("¡Comparte tus discos favoritos!");
+		
+		List<Product> listaProductos4 = new ArrayList();
+		listaProductos4.add(p);
+		listaProductos4.add(p2);
+		
+		c4.setProductos(listaProductos4);
+		
+				
+		PhotoCollection imagenPrincipal4 = new PhotoCollection();
+		imagenPrincipal4.setUrl("/static/img/vinilos.jpg");
+		imagenPrincipal4.setIdExterno(c4);
+		entityManager.persist(imagenPrincipal4);
+		
+		c4.setImagenPrincipal(imagenPrincipal4);
+		
+		entityManager.persist(c4);
+		
+		List<Collection> colecciones = new ArrayList<>();
+		colecciones.add(c4);
+		colecciones.add(c3);
+		colecciones.add(c2);
+		colecciones.add(c);
+		
+		p.setColecciones(colecciones);
+		p2.setColecciones(colecciones);
+		
+		entityManager.persist(p);
 		entityManager.persist(p2);
+	
 		
 
 
 	}
+	
 	
 	
     @ModelAttribute
@@ -152,7 +252,7 @@ public class RootController {
 	@GetMapping("/bd")
 	@Transactional
 	public String bd() {
-		insertarMuchosProductos();
+		insertarProductosYColecciones();
 		return "bd";
 	}
 	@GetMapping("/login")
@@ -182,7 +282,9 @@ public class RootController {
 	}
 	
 	@GetMapping("/collections")
-	public String collections() {
+	public String collections(Model model) {
+		model.addAttribute("colecciones", entityManager
+				.createQuery("select u from Collection u").getResultList());
 		return "collections";
 	}
 	

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,6 +22,7 @@ public class Product {
 	private int cantidad;
 	private Photo imagenPrincipal;
 	private List<Photo> fotos;
+	private List<Collection> colecciones;
 	
 	//idPropietario??
 	
@@ -97,5 +99,14 @@ public class Product {
 
 	public void setFotos(List<Photo> fotos) {
 		this.fotos = fotos;
+	}
+
+	@ManyToMany(targetEntity=Collection.class)
+	public List<Collection> getColecciones() {
+		return colecciones;
+	}
+
+	public void setColecciones(List<Collection> colecciones) {
+		this.colecciones = colecciones;
 	}
 }
