@@ -18,7 +18,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title" id="exampleModalLabel">${u.getLogin()}</h1>
+						<h1 class="modal-title" id="exampleModalLabel">${u.login}</h1>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -51,7 +51,7 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h2 class="modal-title" id="exampleModalLabel">Modifical
+							<h2 class="modal-title" id="exampleModalLabel">Modificar
 								Perfil</h2>
 						</div>
 						<div class="modal-body">Cambiar datos, subir nueva foto de

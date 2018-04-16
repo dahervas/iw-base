@@ -218,6 +218,8 @@ public class RootController {
 	}
 		
 	
+
+	
     @ModelAttribute
     public void addAttributes(Model model) {
         model.addAttribute("s", "/static");
@@ -252,6 +254,9 @@ public class RootController {
 	
 	@GetMapping("/profile")
 	public String profile(Model model) {
+		
+		model.addAttribute("users", entityManager
+				.createQuery("select u from User u").getResultList());
 		return "profile";
 	}
 	
