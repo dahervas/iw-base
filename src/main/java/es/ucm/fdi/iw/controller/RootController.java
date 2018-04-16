@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.Product;
+import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -128,6 +129,17 @@ public class RootController {
 
 	}
 	
+	public void insertarUsuario() {
+		User u = new User();
+		u.setId(12345);
+		u.setLogin("Maria");
+		u.setPassword("1234");
+		u.setRutaFoto("${s}/img/girl.jpg");
+		u.setPuntuacion(2);
+		entityManager.persist(u);
+		
+	}
+	
 	
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -162,7 +174,10 @@ public class RootController {
 	}
 	
 	@GetMapping("/profile")
-	public String profile() {
+	public String profile(Model model) {
+		insertarUsuario();
+		model.addAttribute("users", entityManager
+				.createQuery("select u from User u").getResultList());
 		return "profile";
 	}
 	
