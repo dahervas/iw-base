@@ -23,6 +23,7 @@ public class Product {
 	private Photo imagenPrincipal;
 	private List<Photo> fotos;
 	private List<Collection> colecciones;
+	private List<CommentProduct> comentarios;
 	
 	//idPropietario??
 	
@@ -108,5 +109,14 @@ public class Product {
 
 	public void setColecciones(List<Collection> colecciones) {
 		this.colecciones = colecciones;
+	}
+	
+	@OneToMany(targetEntity=CommentProduct.class)
+	public List<CommentProduct> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<CommentProduct> comentarios) {
+		this.comentarios = comentarios;
 	}
 }

@@ -10,7 +10,7 @@
 <link href="/static/css/stars.css" rel = "stylesheet">
  
 <c:forEach var="i" items="${elementos}">
-<c:forEach var="c" items="${elementos}">
+<!--<c:forEach var="c" items="${elementos}">-->
  
 <div class="todoAlCentro"> 
 	<div class="container">
@@ -62,6 +62,7 @@
  		<div class="form-group" id="texto">
  			<p>Prestado: ${i.prestado }</p>
  			<p>Cantidad: ${i.cantidad }</p>
+ 			<p>Estrellitas : ${i.estrellitas}</p>
  		</div>
  	
  	</div>
@@ -76,10 +77,7 @@
  	<div>
  		<details>
  			<summary>Comentarios:</summary>
- 			<c:forEach items="${c.comment}" var="comment">
-    			<p>${c.comment}</p>
-			</c:forEach>
- 		</details>
+ 			</details>
  	</div>	
   </div>
   <!-- Zona imagenes -->
@@ -96,5 +94,5 @@
 	</div>
 </div>
 </c:forEach>
-</c:forEach>
+<!--</c:forEach>-->
 <%@ include file="../jspf/footer.jspf"%>

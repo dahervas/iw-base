@@ -29,7 +29,6 @@ import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
-import es.ucm.fdi.iw.model.Comment;
 import es.ucm.fdi.iw.model.User;
 
 @Controller	
