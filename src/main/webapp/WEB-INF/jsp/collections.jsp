@@ -11,10 +11,10 @@
     
  <div class= "todoAlCentro" id="fh5co-featured-section">
 		<div class="container">
-			<div class="row">
 			<% int i = 0; %>
 			<c:forEach var="c" items="${colecciones}"> 
 			<% if(i%4 == 0) { %>
+			<div class="row">
 				<div class="col-md-6">
 						
 					<a href="#" class="featured-grid" style="background-image: url(${c.imagenPrincipal.url});">
@@ -53,8 +53,9 @@
 							</a>
 						</div>
 					</div>
-					<% } i = i+1; %>
-					</c:forEach>
+				</div>
+				<% } i = i+1; %>
+				</c:forEach>
 				</div>
 			</div>
 		</div>
