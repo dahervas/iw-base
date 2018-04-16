@@ -15,8 +15,8 @@ public class User {
 	private String login;
 	private String password;
 	private String roles; // split by , to separate roles
-	private String rutaFoto;
-	private int puntuacion;
+	//private String rutaFoto;
+	//private int puntuacion;
 	private byte enabled;
 	private List<Product> ownedProducts;
 	
@@ -39,14 +39,14 @@ public class User {
 		this.login = login;
 	}
 
-	public String getRutaFoto() {
+	/*public String getRutaFoto() {
 		return rutaFoto;
 	}
 	
 	public void setRutaFoto(String rutaFoto) {
 		this.rutaFoto = rutaFoto;
 	}
-	
+	*/
 	public String getPassword() {
 		return password;
 	}
@@ -83,12 +83,12 @@ public class User {
 		this.ownedProducts = ownedProducts;
 	}
 
-	public int getPuntuacion() {
+	/*public int getPuntuacion() {
 		return puntuacion;
 	}
 
 	public void setPuntuacion(int puntuacion) {
 		this.puntuacion = puntuacion;
-	}
+	}*/
 
 }

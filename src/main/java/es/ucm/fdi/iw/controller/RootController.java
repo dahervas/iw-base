@@ -1,36 +1,22 @@
 package es.ucm.fdi.iw.controller;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
-import es.ucm.fdi.iw.model.CommentProduct;
-import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -230,19 +216,7 @@ public class RootController {
 
 
 	}
-	
-	public void insertarUsuario() {
-		User u = new User();
-		u.setId(12345);
-		u.setLogin("Maria");
-		u.setPassword("1234");
-		u.setRutaFoto("${s}/img/girl.jpg");
-		u.setPuntuacion(2);
-		entityManager.persist(u);
 		
-	}
-	
-	
 	
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -270,17 +244,14 @@ public class RootController {
 		insertarProductosYColecciones();
 		return "bd";
 	}
-	@GetMapping("/login")
 	
+	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
 	
 	@GetMapping("/profile")
 	public String profile(Model model) {
-		insertarUsuario();
-		model.addAttribute("users", entityManager
-				.createQuery("select u from User u").getResultList());
 		return "profile";
 	}
 	
