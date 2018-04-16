@@ -10,6 +10,7 @@
 <link href="/static/css/stars.css" rel = "stylesheet">
  
 <c:forEach var="i" items="${elementos}">
+<c:forEach var="c" items="${elementos}">
  
 <div class="todoAlCentro"> 
 	<div class="container">
@@ -71,7 +72,15 @@
  			<input id="valoración" class="form-control" type="text" name="valoracion" placeholder="Your opinion">
  			<button class="enter" id="boton" type="submit" > Enviar </button>
  		</div> 	
- 	</div> 	 	
+ 	</div> 	 
+ 	<div>
+ 		<details>
+ 			<summary>Comentarios:</summary>
+ 			<c:forEach items="${c.comment}" var="comment">
+    			<p>${c.comment}</p>
+			</c:forEach>
+ 		</details>
+ 	</div>	
   </div>
   <!-- Zona imagenes -->
 	<div class="row text-center text-lg-left ">
@@ -79,12 +88,13 @@
 			<h2>IMAGENES:</h2>
 			
 			<c:forEach items="${i.fotos}" var="fotos">
-    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe">
-    				<img src="${fotos.url}" class="img-responsive">
+    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
+    				<img src="${fotos.url}" class="img-responsive" alt="200x200">
     			</div>
 			</c:forEach>		
 
 	</div>
 </div>
+</c:forEach>
 </c:forEach>
 <%@ include file="../jspf/footer.jspf"%>
