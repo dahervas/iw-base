@@ -22,7 +22,7 @@
 		
 			<form class="form-signin">
 				<h1 class="form-signin-heading text-muted">Búsqueda</h1>
-				<input type="text" class="form-control" placeholder="Escriba su búsqueda" required=true>
+				<input id="busqueda" type="text" class="form-control" placeholder="Escriba su búsqueda" required=true>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">
 					Search
 				</button>
@@ -33,3 +33,11 @@
 </div>
 
 <%@ include file="../jspf/footer.jspf"%>
+<!-- @NamedQueries({
+		@NamedQuery(name="search",
+		query="select p from Products p where p.name = :busqueda")
+	})
+	
+	Product p = entityManager.find(Product.class, name);
+	
+	 -->
