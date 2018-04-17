@@ -2,6 +2,9 @@
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #eee;
+    background-image: url(/static/img/arbol.png);
+  	background-repeat: no-repeat;
+  	background-size: cover;
   }
   .fullscreen_bg {
     position: fixed;
@@ -11,8 +14,11 @@
     left: 0;
     background-size: cover;
     background-position: 50% 50%;
-    background-image: url(/static/img/fondoLogin.jpg);
+   
+    
   }
+  
+
   .form-signin {
     max-width: 280px;
     padding: 15px;

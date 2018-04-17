@@ -9,15 +9,20 @@
 <link href="/static/css/profile.css" rel = "stylesheet">
 <link href="/static/css/stars.css" rel = "stylesheet">
  
+<c:forEach var="i" items="${elementos}">
+<!--<c:forEach var="c" items="${elementos}">-->
+ 
 <div class="todoAlCentro"> 
-
 	<div class="container">
-        <img class="img-fluid mb-5 d-block mx-auto" id="fotoperfil" src="https://cdn.pixabay.com/photo/2017/11/16/09/35/girl-2953888_960_720.jpg" alt="">
-        <h1 class=" mb-0" id="nombre">Peine
+
+		<div class="row text-center text-lg-left ">
+        <img class="img-fluid mb-5 d-block mx-auto" id="fotoperfil" src="${i.imagenPrincipal.url}" alt="">
+        <h1 class=" mb-0" id="nombre">${i.nombre}
        
         <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
        
         </h1>
+        </div>
       <div id="wrapper"> 
         <form action="" method="post">        	
         	<p class="clasificacion" id="textoCentrado">
@@ -37,8 +42,7 @@
         		
         		<input id="radio5" name="estrellas" value="1" type="radio">
         		<label for="radio5"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        	</p>
-        
+        	</p>        
         </form>
        </div>
 	</div>
@@ -48,7 +52,7 @@
  	<div class="card-block">
  		<label>Descripción:</label>
  		<div class="form-group" id="texto">
- 			<p>Encontraremos una descripción del producto que ofrecemos</p>
+ 			<p>${i.descripcion}</p>
  		</div>
  	
  	</div>
@@ -56,7 +60,9 @@
  	<div class="card-block">
  		<label>Información:</label>
  		<div class="form-group" id="texto">
- 			<p>Encontraremos información relevante al producto, período del prestamo...</p>
+ 			<p>Prestado: ${i.prestado }</p>
+ 			<p>Cantidad: ${i.cantidad }</p>
+ 			<p>Estrellitas : ${i.estrellitas}</p>
  		</div>
  	
  	</div>
@@ -67,7 +73,26 @@
  			<input id="valoración" class="form-control" type="text" name="valoracion" placeholder="Your opinion">
  			<button class="enter" id="boton" type="submit" > Enviar </button>
  		</div> 	
- 	</div> 	 	
+ 	</div> 	 
+ 	<div>
+ 		<details>
+ 			<summary>Comentarios:</summary>
+ 			</details>
+ 	</div>	
   </div>
+  <!-- Zona imagenes -->
+	<div class="row text-center text-lg-left ">
+		<div id="textoCentrado"></div>
+			<h2>IMAGENES:</h2>
+			
+			<c:forEach items="${i.fotos}" var="fotos">
+    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
+    				<img src="${fotos.url}" class="img-responsive" alt="200x200">
+    			</div>
+			</c:forEach>		
+
+	</div>
 </div>
+</c:forEach>
+<!--</c:forEach>-->
 <%@ include file="../jspf/footer.jspf"%>

@@ -18,7 +18,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title" id="exampleModalLabel">Marta</h1>
+						<h1 class="modal-title" id="exampleModalLabel">${u.login}</h1>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -51,7 +51,7 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h2 class="modal-title" id="exampleModalLabel">Modifical
+							<h2 class="modal-title" id="exampleModalLabel">Modificar
 								Perfil</h2>
 						</div>
 						<div class="modal-body">Cambiar datos, subir nueva foto de
@@ -75,7 +75,7 @@
 					aria-haspopup="true" aria-expanded="false" onclick="showProducts()">Mis
 					productos</button>
 				<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-					<a class="dropdown-item" href="#">Subir Producto</a>
+					<a class="dropdown-item" href="nuevoProducto">Subir Producto</a>
 				</div>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 				aria-haspopup="true" aria-expanded="false"
 				onclick="showCollections()">Mis colecciones</button>
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-				<a class="dropdown-item" href="#">Crear una nueva collección </a>
+				<a class="dropdown-item" href="nuevaColeccion">Crear una nueva collección </a>
 			</div>
 		</div>
 	</div>
@@ -101,9 +101,9 @@
 			<div class="col-lg-3 col-md-4 col-xs-6">
 				<a href="#" class="d-block mb-4 h-100"> <img
 					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-
 				</a>
-
+				<h3> Nombre producto </h3>
+				
 			</div>
 			<div class="col-lg-3 col-md-4 col-xs-6">
 				<a href="#" class="d-block mb-4 h-100"> <img

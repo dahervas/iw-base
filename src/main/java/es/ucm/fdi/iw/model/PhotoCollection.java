@@ -7,9 +7,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Photo {
+public class PhotoCollection {
 	private long id;
-	private Product idExterno;
+	private Collection idExterno;
 	private String url;
 	
 	
@@ -23,12 +23,12 @@ public class Photo {
 		this.id = id;
 	}	
 	
-	@ManyToOne(targetEntity=Product.class)
-	public Product getIdExterno() {
+	@ManyToOne(targetEntity=Collection.class)
+	public Collection getIdExterno() {
 		return idExterno;
 	}
 
-	public void setIdExterno(Product idExterno) {
+	public void setIdExterno(Collection idExterno) {
 		this.idExterno = idExterno;
 	}
 

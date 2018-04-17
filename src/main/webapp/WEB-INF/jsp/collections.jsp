@@ -11,45 +11,55 @@
     
  <div class= "todoAlCentro" id="fh5co-featured-section">
 		<div class="container">
+			<% int i = 0; %>
+			<c:forEach var="c" items="${colecciones}"> 
+			<% if(i%4 == 0) { %>
 			<div class="row">
 				<div class="col-md-6">
-					
-					<a href="#" class="featured-grid" style="background-image: url(/static/img/cocina.jpg);">
+						
+					<a href="#" class="featured-grid" style="background-image: url(${c.imagenPrincipal.url});">
 						<div class="desc">
-							<h3>Utensilios de cocina</h3>
-							<span>¡Encuentra todo lo que necesites para organizar una cena!</span>
+							<h3>${c.nombre}</h3>
+							<span>${c.descripcion }</span>
 						</div>
 					</a>
-					
+						
 				</div>
+				<% } else if(i%4 == 1){ %>
 				<div class="col-md-6">
-					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(/static/img/deporte.jpg);">
+					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(${c.imagenPrincipal.url});">
 						<div class="desc">
-							<h3>Ropa deportiva</h3>
-							<span>¿Necesitas una deportivas para un partido? Aquí las encontrarás</span>
+							<h3>${c.nombre}</h3>
+							<span>${c.descripcion }</span>
 						</div>
 					</a>
+					<% } else if(i%4 == 2) { %>
 					<div class="row">
 						<div class="col-md-6">
-							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(/static/img/libros.jpg);">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(${c.imagenPrincipal.url});">
 								<div class="desc">
-									<h3>Libros</h3>
-									<span>¡Culturicemos nos entre todos!</span>
+									<h3>${c.nombre}</h3>
+									<span>${c.descripcion }</span>
 								</div>
 							</a>
 						</div>
+					<% } else { %>
 						<div class="col-md-6">
-							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(/static/img/vinilos.jpg);">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(${c.imagenPrincipal.url});">
 								<div class="desc">
-									<h3>Música</h3>
-									<span>¡Comparte tus discos favoritos!</span>
+									<h3>${c.nombre}</h3>
+									<span>${c.descripcion }</span>
 								</div>
 							</a>
 						</div>
 					</div>
 				</div>
+				<% } i = i+1; %>
+				</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
 
-<%@ include file="../jspf/footer.jspf"%>
+
+				
