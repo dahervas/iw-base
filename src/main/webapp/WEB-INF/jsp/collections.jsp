@@ -10,7 +10,19 @@
 <link href="/static/css/collections.css" rel = "stylesheet">
     
  <div class= "todoAlCentro" id="fh5co-featured-section">
-		<div class="container">
+	<div class="container">
+		<c:if test="${empty colecciones}">
+		    <div>
+			        <div class="text-center"><img src="/static/img/losiento.jpg"></div>
+			        <h1 class="text-center">Vaya.. parece que aún no hay ninguna colección en Tamaa<p> </p>
+			        <p><small class="text-center">No te preocupes! Pronto habrá.</h1>
+			        <p class="text-center">¡Quizá quieras ser el primero en querer compartir!</p>
+			        <p class="text-center"><a class="btn btn-primary" href="/nuevoProducto"><i class="fa fa-home"></i> ¡Crear una nueva colección!</a></p>
+			        <p class="text-center"><a href="#">No sé qué es una colección...</a></p>
+			    
+			</div>
+		</c:if>
+		<c:if test="${not empty ps}">	
 			<% int i = 0; %>
 			<c:forEach var="c" items="${colecciones}"> 
 			<% if(i%4 == 0) { %>
@@ -56,8 +68,7 @@
 				</div>
 				<% } i = i+1; %>
 				</c:forEach>
-				</div>
-			</div>
+			</c:if>
 		</div>
 	</div>
 

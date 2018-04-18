@@ -1,5 +1,7 @@
 package es.ucm.fdi.iw.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +15,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
+import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
 
 	private static Logger log = Logger.getLogger(RootController.class);
+	
+	@Autowired
+	private LocalData localData;
 	
 	@Autowired
 	private EntityManager entityManager;
@@ -218,15 +231,11 @@ public class RootController {
 	}
 		
 	
-
-	
     @ModelAttribute
     public void addAttributes(Model model) {
         model.addAttribute("s", "/static");
     }
     
- 
-
 	@GetMapping({"/", "/index"})
 	public String root(Model model, Principal principal) {
 		log.info(principal.getName() + " de tipo " + principal.getClass());		
@@ -293,5 +302,49 @@ public class RootController {
 	@GetMapping("/nuevoProducto")
 	public String nuevoProducto() {
 		return "nuevoProducto";
+	}
+
+	@RequestMapping(value="addProduct", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("photo") MultipartFile photo,
+			@RequestParam("nombre") String nombre,
+    		@RequestParam("cantidadProducto") int cantidad,
+    		@RequestParam("descripcion") String descripcion,
+    		Model m){
+		
+		Product p = new Product();
+		
+		p.setCantidad(cantidad);
+		p.setDescripcion(descripcion);
+		p.setNombre(nombre);
+		
+		if(!photo.isEmpty()) {
+			try {
+				byte[] bytes = photo.getBytes();
+				BufferedOutputStream stream = 
+						new BufferedOutputStream(
+								new FileOutputStream(localData.getFile("product", nombre)));
+				stream.write(bytes);
+				stream.close();
+				
+				Photo f = new Photo();
+				
+				f.setIdExterno(p);
+				String ruta = "/product/" + nombre;
+				f.setUrl(ruta);
+				entityManager.persist(f);
+				p.setImagenPrincipal(f);
+			}
+			catch (Exception e) {}
+		}
+		
+		entityManager.persist(p);
+		
+		entityManager.flush();
+		m.addAttribute("ps", entityManager
+				.createQuery("select p from Product p").getResultList());
+		
+		return "home";
 	}
 }
