@@ -22,7 +22,7 @@
 			    
 			</div>
 		</c:if>
-		<c:if test="${not empty ps}">	
+		<c:if test="${not empty colecciones}">	
 			<% int i = 0; %>
 			<c:forEach var="c" items="${colecciones}"> 
 			<% if(i%4 == 0) { %>
