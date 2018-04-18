@@ -18,7 +18,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title" id="exampleModalLabel">${u.login}</h1>
+						<h1 class="modal-title" id="exampleModalLabel">${user.login}</h1>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<h1 class=" mb-0">
-			Marta <span class="glyphicon glyphicon-cog text-center"
+			${user.login} <span class="glyphicon glyphicon-cog text-center"
 				aria-hidden="true" data-toggle="modal" data-target="#modificaPerfil"></span>
 
 			<!-- Modal de la rueda para modificar perfil -->

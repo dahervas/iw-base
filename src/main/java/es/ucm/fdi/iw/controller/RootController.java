@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -17,6 +21,7 @@ import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
+import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -248,7 +253,12 @@ public class RootController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request, HttpServletRequest response,
+			Model model, HttpSession session) {
+		 User u = new User();
+		 String n = request.getParameter("username");  		
+		 u.setLogin(n);
+		 session.setAttribute("user", u);
 		return "login";
 	}
 	
