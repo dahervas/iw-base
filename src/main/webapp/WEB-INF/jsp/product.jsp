@@ -10,7 +10,6 @@
 <link href="/static/css/stars.css" rel = "stylesheet">
  
 <c:forEach var="i" items="${elementos}">
-<!--<c:forEach var="c" items="${elementos}">-->
  
 <div class="todoAlCentro"> 
 	<div class="container">
@@ -24,7 +23,7 @@
         </h1>
         </div>
       <div id="wrapper"> 
-        <form action="" method="post">        	
+        <form action="proyIW/src/main/java/es/ucm/fdi/iw/model" method="post">        	
         	<p class="clasificacion" id="textoCentrado">
         		<label>Valoración</label>
         		<br>
@@ -44,6 +43,9 @@
         		<label for="radio5"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
         	</p>        
         </form>
+        	<p>
+        		<input type="submit" name="Valorar">
+        	</p>
        </div>
 	</div>
 
@@ -76,8 +78,11 @@
  	</div> 	 
  	<div>
  		<details>
- 			<summary>Comentarios:</summary>
- 			</details>
+ 			<summary>Comentarios:
+ 				<p>Aquí tendra que haber comentarios</p>
+ 			</summary>
+ 			
+ 		</details>
  	</div>	
   </div>
   <!-- Zona imagenes -->
@@ -94,5 +99,4 @@
 	</div>
 </div>
 </c:forEach>
-<!--</c:forEach>-->
 <%@ include file="../jspf/footer.jspf"%>
