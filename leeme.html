@@ -6,6 +6,10 @@
 <body>
 <h1>Tamaa</h1>
 
+Tamaa es un proyecto con el fin de hacer crecer el altruismo en el mundo. Es una página para compartir todas nuestras cosas.
+Hoy por hoy, aún no se puede compartir nada, pero pronto estará lista :)
+
+
 <h2>Integrantes</h2>
 
 <ul>
@@ -17,16 +21,17 @@
 
 <h2>Comentarios al profesor</h2>
 
-Para que en la base de datos haya productos, colecciones y alguna imagen asociada, es necesario pasar por la vista /bd
+Para que en la base de datos haya productos, colecciones y alguna imagen asociada, es necesario pasar por la vista /bd.
+Si no te apetece arrancar la visita de la página de la /bd ahora salen unas pantallas bastante amigables, en la vista /home y /collections si no hay nada en la base de datos. Te preguntará si quieres introducir datos. Al seleccionar nuevo producto en /home te creará el producto, almacenará en la carpeta tmp/iw/product la foto pero no la mostrará (falta arreglarlo). Aún no se pueden subir colecciones.
 
 <h2>Vistas</h2>
 
 <ul>
 	<li><a href="localhost:8080/bd"> Base de datos </a>
 	 --> Carga datos en la base de datos para que todo funcione correctamente.
-	 <li><a href="localhost:8080/"> Página principal </a> --> Home, vista donde salen todos los productos insertados en la base de datos
+	 <li><a href="localhost:8080/"> Página principal </a> --> Home, vista donde salen todos los productos insertados en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable.
 	 <li><a href="localhost:8080/collections"> Colecciones </a>
-	 --> Muestra las coleciones insertadas en la base de datos
+	 --> Muestra las coleciones insertadas en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable.
 	 <li><a href="localhost:8080/product/1"> Producto </a> 
 	 --> En esta página se podra observar la información sobre un producto determinado, es decir, imagen de producto, nombre, detalles, cantidad del producto a disposición del usuario... 
 	  --> Se accede desde el home pulsando a cualquier producto.
@@ -35,7 +40,7 @@ Para que en la base de datos haya productos, colecciones y alguna imagen asociad
 	  <li><a href="localhost:8080/nuevaColeccion"> Nueva colección </a> 
 	  --> Página para añadir una nueva colección (aún sin funcionar)
 	  <li><a href="localhost:8080/nuevoProducto"> Nuevo producto </a>
-	   --> Página para añadir un producto (aún sin funcionar)
+	   --> Página para añadir un producto. Contiene un formulario para subir una foto y la información del producto. De momento almacena la foto en la carpeta selecionada pero no la muestra cuando buscas el producto.
 	  <li><a href="localhost:8080/profile"> Perfil </a>
 	  --> Página del perfil del usuario (no recibe aún el dato de la sesión)
 
