@@ -37,7 +37,6 @@
 		          <a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
 		            <img class="img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="">
 		            ${p.nombre}
-		            ${p.imagenPrincipal.url }
 		          </a>
 		        </div>
 		    </c:forEach>
