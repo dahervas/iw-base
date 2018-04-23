@@ -127,4 +127,5 @@ public class AdminController {
             return "You failed to upload a photo for " + id + " because the file was empty.";
         }
 	}
+	
 }

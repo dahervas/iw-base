@@ -14,7 +14,7 @@
 		enctype="multipart/form-data" method="post">
 		<p>
 			Please specify a file, or a set of files:<br> 
-			<input type="file" name="photo" size="40">
+			<input type="file" name="photo" size="40" multiple>
 		</p>
 		 <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
 		<div>

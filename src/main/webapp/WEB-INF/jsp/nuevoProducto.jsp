@@ -10,9 +10,9 @@
     
  
 <div class="starter-template">
-	
-	<form class="form-horizontal">
-		<fieldset>
+
+	<form action="addProduct" enctype = "multipart/form-data" method="post" class="form-horizontal">
+
 		
 			<!-- Form Name -->
 			<legend>Nuevo producto</legend>
@@ -30,7 +30,7 @@
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="imagenes">Subir imágenes del producto</label>
 			  <div class="col-md-4">
-			    <input id="imagenes" name="imagenes" class="input-file" type="file">
+			    <input id="imagenes" name="photo" class="input-file" type="file">
 			  </div>
 			</div>
 			
@@ -50,13 +50,13 @@
 			  <span class="help-block">Puede ser que tenga dos sillas</span>  
 			  </div>
 			</div>
-			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<!-- Button (Double) -->
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="botonAceptar">¿Subir producto?</label>
 			  <div class="col-md-8">
-			    <button id="botonAceptar" name="botonAceptar" class="btn btn-success">Sí, a por ello</button>
-			    <button id="botonCancelar" name="botonCancelar" class="btn btn-danger">No, qué horror</button>
+			    <button type="submit" id="botonAceptar" name="botonAceptar" class="btn btn-success">Sí, a por ello</button>
+			    <!-- <button id="botonCancelar" name="botonCancelar" class="btn btn-danger">No, qué horror</button> -->
 			  </div>
 			</div>
 		
