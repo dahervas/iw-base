@@ -7,8 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -237,8 +241,14 @@ public class RootController {
     }
     
 	@GetMapping({"/", "/index"})
-	public String root(Model model, Principal principal) {
-		log.info(principal.getName() + " de tipo " + principal.getClass());		
+	public String root(Model model, Principal principal, HttpSession session) {
+		log.info(principal.getName() + " de tipo " + principal.getClass());	
+		
+		 User u = entityManager.createQuery("from User where login = :login", User.class)
+                 .setParameter("login", principal.getName())
+                 .getSingleResult();
+		 session.setAttribute("user", u);
+		 
 		// org.springframework.security.core.userdetails.User
 		model.addAttribute("users", entityManager
 				.createQuery("select u from User u").getResultList());
@@ -257,7 +267,8 @@ public class RootController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request, HttpServletRequest response,
+			Model model, HttpSession session) {
 		return "login";
 	}
 	

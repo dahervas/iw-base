@@ -18,7 +18,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title" id="exampleModalLabel">${u.login}</h1>
+						<h1 class="modal-title" id="exampleModalLabel">${user.login}</h1>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<h1 class=" mb-0">
-			Marta <span class="glyphicon glyphicon-cog text-center"
+			${user.login} <span class="glyphicon glyphicon-cog text-center"
 				aria-hidden="true" data-toggle="modal" data-target="#modificaPerfil"></span>
 
 			<!-- Modal de la rueda para modificar perfil -->
@@ -54,8 +54,31 @@
 							<h2 class="modal-title" id="exampleModalLabel">Modificar
 								Perfil</h2>
 						</div>
-						<div class="modal-body">Cambiar datos, subir nueva foto de
-							perfil ...</div>
+						<div class="modal-body">
+
+							<!-- Text input-->
+							<div class="form-group">
+								<label class="col-md-4" for="nombre">Cambiar
+									nombre:</label>
+								<div class="col-md-4">
+									<input id="nombre" name="nombre"
+										placeholder="Escriba aquí el nombre "
+										class="form-control input-md" type="text">
+
+								</div>
+							</div>
+
+							<!-- File Button -->
+							<div class="form-group">
+								<label class="col-md-4" for="imagenes">Subir
+									foto de perfil</label>
+								<div class="col-md-4">
+									<input id="imagenes" name="photo" class="input-file"
+										type="file">
+								</div>
+							</div>
+
+						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Cerrar</button>
@@ -85,7 +108,8 @@
 				aria-haspopup="true" aria-expanded="false"
 				onclick="showCollections()">Mis colecciones</button>
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-				<a class="dropdown-item" href="nuevaColeccion">Crear una nueva collección </a>
+				<a class="dropdown-item" href="nuevaColeccion">Crear una nueva
+					collección </a>
 			</div>
 		</div>
 	</div>
@@ -102,8 +126,8 @@
 				<a href="#" class="d-block mb-4 h-100"> <img
 					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
 				</a>
-				<h3> Nombre producto </h3>
-				
+				<h3>Nombre producto</h3>
+
 			</div>
 			<div class="col-lg-3 col-md-4 col-xs-6">
 				<a href="#" class="d-block mb-4 h-100"> <img
