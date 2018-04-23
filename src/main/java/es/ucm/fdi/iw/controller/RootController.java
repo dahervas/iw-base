@@ -241,8 +241,14 @@ public class RootController {
     }
     
 	@GetMapping({"/", "/index"})
-	public String root(Model model, Principal principal) {
-		log.info(principal.getName() + " de tipo " + principal.getClass());		
+	public String root(Model model, Principal principal, HttpSession session) {
+		log.info(principal.getName() + " de tipo " + principal.getClass());	
+		
+		 User u = entityManager.createQuery("from User where login = :login", User.class)
+                 .setParameter("login", principal.getName())
+                 .getSingleResult();
+		 session.setAttribute("user", u);
+		 
 		// org.springframework.security.core.userdetails.User
 		model.addAttribute("users", entityManager
 				.createQuery("select u from User u").getResultList());
@@ -263,10 +269,6 @@ public class RootController {
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, HttpServletRequest response,
 			Model model, HttpSession session) {
-		 User u = new User();
-		 String n = request.getParameter("username");  		
-		 u.setLogin(n);
-		 session.setAttribute("user", u);
 		return "login";
 	}
 	

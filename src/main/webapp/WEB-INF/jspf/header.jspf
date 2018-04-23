@@ -41,9 +41,13 @@
 							<li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
 							<li><a href="/collections"><span class="glyphicon glyphicon-th-large"></span></a></li>
 							<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span></a></li>
-							<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+							<c:if test="! empty ${user}">
+								<li><a href="/logout"><span class="glyphicon glyphicon-log-out">${user.login}</span></a></li>
+							</c:if>
 							<!-- <li><a href="/product">Products</a></li> -->
 						</ul>
+						
+							
 					</div><!--/.nav-collapse -->
 				</div>
 			</nav>
