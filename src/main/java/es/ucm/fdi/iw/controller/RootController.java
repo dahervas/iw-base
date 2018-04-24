@@ -288,11 +288,23 @@ public class RootController {
 		return "upload";
 	}
 	
-	@GetMapping("/search")
-	public String search(Model model) {
-		model.addAttribute("products", entityManager.
-				createQuery("select p from Product p").getResultList());
+	@GetMapping("/search/{busqueda}")
+	public String search(Model model, @PathVariable String busqueda ) {
+		//String query1 = "select p from Product p where p.name like '%" + busqueda + "%'";
+		//String query2 = "select p from Product p where p.descripcion like '%" + busqueda + "%'";
+		String query3 = "select u from User u where u.login = '" + busqueda + "'";
+		//model.addAttribute("productsNombre", entityManager.
+			//	createQuery(query1).getResultList());
+	//	model.addAttribute("productsDesc", entityManager.
+			//	createQuery(query2).getResultList());
+		model.addAttribute("users", entityManager.
+				createQuery(query3).getResultList());
 		
+		return "search";
+	}
+	
+	@GetMapping("/search")
+	public String search() {		
 		return "search";
 	}
 	

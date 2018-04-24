@@ -24,84 +24,37 @@
 			<form class="form-signin">
 				<h1 class="form-signin-heading text-muted">Búsqueda</h1>
 				<input id="busqueda" type="text" class="form-control" placeholder="Escriba su búsqueda" required=true>
-				<button class="btn btn-lg btn-primary btn-block" type="submit" onClick="showProducts()">
+				<button class="btn btn-lg btn-primary btn-block" href= onClick="showProducts()">
 					Search
 				</button>
 			</form>
 		
 		</div>
 		
-		<c:forEach var="p" items="${products}">
+		<c:forEach var="p" items="${productsNombre}">
 			<h3>${p.nombre}</h3>
+		</c:forEach>
+		<c:forEach var = "d" items = "${productsDesc}">
+			${d.nombre }
+			${d.descripcion }
+		</c:forEach>
+		<c:forEach var="u" items = "${users}">
+			${u.login}
 		</c:forEach>
 		
 	</div>
 </div>
 
-<!-- Page Content -->
-	<div class="container" id="products">
 
-		<div class="row text-center text-lg-left">
-
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-4 col-xs-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail" src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-		</div>
-
-	</div>
 
 <script>
 function showProducts() {
 	var x = document.getElementById("products");
-
-	x.style.display = "block";
+	var t = document.getElementById("busqueda").getText();
+	var location = "/search/" + t
+	window.location.replace(location);
+	
+	//x.style.display = "block";
 
 }
 </script>
