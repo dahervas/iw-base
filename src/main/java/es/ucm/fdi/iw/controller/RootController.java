@@ -289,7 +289,10 @@ public class RootController {
 	}
 	
 	@GetMapping("/search")
-	public String search() {
+	public String search(Model model) {
+		model.addAttribute("products", entityManager.
+				createQuery("select p from Product p").getResultList());
+		
 		return "search";
 	}
 	
