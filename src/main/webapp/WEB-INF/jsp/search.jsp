@@ -8,7 +8,14 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
+<script>
+function showProducts() {
+	var x= document.getElementById("busqueda").value;//innerHTML = "HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+	document.getElementById("hola").innerHTML = x;
+	var dir = "http://localhost:8080/search/" + x;
+	window.location.replace(dir);
+}
+</script>
 <%@ include file="../jspf/header.jspf"%>
 
  
@@ -21,14 +28,14 @@
 	
 		<div class="container">
 		
-			<form class="form-signin">
+			
 				<h1 class="form-signin-heading text-muted">Búsqueda</h1>
 				<input id="busqueda" type="text" class="form-control" placeholder="Escriba su búsqueda" required=true>
-				<button class="btn btn-lg btn-primary btn-block" href= onClick="showProducts()">
+				<button onClick="showProducts()" class="btn btn-lg btn-primary btn-block">
 					Search
 				</button>
-			</form>
-		
+			
+			<div id="hola"></div>
 		</div>
 		
 		<c:forEach var="p" items="${productsNombre}">
@@ -39,25 +46,12 @@
 			${d.descripcion }
 		</c:forEach>
 		<c:forEach var="u" items = "${users}">
-			${u.login}
+			${u}
 		</c:forEach>
 		
 	</div>
 </div>
 
-
-
-<script>
-function showProducts() {
-	var x = document.getElementById("products");
-	var t = document.getElementById("busqueda").getText();
-	var location = "/search/" + t
-	window.location.replace(location);
-	
-	//x.style.display = "block";
-
-}
-</script>
 
 <%@ include file="../jspf/footer.jspf"%>
 <!-- @NamedQueries({

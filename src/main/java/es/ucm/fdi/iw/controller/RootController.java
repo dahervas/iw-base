@@ -297,9 +297,12 @@ public class RootController {
 			//	createQuery(query1).getResultList());
 	//	model.addAttribute("productsDesc", entityManager.
 			//	createQuery(query2).getResultList());
-		model.addAttribute("users", entityManager.
-				createQuery(query3).getResultList());
-		
+		List<String> result = (List<String>)entityManager.
+				createQuery("SELECT u.login FROM User u WHERE u.login"
+						+ " LIKE CONCAT('%',:login,'%')")
+				.setParameter("login", busqueda).getResultList();
+		model.addAttribute("users", result);
+		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		return "search";
 	}
 	
