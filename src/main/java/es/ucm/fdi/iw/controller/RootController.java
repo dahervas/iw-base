@@ -1,21 +1,27 @@
 package es.ucm.fdi.iw.controller;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +36,6 @@ import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
-import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -241,14 +246,8 @@ public class RootController {
     }
     
 	@GetMapping({"/", "/index"})
-	public String root(Model model, Principal principal, HttpSession session) {
-		log.info(principal.getName() + " de tipo " + principal.getClass());	
-		
-		 User u = entityManager.createQuery("from User where login = :login", User.class)
-                 .setParameter("login", principal.getName())
-                 .getSingleResult();
-		 session.setAttribute("user", u);
-		 
+	public String root(Model model, Principal principal) {
+		log.info(principal.getName() + " de tipo " + principal.getClass());		
 		// org.springframework.security.core.userdetails.User
 		model.addAttribute("users", entityManager
 				.createQuery("select u from User u").getResultList());
@@ -267,8 +266,7 @@ public class RootController {
 	}
 	
 	@GetMapping("/login")
-	public String login(HttpServletRequest request, HttpServletRequest response,
-			Model model, HttpSession session) {
+	public String login() {
 		return "login";
 	}
 	
@@ -307,6 +305,12 @@ public class RootController {
 	public String product(Model m, @PathVariable long id) {
 		String query = "select p from Product p where p.id = " + id;
 		m.addAttribute("elementos", entityManager.createQuery(query).getResultList());
+		File[] lista = localData.getFolder("product/" + id).listFiles();
+		List<String> fotos = new ArrayList<>();
+		for(int i = 0; i < lista.length; i++) {
+			fotos.add(lista[i].getPath());
+		}
+		m.addAttribute("fotos", fotos);
 		return "product";
 	}
 	
@@ -315,6 +319,33 @@ public class RootController {
 		return "nuevoProducto";
 	}
 
+	/**
+	 * Returns a users' photo
+	 * @param id of user to get photo from
+	 * @return
+	 */
+	@RequestMapping(value="photo/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public void userPhoto(@PathVariable("nombre") String nombre, 
+			HttpServletResponse response) {
+	    File f = localData.getFile("product", nombre);
+	    InputStream in = null;
+	    try {
+		    if (f.exists()) {
+		    	in = new BufferedInputStream(new FileInputStream(f));
+		    } else {
+		    	in = new BufferedInputStream(
+		    			this.getClass().getClassLoader().getResourceAsStream("unknown-user.jpg"));
+		    }
+	    	FileCopyUtils.copy(in, response.getOutputStream());
+	    } catch (IOException ioe) {
+	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
+	    }
+	}
+	
+	private int calculaHash(byte[] fichero) {
+		return new Random().nextInt(100000);
+	}
+	
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
@@ -329,20 +360,25 @@ public class RootController {
 		p.setCantidad(cantidad);
 		p.setDescripcion(descripcion);
 		p.setNombre(nombre);
+		entityManager.persist(p);
+		entityManager.flush();
 		
 		if(!photo.isEmpty()) {
 			try {
 				byte[] bytes = photo.getBytes();
+				
+				long hash = calculaHash(bytes);
 				BufferedOutputStream stream = 
 						new BufferedOutputStream(
-								new FileOutputStream(localData.getFile("product", nombre)));
+								new FileOutputStream(
+										localData.getFile("product" + p.getId(), ""+hash)));
 				stream.write(bytes);
 				stream.close();
 				
 				Photo f = new Photo();
 				
 				f.setIdExterno(p);
-				String ruta = "/product/" + nombre;
+				String ruta = "product/" + p.getId() + hash;
 				f.setUrl(ruta);
 				entityManager.persist(f);
 				p.setImagenPrincipal(f);

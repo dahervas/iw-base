@@ -90,9 +90,10 @@
 		<div id="textoCentrado"></div>
 			<h2>IMAGENES:</h2>
 			
-			<c:forEach items="${i.fotos}" var="fotos">
+			<c:forEach items="${fotos}" var = "f">
     			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
-    				<img src="${fotos.url}" class="img-responsive" alt="200x200">
+    				<img src="${f}" class="img-responsive" alt="200x200">
+    				${f}
     			</div>
 			</c:forEach>		
 
