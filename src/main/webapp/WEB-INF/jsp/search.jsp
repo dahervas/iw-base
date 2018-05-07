@@ -11,9 +11,10 @@
 <script>
 function showProducts() {
 	var x= document.getElementById("busqueda").value;//innerHTML = "HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-	document.getElementById("hola").innerHTML = x;
-	var dir = "http://localhost:8080/search/" + x;
-	window.location.replace(dir);
+	window.location.reload();
+	//document.getElementById("hola").innerHTML = x;
+	//var dir = "http://localhost:8080/search/" + x;
+	//window.location.replace(dir);
 }
 </script>
 <%@ include file="../jspf/header.jspf"%>
@@ -27,6 +28,7 @@ function showProducts() {
 	<div id="fullscreen_bg" class="fullscreen_bg"/>
 	
 		<div class="container">
+			<div class="form-signin">
 		
 			
 				<h1 class="form-signin-heading text-muted">Búsqueda</h1>
@@ -36,17 +38,16 @@ function showProducts() {
 				</button>
 			
 			<div id="hola"></div>
-		</div>
+		</div></div>
 		
 		<c:forEach var="p" items="${productsNombre}">
-			<h3>${p.nombre}</h3>
+			<h3>${p}</h3>
 		</c:forEach>
-		<c:forEach var = "d" items = "${productsDesc}">
-			${d.nombre }
-			${d.descripcion }
+		<c:forEach var = "d" items = "${collections}">
+			<h3>${c}</h3>
 		</c:forEach>
 		<c:forEach var="u" items = "${users}">
-			${u}
+			<h3>${u}</h3>
 		</c:forEach>
 		
 	</div>
