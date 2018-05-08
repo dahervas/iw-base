@@ -292,13 +292,31 @@ public class RootController {
 	public String search(Model model, @PathVariable String busqueda ) {
 		//String query1 = "select p from Product p where p.name like '%" + busqueda + "%'";
 		//String query2 = "select p from Product p where p.descripcion like '%" + busqueda + "%'";
-		String query3 = "select u from User u where u.login = '" + busqueda + "'";
+		//String query3 = "select u from User u where u.login = '" + busqueda + "'";
 		//model.addAttribute("productsNombre", entityManager.
 			//	createQuery(query1).getResultList());
 	//	model.addAttribute("productsDesc", entityManager.
 			//	createQuery(query2).getResultList());
-		model.addAttribute("users", entityManager.
-				createQuery(query3).getResultList());
+		List<String> result = (List<String>)entityManager.
+				createQuery("SELECT u.login FROM User u WHERE u.login"
+						+ " LIKE CONCAT('%',:login,'%')")
+				.setParameter("login", busqueda).getResultList();
+		model.addAttribute("users", result);
+		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
+		
+		List<String> result2 = (List<String>)entityManager.
+				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
+						+ " LIKE CONCAT('%',:prod,'%')")
+				.setParameter("prod", busqueda).getResultList();
+		model.addAttribute("productsNombre", result2);
+		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
+		
+		/*List<String> result3 = (List<String>)entityManager.
+				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
+						+ " LIKE CONCAT('%',:coll,'%')")
+				.setParameter("coll", busqueda).getResultList();
+		model.addAttribute("collections", result3);
+		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result3));*/
 		
 		return "search";
 	}

@@ -1,0 +1,51 @@
+/*!
+ * Start Bootstrap - 3 Col Portfolio (https://startbootstrap.com/template-overviews/3-col-portfolio)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-3-col-portfolio/blob/master/LICENSE)
+ */
+
+.nav-tabs>li>a, .nav-tabs>li.active, .nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover {
+	margin-top: 10px;
+	margin-right: 2px;
+	line-height: 1.42857143;
+	border:1px solid transparent;
+	border-radius: 4px 4px 5px 5px;	
+}
+.nav-tabs>li.active{
+	margin-top: 10px;
+	margin-right: 2px;
+	text-align: center;
+	width:120px;
+	line-height: 1.42857143;
+	border:1px solid transparent;
+	border-radius: 4px 4px 0 0;
+}
+
+.nav>li>a{
+	position:relative;
+	display:block;
+	padding: 10px 15px 10px 10px;	
+}
+
+a{
+	color:purple;
+	margin-right:5px;
+}
+
+li{
+	display: list-item;
+	text-align: -webkit-match-parent;
+}
+
+ul{
+	display:block;
+	-webkit-match-margin-before: 1em;
+	-webkit-match-margin-after: 1em;
+	-webkit-match-margin-start: 0px;
+	-webkit-match-margin-end: 0px;
+	-webkit-match-margin-start: 40px;	
+}
+
+img{
+	vertical-align: middle;
+}
