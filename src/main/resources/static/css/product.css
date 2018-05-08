@@ -4,12 +4,21 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-3-col-portfolio/blob/master/LICENSE)
  */
 
-.nav-tabs>li>a, .nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover {
+.nav-tabs>li>a, .nav-tabs>li.active, .nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover {
 	margin-top: 10px;
 	margin-right: 2px;
 	line-height: 1.42857143;
 	border:1px solid transparent;
 	border-radius: 4px 4px 5px 5px;	
+}
+.nav-tabs>li.active{
+	margin-top: 10px;
+	margin-right: 2px;
+	text-align: center;
+	width:120px;
+	line-height: 1.42857143;
+	border:1px solid transparent;
+	border-radius: 4px 4px 0 0;
 }
 
 .nav>li>a{
@@ -20,6 +29,7 @@
 
 a{
 	color:purple;
+	margin-right:5px;
 }
 
 li{
