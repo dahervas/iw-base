@@ -34,8 +34,8 @@
 		<c:if test="${not empty ps}">				
 			<c:forEach items="${ps}" var="p">
 				<div class="col-lg-3 col-md-4 col-xs-6">
-		          <a href="/product/${p.id}"  class="d-block mb-4 h-100">
-		            <img class="img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="">
+		          <a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
+		            <img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="">
 		            ${p.nombre}
 		          </a>
 		        </div>
