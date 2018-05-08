@@ -354,15 +354,17 @@ public class RootController {
 		return "nuevoProducto";
 	}
 
+
 	/**
 	 * Returns a users' photo
 	 * @param id of user to get photo from
 	 * @return
 	 */
-	@RequestMapping(value="photo/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-	public void userPhoto(@PathVariable("nombre") String nombre, 
+	@RequestMapping(value="photo/{id}/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public void userPhoto(@PathVariable("id") String id, 
+			@PathVariable("nombre") String nombre,
 			HttpServletResponse response) {
-	    File f = localData.getFile("product", nombre);
+	    File f = localData.getFile("product/" + id + "/", nombre);
 	    InputStream in = null;
 	    try {
 		    if (f.exists()) {
@@ -406,14 +408,15 @@ public class RootController {
 				BufferedOutputStream stream = 
 						new BufferedOutputStream(
 								new FileOutputStream(
-										localData.getFile("product" + p.getId(), ""+hash)));
+										localData.getFile("product/" + p.getId(), "/"+hash)));
 				stream.write(bytes);
 				stream.close();
 				
 				Photo f = new Photo();
 				
 				f.setIdExterno(p);
-				String ruta = "product/" + p.getId() + hash;
+				String ruta = "photo/"+ p.getId() + "/" + hash;	
+				
 				f.setUrl(ruta);
 				entityManager.persist(f);
 				p.setImagenPrincipal(f);

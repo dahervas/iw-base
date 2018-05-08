@@ -110,7 +110,20 @@
   	</div>  
   </div>
   
-</div>
+  <!-- Zona imagenes -->
+	<div class="row text-center text-lg-left ">
+		<div id="textoCentrado"></div>
+			<h2>IMAGENES:</h2>
+			
+			
+			<c:forEach var = "f" items="${fotos}">
+    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
+    				<img src="photo/ '+' ${f}" class="img-responsive" alt="200x200">
+    				${f}
+    			</div>
+			</c:forEach>		
+
+	</div>
 </div>
 
 </c:forEach>
