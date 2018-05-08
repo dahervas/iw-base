@@ -304,12 +304,12 @@ public class RootController {
 		model.addAttribute("users", result);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
-		List<String> result2 = (List<String>)entityManager.
+		/*List<String> result2 = (List<String>)entityManager.
 				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
 						+ " LIKE CONCAT('%',:prod,'%')")
 				.setParameter("prod", busqueda).getResultList();
 		model.addAttribute("productsNombre", result2);
-		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
+		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));*/
 		
 		/*List<String> result3 = (List<String>)entityManager.
 				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
@@ -317,6 +317,8 @@ public class RootController {
 				.setParameter("coll", busqueda).getResultList();
 		model.addAttribute("collections", result3);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result3));*/
+		
+		model.addAttribute("s", "../static");
 		
 		return "search";
 	}
