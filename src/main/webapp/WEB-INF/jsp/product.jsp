@@ -10,6 +10,7 @@
 <link href="/static/css/stars.css" rel = "stylesheet">
 <link href="/static/css/product.css" rel = "stylesheet">
 <link href="/static/css/carousel.css" rel = "stylesheet">
+<link href="/static/css/coment.css" rel = "stylesheet">
  
 <c:forEach var="i" items="${elementos}">
 
@@ -23,32 +24,20 @@
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ul>
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="first-slide" src="/static/img/deporte.jpg" alt="First slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>hola</h1>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="second-slide" src="/static/img/deporte.jpg" alt="Second slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>hola</h1>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="third-slide" src="/static/img/deporte.jpg" alt="Third slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>hola</h1>
-            </div>
-          </div>
-        </div>
-      </div>
+     <div class="carousel-inner">     
+   		 <div class="carousel-item active">
+     		 <img src="/static/img/losiento.jpg" alt="First slide">
+   		 </div>
+   		 
+   		 <div class="carousel-item">
+    		  <img src="/static/img/losiento.jpg" alt="Second slide">
+    	</div>
+    	
+   		<div class="carousel-item">
+    		  <img src="/static/img/losiento.jpg" alt="Third slide">
+  	 	</div>  	 	
+ 	 </div>
+ 	 
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -75,7 +64,7 @@
   	
   	<div id="coment" class="tab-pane fade">
   		<h3>Comentarios:</h3>
-  		<p>Informacion sobre el producto</p>
+  		
   	</div> 
   	
   	<div id="añadir" class="tab-pane fade">
@@ -102,12 +91,7 @@
             </div>
           </div>            
        </form>
-  	</div> 
-  	
-  	<div id="img" class="tab-pane fade">
-  		<h3>Imagenes:</h3>
-  		<p>Informacion sobre el producto</p>
-  	</div>  
+  	</div>   	 
   </div>
   
 </div>
