@@ -11,10 +11,10 @@
 <script>
 function showProducts() {
 	var x= document.getElementById("busqueda").value;//innerHTML = "HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-	window.location.reload();
+	//window.location.reload();
 	//document.getElementById("hola").innerHTML = x;
-	//var dir = "http://localhost:8080/search/" + x;
-	//window.location.replace(dir);
+	var dir = "http://localhost:8080/search/" + x;
+	window.location.replace(dir);
 }
 </script>
 <%@ include file="../jspf/header.jspf"%>
@@ -37,9 +37,8 @@ function showProducts() {
 					Search
 				</button>
 			
-			<div id="hola"></div>
-		</div></div>
-		
+			
+			</div>
 		<c:forEach var="p" items="${productsNombre}">
 			<h3>${p}</h3>
 		</c:forEach>
@@ -49,6 +48,9 @@ function showProducts() {
 		<c:forEach var="u" items = "${users}">
 			<h3>${u}</h3>
 		</c:forEach>
+		</div>
+		
+		
 		
 	</div>
 </div>
