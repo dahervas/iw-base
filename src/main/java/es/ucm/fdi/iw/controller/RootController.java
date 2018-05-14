@@ -343,7 +343,14 @@ public class RootController {
 		File[] lista = localData.getFolder("product/" + id).listFiles();
 		List<String> fotos = new ArrayList<>();
 		for(int i = 0; i < lista.length; i++) {
-			fotos.add(lista[i].getPath());
+			int pini = lista[i].getPath().indexOf("product");
+			int barrita = pini -1;
+			int pfin = lista[i].getPath().length();
+			String barra = lista[i].getPath().substring(pini-1, pini);
+			pini = pini +7;
+			String rutaNueva = lista[i].getPath().substring(pini, pfin);
+			rutaNueva = rutaNueva.replace(barra, "/");
+			fotos.add(rutaNueva);
 		}
 		m.addAttribute("fotos", fotos);
 		return "product";
@@ -371,13 +378,14 @@ public class RootController {
 		    	in = new BufferedInputStream(new FileInputStream(f));
 		    } else {
 		    	in = new BufferedInputStream(
-		    			this.getClass().getClassLoader().getResourceAsStream("unknown-user.jpg"));
+		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
 		    }
 	    	FileCopyUtils.copy(in, response.getOutputStream());
 	    } catch (IOException ioe) {
 	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
 	    }
 	}
+	
 	
 	private int calculaHash(byte[] fichero) {
 		return new Random().nextInt(100000);
