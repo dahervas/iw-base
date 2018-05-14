@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+
 <%@ include file="../jspf/header.jspf"%>
 
 
@@ -38,7 +39,7 @@
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="descripcion">Descripción:</label>
 			  <div class="col-md-4">                     
-			    <textarea class="form-control" id="descripcion" name="descripcion">Escriba aquí la descripción</textarea>
+			    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Escriba aquí la descripción "></textarea>
 			  </div>
 			</div>
 			
@@ -55,7 +56,7 @@
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="botonAceptar">¿Subir producto?</label>
 			  <div class="col-md-8">
-			    <button type="submit" id="botonAceptar" name="botonAceptar" class="btn btn-success">Sí, a por ello</button>
+			    <button type="submit" id="botonAceptar" name="botonAceptar" class="btn btn-success" >Sí, a por ello</button>
 			    <!-- <button id="botonCancelar" name="botonCancelar" class="btn btn-danger">No, qué horror</button> -->
 			  </div>
 			</div>
