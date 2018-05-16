@@ -102,8 +102,7 @@
 			
 			<c:forEach var = "f" items="${fotos}">
     			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
-    				<img src="photo/ '+' ${f}" class="img-responsive" alt="200x200">
-    				${f}
+    				<img src="../photo${f}" class="photo img-responsive" alt="200x200">
     			</div>
 			</c:forEach>		
 

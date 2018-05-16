@@ -17,7 +17,7 @@
 			        <h1 class="text-center">Vaya.. parece que aún no hay ninguna colección en Tamaa<p> </p>
 			        <p><small class="text-center">No te preocupes! Pronto habrá.</h1>
 			        <p class="text-center">¡Quizá quieras ser el primero en querer compartir!</p>
-			        <p class="text-center"><a class="btn btn-primary" href="/nuevoProducto"><i class="fa fa-home"></i> ¡Crear una nueva colección!</a></p>
+			        <p class="text-center"><a class="btn btn-primary" href="/nuevaColeccion"><i class="fa fa-home"></i> ¡Crear una nueva colección!</a></p>
 			        <p class="text-center"><a href="#">No sé qué es una colección...</a></p>
 			    
 			</div>
@@ -29,7 +29,7 @@
 			<div class="row">
 				<div class="col-md-6">
 						
-					<a href="#" class="featured-grid" style="background-image: url(${c.imagenPrincipal.url});">
+					<a href="#" class="featured-grid" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 						<div class="desc">
 							<h3>${c.nombre}</h3>
 							<span>${c.descripcion }</span>
@@ -39,7 +39,7 @@
 				</div>
 				<% } else if(i%4 == 1){ %>
 				<div class="col-md-6">
-					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(${c.imagenPrincipal.url});">
+					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 						<div class="desc">
 							<h3>${c.nombre}</h3>
 							<span>${c.descripcion }</span>
@@ -48,7 +48,7 @@
 					<% } else if(i%4 == 2) { %>
 					<div class="row">
 						<div class="col-md-6">
-							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(${c.imagenPrincipal.url});">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 								<div class="desc">
 									<h3>${c.nombre}</h3>
 									<span>${c.descripcion }</span>
@@ -57,7 +57,7 @@
 						</div>
 					<% } else { %>
 						<div class="col-md-6">
-							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(${c.imagenPrincipal.url});">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 								<div class="desc">
 									<h3>${c.nombre}</h3>
 									<span>${c.descripcion }</span>

@@ -318,6 +318,8 @@ public class RootController {
 		model.addAttribute("collections", result3);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result3));*/
 		
+		model.addAttribute("s", "../static");
+		
 		return "search";
 	}
 	
@@ -333,6 +335,102 @@ public class RootController {
 		return "collections";
 	}
 	
+	@GetMapping("/collection/{id}")
+	public String collection(Model m, @PathVariable long id) {
+		String query = "select p from Collection p where p.id = " + id;
+		m.addAttribute("elementos", entityManager.createQuery(query).getResultList());
+		File[] lista = localData.getFolder("collection/" + id).listFiles();
+		List<String> fotos = new ArrayList<>();
+		for(int i = 0; i < lista.length; i++) {
+			int pini = lista[i].getPath().indexOf("collection");
+			int barrita = pini -1;
+			int pfin = lista[i].getPath().length();
+			String barra = lista[i].getPath().substring(pini-1, pini);
+			pini = pini +7;
+			String rutaNueva = lista[i].getPath().substring(pini, pfin);
+			rutaNueva = rutaNueva.replace(barra, "/");
+			fotos.add(rutaNueva);
+		}
+		m.addAttribute("fotos", fotos);
+		return "collection";
+	}
+	
+	@GetMapping("/nuevaColeccion")
+	public String nuevaColecion() {
+		return "nuevaColeccion";
+	}
+
+	@RequestMapping(value="addCollection", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("photo") MultipartFile photo,
+			@RequestParam("nombre") String nombre,
+    		@RequestParam("descripcion") String descripcion,
+    		Model m){
+		
+		Collection c = new Collection();
+		
+		c.setDescripcion(descripcion);
+		c.setNombre(nombre);
+		entityManager.persist(c);
+		entityManager.flush();
+		
+		if(!photo.isEmpty()) {
+			try {
+				byte[] bytes = photo.getBytes();
+				
+				long hash = calculaHash(bytes);
+				BufferedOutputStream stream = 
+						new BufferedOutputStream(
+								new FileOutputStream(
+										localData.getFile("collection/" + c.getId(), "/"+hash)));
+				stream.write(bytes);
+				stream.close();
+				
+				PhotoCollection f = new PhotoCollection();
+				
+				f.setIdExterno(c);
+				String ruta = "photo/"+ c.getId() + "/" + hash;	
+				
+				f.setUrl(ruta);
+				entityManager.persist(f);
+				c.setImagenPrincipal(f);
+			}
+			catch (Exception e) {}
+		}
+		
+		entityManager.persist(c);
+		
+		entityManager.flush();
+		m.addAttribute("ps", entityManager
+				.createQuery("select c from Collection c").getResultList());
+		
+		return "Está subido!";
+	}
+	
+	/**
+	 * Returns a users' photo
+	 * @param id of user to get photo from
+	 * @return
+	 */
+	@RequestMapping(value="/collections/photo/{id}/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public void collectionPhoto(@PathVariable("id") String id, 
+			@PathVariable("nombre") String nombre,
+			HttpServletResponse response) {
+	    File f = localData.getFile("collection/" + id + "/", nombre);
+	    InputStream in = null;
+	    try {
+		    if (f.exists()) {
+		    	in = new BufferedInputStream(new FileInputStream(f));
+		    } else {
+		    	in = new BufferedInputStream(
+		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
+		    }
+	    	FileCopyUtils.copy(in, response.getOutputStream());
+	    } catch (IOException ioe) {
+	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
+	    }
+	}
 	
 	@GetMapping("/product/{id}")
 	public String product(Model m, @PathVariable long id) {
@@ -341,7 +439,14 @@ public class RootController {
 		File[] lista = localData.getFolder("product/" + id).listFiles();
 		List<String> fotos = new ArrayList<>();
 		for(int i = 0; i < lista.length; i++) {
-			fotos.add(lista[i].getPath());
+			int pini = lista[i].getPath().indexOf("product");
+			int barrita = pini -1;
+			int pfin = lista[i].getPath().length();
+			String barra = lista[i].getPath().substring(pini-1, pini);
+			pini = pini +7;
+			String rutaNueva = lista[i].getPath().substring(pini, pfin);
+			rutaNueva = rutaNueva.replace(barra, "/");
+			fotos.add(rutaNueva);
 		}
 		m.addAttribute("fotos", fotos);
 		return "product";
@@ -369,13 +474,14 @@ public class RootController {
 		    	in = new BufferedInputStream(new FileInputStream(f));
 		    } else {
 		    	in = new BufferedInputStream(
-		    			this.getClass().getClassLoader().getResourceAsStream("unknown-user.jpg"));
+		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
 		    }
 	    	FileCopyUtils.copy(in, response.getOutputStream());
 	    } catch (IOException ioe) {
 	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
 	    }
 	}
+	
 	
 	private int calculaHash(byte[] fichero) {
 		return new Random().nextInt(100000);
@@ -428,6 +534,6 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		
-		return "home";
+		return "Está subido!";
 	}
 }
