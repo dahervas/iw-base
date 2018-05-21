@@ -121,23 +121,27 @@
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
-  		<form action="#" method="post" class="form-horizontal" id="commentForm" role="form"> 
+  		<form action="addComment" method="post" class="form-horizontal" id="commentForm" role="form"> <!-- Hacer la funcion addComment -->
           <div class="form-group">
-             <label for="email" class="col-sm-2 control-label">Comment</label>
+             <label for="comment" class="col-sm-2 control-label">Comment</label>
              <div class="col-sm-10">
-               <textarea class="form-control" name="addComment" id="addComment" rows="5" placeholder="Your Message"
-               ></textarea>
+               <textarea class="form-control" name="Comment" id="Comment" rows="5" placeholder="Your Message"
+               required data-validation-required-message ="Please enter your comment"></textarea>
+               <input id="IdUsuario" name="IdUsuario" class="form-control input-md" type="text">
              </div>
           </div>
           <div class="form-group">
-             <label for="uploadMedia" class="col-sm-2 control-label">Upload media</label>
-             <div class="col-sm-10">                    
-               <div class="input-group">
-                 <div class="input-group-addon">http://</div>
-                   <input type="text" class="form-control" name="uploadMedia" id="uploadMedia">
-               </div>
+             <label for="usuario" class="col-sm-2 control-label">Destinatario</label>
+              <div class="col-sm-10">
+               <textarea class="form-control" name="Destinatario" id="Destinatario" rows="5" placeholder="Your Message"
+               required data-validation-required-message ="Please enter your comment"></textarea>
+             </div>
+             <div class="col-sm-10">
+               <textarea class="form-control" name="Sender" id="Sender" rows="5" placeholder="Your Message"
+               required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
           </div>
+   </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">                    
               <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>

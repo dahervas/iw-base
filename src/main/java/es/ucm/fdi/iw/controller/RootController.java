@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
+import es.ucm.fdi.iw.model.CommentProduct;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
+import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -486,6 +489,38 @@ public class RootController {
 	private int calculaHash(byte[] fichero) {
 		return new Random().nextInt(100000);
 	}
+	
+	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
+	
+	private long verificacionUsuario(String name) {
+		long id = 0;
+		
+		String query = "select id from User u where u.login = " + name;
+		if(query != null)
+			id = new Long(Long.parseLong(query));
+			
+		return id;
+	}
+	
+	@RequestMapping(value="addComment", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("Comment")String comentario,
+			@RequestParam("Destinatario")String dest,
+			@RequestParam("Sender")String id,
+			Model m) {
+		long usu, destinatario;
+		CommentProduct cp = new CommentProduct();
+		
+		if((destinatario = verificacionUsuario(dest)) != 0 && (usu = verificacionUsuario(id)) != 0) {
+			cp.setIdAddressee(destinatario);
+			cp.setIdSender(usu);
+			cp.setComment(comentario);
+			return "Comentario subido";
+		}else return "No se registro el comentario";
+			
+	}
+	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
