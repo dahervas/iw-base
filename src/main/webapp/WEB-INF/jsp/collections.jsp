@@ -29,7 +29,7 @@
 			<div class="row">
 				<div class="col-md-6">
 						
-					<a href="#" class="featured-grid" style="background-image: url(../collections/${c.imagenPrincipal.url});">
+					<a href="/collection/${c.id}" class="featured-grid" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 						<div class="desc">
 							<h3>${c.nombre}</h3>
 							<span>${c.descripcion }</span>
@@ -39,7 +39,7 @@
 				</div>
 				<% } else if(i%4 == 1){ %>
 				<div class="col-md-6">
-					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
+					<a href="/collection/${c.id}" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 						<div class="desc">
 							<h3>${c.nombre}</h3>
 							<span>${c.descripcion }</span>
@@ -48,7 +48,7 @@
 					<% } else if(i%4 == 2) { %>
 					<div class="row">
 						<div class="col-md-6">
-							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
+							<a href="/collection/${c.id}" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 								<div class="desc">
 									<h3>${c.nombre}</h3>
 									<span>${c.descripcion }</span>
@@ -57,7 +57,7 @@
 						</div>
 					<% } else { %>
 						<div class="col-md-6">
-							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
+							<a href="/collection/${c.id}" class="featured-grid featured-grid-2" style="background-image: url(../collections/${c.imagenPrincipal.url});">
 								<div class="desc">
 									<h3>${c.nombre}</h3>
 									<span>${c.descripcion }</span>
