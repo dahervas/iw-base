@@ -48,6 +48,11 @@ public class RootController {
 	@Autowired
 	private EntityManager entityManager;
 	
+	    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("s", "/static");
+    }
+    	
 	public void insertarProductosYColecciones() {
 		
 		
@@ -239,12 +244,7 @@ public class RootController {
 
 	}
 		
-	
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("s", "/static");
-    }
-    
+
 	@GetMapping({"/", "/index"})
 	public String root(Model model, Principal principal) {
 		log.info(principal.getName() + " de tipo " + principal.getClass());		
@@ -305,7 +305,7 @@ public class RootController {
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
 		List<String> result2 = (List<String>)entityManager.
-				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
+				createQuery("SELECT DISTINCT p.nombre FROM Product p WHERE p.nombre"
 						+ " LIKE CONCAT('%',:prod,'%')")
 				.setParameter("prod", busqueda).getResultList();
 		model.addAttribute("productsNombre", result2);
