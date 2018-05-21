@@ -17,7 +17,7 @@
 <div class="todoAlCentro"> 
 <div class="container">
 <!-- Imagenes cabecera del producto -->
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">-->
       <!-- Indicators -->
       <ul class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -26,15 +26,15 @@
       </ul>
      <div class="carousel-inner">     
    		 <div class="carousel-item active">
-     		 <img src="/static/img/losiento.jpg" alt="First slide">
+     		<!-- <img src="/static/img/losiento.jpg" alt="First slide">-->
    		 </div>
    		 
    		 <div class="carousel-item">
-    		  <img src="/static/img/losiento.jpg" alt="Second slide">
+    		<!--  <img src="/static/img/losiento.jpg" alt="Second slide">-->
     	</div>
     	
    		<div class="carousel-item">
-    		  <img src="/static/img/losiento.jpg" alt="Third slide">
+    		 <!-- <img src="/static/img/losiento.jpg" alt="Third slide">-->
   	 	</div>  	 	
  	 </div>
  	 
@@ -46,7 +46,7 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-</div>
+</div> 
 
 <!-- Menu de selección -->
   <ul class="nav nav-tabs">
@@ -60,20 +60,73 @@
   	<div id="info" class="tab-pane fade in active">
   		<h3>Informacion:</h3>
   		<p>Informacion sobre el producto</p>
+  		
+  		<c:if test="${empty informacion }">
+  			<div class="tect-center">
+  				<h3>No hay información del producto</h3>
+  			</div>  		
+  		</c:if>
+  		<c:if test="${not empty informacion }">
+  			<div class="todoAlCentro">
+  				<fieldset>
+  				<label>Descripción:</label>
+  					<p>{i.descripcion}</p>
+  				</fieldset>
+  				
+  				</br>
+  				
+  				<fieldset>
+  				<label>Valoración:</label>
+  					<p>{i.estrellitas}</p>
+  				</fieldset>  
+  				
+  				</br>
+  				
+  				<fieldset>
+  				<label>Cantidad del producto:</label>
+  					<p>{i.cantidad}</p>
+  				</fieldset>			
+  			</div>
+  		</c:if>
+  		
   	</div> 
   	
   	<div id="coment" class="tab-pane fade">
-  		<h3>Comentarios:</h3>
+  		<fieldset>
+  		<legend>Comentarios:</legend>
+  			<div class="card my-6">
+  				<div class="card my-4">
+  					<c:if test="${empty comentarios}">
+  						<div class="text-center">
+  							<h2>TODAVÍA NO HAY COMENTARIOS</h2>
+  							</br>
+  							<h3>Si quieres ser el primero ve al apartado de añadir comentarios</h3>  						
+  						</div>
+  					 </c:if>
+  					 
+  					 <c:if test="${not empty comentarios}">  				
+  						<c:forEach var = "c" items="${comentarios}">
+    						<div class="card-block">
+    							<!-- <h3>{c.autor}</h3>-->
+    							<p>{c.comment}</p>
+    						</div>
+						</c:forEach> 
+					</c:if>
+  					
+  				</div>
+  			</div>
+  		</fieldset>
   		
   	</div> 
   	
   	<div id="añadir" class="tab-pane fade">
-  		<h3>Añadi comentarios:</h3>
+  		<h3>Añadir comentarios:</h3>
   		<form action="#" method="post" class="form-horizontal" id="commentForm" role="form"> 
           <div class="form-group">
              <label for="email" class="col-sm-2 control-label">Comment</label>
              <div class="col-sm-10">
-               <textarea class="form-control" name="addComment" id="addComment" rows="5"></textarea>
+               <textarea class="form-control" name="addComment" id="addComment" rows="5" placeholder="Your Message"
+               ></textarea>
              </div>
           </div>
           <div class="form-group">
@@ -93,20 +146,27 @@
        </form>
   	</div>   	 
   </div>
-  
-  <!-- Zona imagenes -->
-	<div class="row text-center text-lg-left ">
-		<div id="textoCentrado"></div>
-			<h2>IMAGENES:</h2>
+ 
+ <div id="img" class="tab-pane fade">
+  		<h3>Imagenes:</h3>
+  		
+  		<c:if test="${empty fotos}">
+  			<div class="text-center">
+  				<p>Todavía no hay ninguna foto del producto</p>
+  			</div>
+  		</c:if>
+  		
+  		<c:if test="${not empty fotos}">
+  		<c:forEach var = "f" items="${fotos}">
+    		<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
+    			<img src="../photo${f}" class="photo img-responsive" alt="200x200">
+    		</div>
+		</c:forEach>  		
+		</c:if>
+ </div> 
 			
 			
-			<c:forEach var = "f" items="${fotos}">
-    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
-    				<img src="../photo${f}" class="photo img-responsive" alt="200x200">
-    			</div>
-			</c:forEach>		
-
-	</div>
+					
 </div>
 
 </c:forEach>
