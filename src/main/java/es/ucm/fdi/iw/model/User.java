@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -15,7 +16,7 @@ public class User {
 	private String login;
 	private String password;
 	private String roles; // split by , to separate roles
-	//private String rutaFoto;
+	private Photo fotoPerfil;
 	//private int puntuacion;
 	private byte enabled;
 	private List<Product> ownedProducts;
@@ -39,14 +40,16 @@ public class User {
 		this.login = login;
 	}
 
-	/*public String getRutaFoto() {
-		return rutaFoto;
+	@OneToOne(targetEntity=Photo.class)
+	public Photo getFotoPerfil() {
+		return fotoPerfil;
 	}
 	
-	public void setRutaFoto(String rutaFoto) {
-		this.rutaFoto = rutaFoto;
+	public void setFotoPerfil(Photo fotoperfil) {
+		this.fotoPerfil = fotoperfil;
 	}
-	*/
+	
+
 	public String getPassword() {
 		return password;
 	}

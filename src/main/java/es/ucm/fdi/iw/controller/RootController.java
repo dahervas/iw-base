@@ -36,6 +36,7 @@ import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
+import es.ucm.fdi.iw.model.User;
 
 @Controller	
 public class RootController {
@@ -249,8 +250,8 @@ public class RootController {
 	public String root(Model model, Principal principal) {
 		log.info(principal.getName() + " de tipo " + principal.getClass());		
 		// org.springframework.security.core.userdetails.User
-		model.addAttribute("users", entityManager
-				.createQuery("select u from User u").getResultList());
+		/*model.addAttribute("users", entityManager
+				.createQuery("select u from User u").getResultList()); */
 		model.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		/*model.addAttribute("photo", entityManager
@@ -391,6 +392,51 @@ public class RootController {
 		return new Random().nextInt(100000);
 	}
 	
+	
+	@RequestMapping(value="profile", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("photo") MultipartFile photo,
+			@RequestParam("nombre") String nombre,
+    		Model m){
+		
+		User u = new User();
+		u.setLogin(nombre);
+		entityManager.persist(u);
+		entityManager.flush();
+		
+		if(!photo.isEmpty()) {
+			try {
+				byte[] bytes = photo.getBytes();
+				
+				long hash = calculaHash(bytes);
+				BufferedOutputStream stream = 
+						new BufferedOutputStream(
+								new FileOutputStream(
+										localData.getFile("user/" + u.getId(), "/"+hash)));
+				stream.write(bytes);
+				stream.close();
+				
+				Photo f = new Photo();
+				
+		
+				String ruta = "photo/"+ u.getId() + "/" + hash;	
+				
+				f.setUrl(ruta);
+				entityManager.persist(f);
+				u.setFotoPerfil(f);
+			}
+			catch (Exception e) {}
+		}
+		
+		entityManager.persist(u);
+		
+		entityManager.flush();
+		m.addAttribute("users", entityManager
+				.createQuery("select  from Product p").getResultList());
+		
+		return "profile";
+	}
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
