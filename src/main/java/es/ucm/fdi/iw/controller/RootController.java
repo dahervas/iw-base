@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.StringUtils;
@@ -269,15 +271,27 @@ public class RootController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request,
+			Model model, HttpSession session) {
 		return "login";
+	}
+	
+	@GetMapping("/home")
+	public String home(HttpServletRequest request,
+			Model model, HttpSession session, Principal principal) {
+        session.setAttribute("user", 
+                entityManager.createQuery("from User where login = :login", User.class)
+                    .setParameter("login", principal.getName())
+                    .getSingleResult()
+        );
+        log.info("welcoming back: " + principal.getName());
+		return "home";
 	}
 	
 	@GetMapping("/profile")
 	public String profile(Model model) {
 		
-		model.addAttribute("users", entityManager
-				.createQuery("select u from User u").getResultList());
+/*		model.addAttribute("user", entityManager.createQuery("from User where login = :login", User.class));*/
 		return "profile";
 	}
 	
@@ -365,7 +379,7 @@ public class RootController {
 
 	@RequestMapping(value="addCollection", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload(
+	public @ResponseBody String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("descripcion") String descripcion,
@@ -408,7 +422,7 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select c from Collection c").getResultList());
 		
-		return "index";
+		return "Está subido!";
 	}
 	
 	/**
@@ -452,11 +466,6 @@ public class RootController {
 			fotos.add(rutaNueva);
 		}
 		m.addAttribute("fotos", fotos);
-		
-		/*Prueba para sacar los comentarios del producto*/
-		String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
-		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
-		
 		return "product";
 	}
 	
@@ -464,38 +473,19 @@ public class RootController {
 	public String nuevoProducto() {
 		return "nuevoProducto";
 	}
-
-
-	/**
-	 * Returns a users' photo
-	 * @param id of user to get photo from
-	 * @return
-	 */
-	@RequestMapping(value="photo/{id}/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-	public void userPhoto(@PathVariable("id") String id, 
-			@PathVariable("nombre") String nombre,
-			HttpServletResponse response) {
-	    File f = localData.getFile("product/" + id + "/", nombre);
-	    InputStream in = null;
-	    try {
-		    if (f.exists()) {
-		    	in = new BufferedInputStream(new FileInputStream(f));
-		    } else {
-		    	in = new BufferedInputStream(
-		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
-		    }
-	    	FileCopyUtils.copy(in, response.getOutputStream());
-	    } catch (IOException ioe) {
-	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
-	    }
-	}
 	
 	
 	private int calculaHash(byte[] fichero) {
 		return new Random().nextInt(100000);
 	}
 	
-	@RequestMapping(value="profile", method=RequestMethod.POST)
+	
+	/*Muestra la foto de perfil*/
+
+	
+	/*AÑADIR FOTO DE PERFIL*/ 
+	
+	@RequestMapping(value="addProfile", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
@@ -535,7 +525,7 @@ public class RootController {
 		
 		entityManager.flush();
 		m.addAttribute("users", entityManager
-				.createQuery("select  from Product p").getResultList());
+				.createQuery("select u from User u").getResultList());
 		
 		return "profile";
 	}
@@ -545,7 +535,7 @@ public class RootController {
 	private long verificacionUsuario(String name) {
 		long id = 0;
 		
-		String query = "select u.id from User u where u.login = " + name;
+		String query = "select id from User u where u.login = " + name;
 		if(query != null)
 			id = new Long(Long.parseLong(query));
 			
@@ -571,6 +561,32 @@ public class RootController {
 			
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
+	
+	/*Muestra la foto de un producto*/ 
+
+	/**
+	 * Returns a users' photo
+	 * @param id of user to get photo from
+	 * @return
+	 */
+	@RequestMapping(value="photo/{id}/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public void userPhoto(@PathVariable("id") String id, 
+			@PathVariable("nombre") String nombre,
+			HttpServletResponse response) {
+	    File f = localData.getFile("product/" + id + "/", nombre);
+	    InputStream in = null;
+	    try {
+		    if (f.exists()) {
+		    	in = new BufferedInputStream(new FileInputStream(f));
+		    } else {
+		    	in = new BufferedInputStream(
+		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
+		    }
+	    	FileCopyUtils.copy(in, response.getOutputStream());
+	    } catch (IOException ioe) {
+	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
+	    }
+	}
 
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional

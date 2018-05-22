@@ -10,7 +10,7 @@
 <div class="todoAlCentro">
 	<div class="row text-center text-lg-left ">
 		<img class="img-fluid mb-5 d-block mx-auto text-center"
-			id="fotoperfil" src="${s}/img/girl.jpg" data-toggle="modal"
+			id="fotoperfil" src="${user.fotoPerfil.url}" data-toggle="modal"
 			data-target="#exampleModal" alt="">
 		<!-- Modal de la foto de perfil-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -44,20 +44,20 @@
 			${user.login} <span class="glyphicon glyphicon-cog text-center"
 				aria-hidden="true" data-toggle="modal" data-target="#modificaPerfil"></span>
 
-			<!-- Modal de la rueda para modificar perfil -->
-			<div class="modal fade" id="modificaPerfil" tabindex="-1"
-				role="dialog" aria-labelledby="modificaPerfilLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h2 class="modal-title" id="exampleModalLabel">Modificar
-								Perfil</h2>
-						</div>
-						<div class="modal-body">
+			<form action="addProfile" enctype="multipart/form-data"
+				method="post" class="form-horizontal">
 
-							<form action="profile" enctype="multipart/form-data"
-								method="post" class="form-horizontal">
+				<!-- Modal de la rueda para modificar perfil -->
+				<div class="modal fade" id="modificaPerfil" tabindex="-1"
+					role="dialog" aria-labelledby="modificaPerfilLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2 class="modal-title" id="exampleModalLabel">Modificar
+									Perfil</h2>
+							</div>
+							<div class="modal-body">
 
 								<!-- Text input-->
 								<div class="form-group row text-center text-lg-left ">
@@ -76,22 +76,22 @@
 											type="file">
 									</div>
 								</div>
-							</form>
+
+
+							</div>
+							
+							<div class="modal-footer">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Cerrar</button>
+								<button type="submit" class="btn btn-primary">Guardar
+									Cambios</button>
+							</div>
 
 						</div>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cerrar</button>
-							<button type="submit" class="btn btn-primary">Guardar
-								Cambios</button>
-						</div>
-
 					</div>
 				</div>
-			</div>
-
+			</form>
 		</h1>
 
 	</div>
