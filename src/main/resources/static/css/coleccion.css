@@ -1,0 +1,31 @@
+.main-text
+{
+    position: absolute;
+    bottom: 0px;
+    color: #000 !important;
+    margin-left: 12px;
+}
+.btn-min-block
+{
+    min-width: 170px;
+    line-height: 26px;
+}
+.btn-clear
+{
+    color: #FFF;
+    background-color: transparent;
+    border-color: #FFF;
+    margin-right: 15px;
+}
+.btn-clear:hover
+{
+    color: #000;
+    background-color: #FFF;
+}
+.fotoGuay{
+	height: 300px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 100%;
+    opacity: 0.5;
+}

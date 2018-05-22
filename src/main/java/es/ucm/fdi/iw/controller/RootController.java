@@ -365,7 +365,7 @@ public class RootController {
 
 	@RequestMapping(value="addCollection", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("descripcion") String descripcion,
@@ -408,7 +408,7 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select c from Collection c").getResultList());
 		
-		return "Está subido!";
+		return "index";
 	}
 	
 	/**
