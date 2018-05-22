@@ -490,8 +490,6 @@ public class RootController {
 		return new Random().nextInt(100000);
 	}
 	
-<<<<<<< HEAD
-	
 	@RequestMapping(value="profile", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
@@ -536,7 +534,7 @@ public class RootController {
 		
 		return "profile";
 	}
-=======
+
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	
 	private long verificacionUsuario(String name) {
@@ -568,8 +566,7 @@ public class RootController {
 			
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
-	
->>>>>>> master
+
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
