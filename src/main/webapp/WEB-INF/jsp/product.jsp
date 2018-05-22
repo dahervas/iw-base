@@ -12,7 +12,7 @@
 <link href="/static/css/carousel.css" rel = "stylesheet">
 <link href="/static/css/coment.css" rel = "stylesheet">
  
-<c:forEach var="i" items="${informacion}">
+<c:forEach var="i" items="${elementos}">
 
 <div class="todoAlCentro"> 
 <div class="container">
@@ -61,12 +61,12 @@
   		<h3>Informacion:</h3>
   		<p>Informacion sobre el producto</p>
   		
-  		<c:if test="${empty informacion }">
+  		<c:if test="${empty elementos }">
   			<div class="tect-center">
   				<h3>No hay información del producto</h3>
   			</div>  		
   		</c:if>
-  		<c:if test="${not empty informacion }">
+  		<c:if test="${not empty elementos }">
   			<div class="todoAlCentro">
   				<fieldset>
   				<label>Descripción:</label>
@@ -109,6 +109,7 @@
     						<div class="card-block">
     							<!-- <h3>{c.autor}</h3>-->
     							<p>{c.comment}</p>
+    							</br>
     						</div>
 						</c:forEach> 
 					</c:if>

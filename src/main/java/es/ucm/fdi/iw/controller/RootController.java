@@ -453,7 +453,9 @@ public class RootController {
 		}
 		m.addAttribute("fotos", fotos);
 		
-		/**/
+		/*Prueba para sacar los comentarios del producto*/
+		String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
+		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
 		
 		return "product";
 	}
