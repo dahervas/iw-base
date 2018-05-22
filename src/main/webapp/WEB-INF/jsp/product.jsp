@@ -141,13 +141,14 @@
                required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
           </div>
-   </div>
+        </form>
+   	</div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">                    
               <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
             </div>
           </div>            
-       </form>
+      
   	</div>   	 
   </div>
  
