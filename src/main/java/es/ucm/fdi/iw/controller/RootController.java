@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
+import es.ucm.fdi.iw.model.CommentProduct;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
@@ -49,6 +51,11 @@ public class RootController {
 	@Autowired
 	private EntityManager entityManager;
 	
+	    @ModelAttribute
+    public void addAttributes(Model model) {
+        model.addAttribute("s", "/static");
+    }
+    	
 	public void insertarProductosYColecciones() {
 		
 		
@@ -240,12 +247,7 @@ public class RootController {
 
 	}
 		
-	
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("s", "/static");
-    }
-    
+
 	@GetMapping({"/", "/index"})
 	public String root(Model model, Principal principal) {
 		log.info(principal.getName() + " de tipo " + principal.getClass());		
@@ -305,12 +307,12 @@ public class RootController {
 		model.addAttribute("users", result);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
-		/*List<String> result2 = (List<String>)entityManager.
-				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
+		List<String> result2 = (List<String>)entityManager.
+				createQuery("SELECT DISTINCT p.nombre FROM Product p WHERE p.nombre"
 						+ " LIKE CONCAT('%',:prod,'%')")
 				.setParameter("prod", busqueda).getResultList();
 		model.addAttribute("productsNombre", result2);
-		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));*/
+		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
 		
 		/*List<String> result3 = (List<String>)entityManager.
 				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
@@ -336,6 +338,102 @@ public class RootController {
 		return "collections";
 	}
 	
+	@GetMapping("/collection/{id}")
+	public String collection(Model m, @PathVariable long id) {
+		String query = "select p from Collection p where p.id = " + id;
+		m.addAttribute("elementos", entityManager.createQuery(query).getResultList());
+		File[] lista = localData.getFolder("collection/" + id).listFiles();
+		List<String> fotos = new ArrayList<>();
+		for(int i = 0; i < lista.length; i++) {
+			int pini = lista[i].getPath().indexOf("collection");
+			int barrita = pini -1;
+			int pfin = lista[i].getPath().length();
+			String barra = lista[i].getPath().substring(pini-1, pini);
+			pini = pini +7;
+			String rutaNueva = lista[i].getPath().substring(pini, pfin);
+			rutaNueva = rutaNueva.replace(barra, "/");
+			fotos.add(rutaNueva);
+		}
+		m.addAttribute("fotos", fotos);
+		return "collection";
+	}
+	
+	@GetMapping("/nuevaColeccion")
+	public String nuevaColecion() {
+		return "nuevaColeccion";
+	}
+
+	@RequestMapping(value="addCollection", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("photo") MultipartFile photo,
+			@RequestParam("nombre") String nombre,
+    		@RequestParam("descripcion") String descripcion,
+    		Model m){
+		
+		Collection c = new Collection();
+		
+		c.setDescripcion(descripcion);
+		c.setNombre(nombre);
+		entityManager.persist(c);
+		entityManager.flush();
+		
+		if(!photo.isEmpty()) {
+			try {
+				byte[] bytes = photo.getBytes();
+				
+				long hash = calculaHash(bytes);
+				BufferedOutputStream stream = 
+						new BufferedOutputStream(
+								new FileOutputStream(
+										localData.getFile("collection/" + c.getId(), "/"+hash)));
+				stream.write(bytes);
+				stream.close();
+				
+				PhotoCollection f = new PhotoCollection();
+				
+				f.setIdExterno(c);
+				String ruta = "photo/"+ c.getId() + "/" + hash;	
+				
+				f.setUrl(ruta);
+				entityManager.persist(f);
+				c.setImagenPrincipal(f);
+			}
+			catch (Exception e) {}
+		}
+		
+		entityManager.persist(c);
+		
+		entityManager.flush();
+		m.addAttribute("ps", entityManager
+				.createQuery("select c from Collection c").getResultList());
+		
+		return "Está subido!";
+	}
+	
+	/**
+	 * Returns a users' photo
+	 * @param id of user to get photo from
+	 * @return
+	 */
+	@RequestMapping(value="/collections/photo/{id}/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public void collectionPhoto(@PathVariable("id") String id, 
+			@PathVariable("nombre") String nombre,
+			HttpServletResponse response) {
+	    File f = localData.getFile("collection/" + id + "/", nombre);
+	    InputStream in = null;
+	    try {
+		    if (f.exists()) {
+		    	in = new BufferedInputStream(new FileInputStream(f));
+		    } else {
+		    	in = new BufferedInputStream(
+		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
+		    }
+	    	FileCopyUtils.copy(in, response.getOutputStream());
+	    } catch (IOException ioe) {
+	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
+	    }
+	}
 	
 	@GetMapping("/product/{id}")
 	public String product(Model m, @PathVariable long id) {
@@ -392,6 +490,7 @@ public class RootController {
 		return new Random().nextInt(100000);
 	}
 	
+<<<<<<< HEAD
 	
 	@RequestMapping(value="profile", method=RequestMethod.POST)
 	@Transactional
@@ -437,6 +536,40 @@ public class RootController {
 		
 		return "profile";
 	}
+=======
+	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
+	
+	private long verificacionUsuario(String name) {
+		long id = 0;
+		
+		String query = "select id from User u where u.login = " + name;
+		if(query != null)
+			id = new Long(Long.parseLong(query));
+			
+		return id;
+	}
+	
+	@RequestMapping(value="addComment", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("Comment")String comentario,
+			@RequestParam("Destinatario")String dest,
+			@RequestParam("Sender")String id,
+			Model m) {
+		long usu, destinatario;
+		CommentProduct cp = new CommentProduct();
+		
+		if((destinatario = verificacionUsuario(dest)) != 0 && (usu = verificacionUsuario(id)) != 0) {
+			cp.setIdAddressee(destinatario);
+			cp.setIdSender(usu);
+			cp.setComment(comentario);
+			return "Comentario subido";
+		}else return "No se registro el comentario";
+			
+	}
+	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
+	
+>>>>>>> master
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
@@ -484,6 +617,6 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		
-		return "home";
+		return "Está subido!";
 	}
 }
