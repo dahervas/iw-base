@@ -28,7 +28,7 @@
 			        <p><small class="text-center">No te preocupes! Pronto los habrá.</h1>
 			        <p class="text-center">¡Quizá quieras ser el primero en querer compartir!</p>
 			        <p class="text-center"><a class="btn btn-primary" href="/nuevoProducto"><i class="fa fa-home"></i> ¡Crear un nuevo producto!</a></p>
-			    
+			    	${users.login}
 			</div>
 		</c:if>
 		<c:if test="${not empty ps}">				

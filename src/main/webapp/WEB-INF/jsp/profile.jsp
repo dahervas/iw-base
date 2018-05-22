@@ -56,32 +56,38 @@
 						</div>
 						<div class="modal-body">
 
-							<!-- Text input-->
-							<div class="form-group row text-center text-lg-left ">
-								<h4 class="col-md-15" for="nombre">Cambiar nombre:</h4>
-								<div class="col-md-15">
-									<input id="nombre" name="nombre"
-										placeholder="Escriba aquí el nombre"
-										class="form-control input-md" type="text">
+							<form action="profile" enctype="multipart/form-data"
+								method="post" class="form-horizontal">
 
+								<!-- Text input-->
+								<div class="form-group row text-center text-lg-left ">
+									<h4 class="col-md-15" for="nombre">Cambiar nombre:</h4>
+									<div class="col-md-15">
+										<input id="nombre" name="nombre"
+											placeholder="Escriba aquí el nombre"
+											class="form-control input-md" type="text">
+
+									</div>
+
+
+									<h4 class="col-md-15" for="imagenes">Subir foto de perfil:</h4>
+									<div class="col-md-15">
+										<input id="imagenes" name="photo" class="input-file"
+											type="file">
+									</div>
 								</div>
-
-
-								<h4 class="col-md-15" for="imagenes">Subir foto de perfil:</h4>
-								<div class="col-md-15">
-									<input id="imagenes" name="photo" class="input-file"
-										type="file">
-								</div>
-							</div>
-
+							</form>
 
 						</div>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary">Guardar
+							<button type="submit" class="btn btn-primary">Guardar
 								Cambios</button>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -109,107 +115,107 @@
 
 
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid" src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid"
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 				<!-- 				<h3>Nombre producto</h3> -->
 
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/platos.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/platos.jpg" alt="">
 				</a>
 			</div>
 
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid  " src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid  "
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img
-					class="img-fluid" src="${s}/img/libros.jpg" alt="">
+				<a href="#" class=" "> <img class="img-fluid"
+					src="${s}/img/libros.jpg" alt="">
 				</a>
 			</div>
 
@@ -241,22 +247,6 @@
 
 				});
 	});
-
-	/* 	function showCollections() {
-	 var x = document.getElementById("collections");
-	 var y = document.getElementById("products");
-	 x.style.display = "block";
-	 y.style.display = "none";
-
-	 }
-
-	 function showProducts() {
-	 var x = document.getElementById("products");
-	 var y = document.getElementById("collections");
-	 x.style.display = "block";
-	 y.style.display = "none";
-
-	 } */
 </script>
 
 
