@@ -452,6 +452,9 @@ public class RootController {
 			fotos.add(rutaNueva);
 		}
 		m.addAttribute("fotos", fotos);
+		
+		/**/
+		
 		return "product";
 	}
 	
@@ -540,7 +543,7 @@ public class RootController {
 	private long verificacionUsuario(String name) {
 		long id = 0;
 		
-		String query = "select id from User u where u.login = " + name;
+		String query = "select u.id from User u where u.login = " + name;
 		if(query != null)
 			id = new Long(Long.parseLong(query));
 			

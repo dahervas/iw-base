@@ -12,7 +12,7 @@
 <link href="/static/css/carousel.css" rel = "stylesheet">
 <link href="/static/css/coment.css" rel = "stylesheet">
  
-<c:forEach var="i" items="${elementos}">
+<c:forEach var="i" items="${informacion}">
 
 <div class="todoAlCentro"> 
 <div class="container">
