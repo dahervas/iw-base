@@ -452,6 +452,11 @@ public class RootController {
 			fotos.add(rutaNueva);
 		}
 		m.addAttribute("fotos", fotos);
+		
+		/*Prueba para sacar los comentarios del producto*/
+		String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
+		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
+		
 		return "product";
 	}
 	
@@ -540,7 +545,7 @@ public class RootController {
 	private long verificacionUsuario(String name) {
 		long id = 0;
 		
-		String query = "select id from User u where u.login = " + name;
+		String query = "select u.id from User u where u.login = " + name;
 		if(query != null)
 			id = new Long(Long.parseLong(query));
 			

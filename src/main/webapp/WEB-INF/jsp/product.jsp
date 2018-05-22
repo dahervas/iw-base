@@ -61,12 +61,12 @@
   		<h3>Informacion:</h3>
   		<p>Informacion sobre el producto</p>
   		
-  		<c:if test="${empty informacion }">
+  		<c:if test="${empty elementos }">
   			<div class="tect-center">
   				<h3>No hay información del producto</h3>
   			</div>  		
   		</c:if>
-  		<c:if test="${not empty informacion }">
+  		<c:if test="${not empty elementos }">
   			<div class="todoAlCentro">
   				<fieldset>
   				<label>Descripción:</label>
@@ -109,6 +109,7 @@
     						<div class="card-block">
     							<!-- <h3>{c.autor}</h3>-->
     							<p>{c.comment}</p>
+    							</br>
     						</div>
 						</c:forEach> 
 					</c:if>
@@ -141,13 +142,14 @@
                required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
           </div>
-   </div>
+        </form>
+   	</div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">                    
               <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
             </div>
           </div>            
-       </form>
+      
   	</div>   	 
   </div>
  
