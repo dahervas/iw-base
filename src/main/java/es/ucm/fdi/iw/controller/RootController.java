@@ -250,8 +250,17 @@ public class RootController {
 	}
 		
 
-	@GetMapping({"/", "/index"})
-	public String root(Model model, Principal principal) {
+	@GetMapping({"/", "/index", "/home"})
+	public String root(HttpServletRequest request,
+			Model model, HttpSession session, Principal principal) {
+		session.setAttribute("user", 
+				entityManager.createQuery("from User where login = :login", User.class)
+					.setParameter("login", principal.getName())
+					.getSingleResult()
+		);
+		log.info("welcoming back: " + principal.getName());
+        log.info("Me gustaría encontrar el usuario: " + principal);
+        log.info("El usaurio??? :" + session.getAttribute("user"));
 		log.info(principal.getName() + " de tipo " + principal.getClass());		
 		// org.springframework.security.core.userdetails.User
 		/*model.addAttribute("users", entityManager
@@ -276,7 +285,7 @@ public class RootController {
 		return "login";
 	}
 	
-	@GetMapping("/home")
+	/*@GetMapping("/home")
 	public String home(HttpServletRequest request,
 			Model model, HttpSession session, Principal principal) {
         session.setAttribute("user", 
@@ -285,8 +294,10 @@ public class RootController {
                     .getSingleResult()
         );
         log.info("welcoming back: " + principal.getName());
+        log.info("Me gustaría encontrar el usuario: " + principal);
+        log.info("El usaurio??? :" + session.getAttribute("user"));
 		return "home";
-	}
+	}*/
 	
 	@GetMapping("/profile")
 	public String profile(Model model) {
@@ -379,16 +390,19 @@ public class RootController {
 
 	@RequestMapping(value="addCollection", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("descripcion") String descripcion,
+    		@RequestParam("usuario") String usuario,
+    		HttpSession session,
     		Model m){
 		
 		Collection c = new Collection();
 		
 		c.setDescripcion(descripcion);
 		c.setNombre(nombre);
+		c.setPropietario((User)session.getAttribute("user"));
 		entityManager.persist(c);
 		entityManager.flush();
 		
@@ -422,7 +436,7 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select c from Collection c").getResultList());
 		
-		return "Está subido!";
+		return "profile";
 	}
 	
 	/**
@@ -449,6 +463,13 @@ public class RootController {
 	    }
 	}
 	
+	@GetMapping("/user/{id}")
+	public String user(Model m, @PathVariable long id, HttpSession session) {
+		String query = "select u from User u where u.id = " + id;
+		m.addAttribute("usuario", entityManager.createQuery(query).getResultList());
+		return "profileB";
+		
+	}
 	@GetMapping("/product/{id}")
 	public String product(Model m, @PathVariable long id) {
 		String query = "select p from Product p where p.id = " + id;
@@ -590,18 +611,18 @@ public class RootController {
 
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("cantidadProducto") int cantidad,
     		@RequestParam("descripcion") String descripcion,
-    		Model m){
+    		Model m, HttpSession session){
 		
 		Product p = new Product();
-		
 		p.setCantidad(cantidad);
 		p.setDescripcion(descripcion);
 		p.setNombre(nombre);
+		p.setPropietario((User)session.getAttribute("user"));
 		entityManager.persist(p);
 		entityManager.flush();
 		
@@ -635,6 +656,6 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		
-		return "Está subido!";
+		return "";
 	}
 }

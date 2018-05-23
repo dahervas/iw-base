@@ -20,7 +20,7 @@
     <div class="container">
 
       <div class="row text-center text-lg-left">
-		
+		${user}
 		<c:if test="${empty ps}">
 		    <div>
 			        <div class="text-center"><img src="/static/img/losiento.jpg"></div>

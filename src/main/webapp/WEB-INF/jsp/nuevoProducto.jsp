@@ -13,8 +13,6 @@
 <div class="starter-template">
 
 	<form action="addProduct" enctype = "multipart/form-data" method="post" class="form-horizontal">
-
-		
 			<!-- Form Name -->
 			<legend>Nuevo producto</legend>
 			

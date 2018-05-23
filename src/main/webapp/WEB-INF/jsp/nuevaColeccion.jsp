@@ -46,7 +46,15 @@
 			</div>
 
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
+			
+			<input type="hidden" name="usuario" value='<sec:authentication property="principal.username"/>'>
+			
+			${user}
+			<c:if test="! empty ${user}">
+				${user.login}
+			</c:if>
+			
+			${principal}
 			<!-- Button (Double) -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="botonAceptar">¿Subir
@@ -61,8 +69,5 @@
 
 		</fieldset>
 	</form>
-
-</div>
-
-
+	
 <%@ include file="../jspf/footer.jspf"%>

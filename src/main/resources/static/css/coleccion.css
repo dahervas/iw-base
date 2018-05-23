@@ -29,3 +29,8 @@
     background-size: 100%;
     opacity: 0.5;
 }
+.propietario{
+	float: right;
+	margin-right: 100px;
+	margin-top: -250px;
+}

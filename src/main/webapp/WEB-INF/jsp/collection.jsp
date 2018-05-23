@@ -21,6 +21,16 @@
 		<div class="row">
         	<div class="col-md-12 fotoGuay" style="background-image: url('../collections/${i.imagenPrincipal.url}');"></div>
             <div class="col-md-12 alto">
+            	<h3 class="propietario">
+            		${i.propietario.id}
+            		${user.id}
+            		<c:if test="${i.propietario.id eq user.id})">
+                   		Propietario: <a href="/profile">${i.propietario.login}</a>
+                   	</c:if>
+                   	<c:if test="${i.propietario.id ne user.id}">
+                   		Propietario: <a href="/user/${i.propietario.id}">${i.propietario.login}</a>
+                   	</c:if>
+                </h3>
             	<div class="main-text hidden-xs">
 					<h1> ${i.nombre}</h1>
                     <h3>
