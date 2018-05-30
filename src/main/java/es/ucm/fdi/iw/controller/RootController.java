@@ -300,7 +300,10 @@ public class RootController {
 	}*/
 	
 	@GetMapping("/profile")
-	public String profile(Model model) {
+	public String profile(Model model, HttpSession session) {
+		User u = (User)session.getAttribute("user");
+		model.addAttribute("u", entityManager
+				.createQuery("select u from User u where u.id =" + u.getId()).getResultList());
 		
 /*		model.addAttribute("user", entityManager.createQuery("from User where login = :login", User.class));*/
 		return "profile";
@@ -502,22 +505,48 @@ public class RootController {
 	
 	
 	/*Muestra la foto de perfil*/
+	/**
+	 * Returns a users' photo
+	 * @param id of user to get photo from
+	 * @return
+	 */
+	@RequestMapping(value="user/{id}/{nombre}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public void usuarioPhoto(@PathVariable("id") String id, 
+			@PathVariable("nombre") String nombre,
+			HttpServletResponse response) {
+	    File f = localData.getFile("user/" + id + "/", nombre);
+	    InputStream in = null;
+	    try {
+		    if (f.exists()) {
+		    	in = new BufferedInputStream(new FileInputStream(f));
+		    } else {
+		    	in = new BufferedInputStream(
+		    			this.getClass().getClassLoader().getResourceAsStream("interrogacion.png"));
+		    }
+	    	FileCopyUtils.copy(in, response.getOutputStream());
+	    } catch (IOException ioe) {
+	    	log.info("Error retrieving file: " + f + " -- " + ioe.getMessage());
+	    }
+	}
+
 
 	
 	/*AÑADIR FOTO DE PERFIL*/ 
 	
 	@RequestMapping(value="addProfile", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
-    		Model m){
+    		Model m, HttpSession session){
+	
+	User u = (User)session.getAttribute("user");
+	
+	User b = entityManager.getReference(User.class, u.getId());
 		
-		User u = new User();
-		u.setLogin(nombre);
-		entityManager.persist(u);
-		entityManager.flush();
-		
+	log.info("welcoming back: " + b);
+	
+			
 		if(!photo.isEmpty()) {
 			try {
 				byte[] bytes = photo.getBytes();
@@ -526,27 +555,27 @@ public class RootController {
 				BufferedOutputStream stream = 
 						new BufferedOutputStream(
 								new FileOutputStream(
-										localData.getFile("user/" + u.getId(), "/"+hash)));
+										localData.getFile("user/" + b.getId(), "/"+hash)));
 				stream.write(bytes);
 				stream.close();
 				
 				Photo f = new Photo();
 				
 		
-				String ruta = "photo/"+ u.getId() + "/" + hash;	
+				String ruta = "user/"+ b.getId() + "/" + hash;	
 				
 				f.setUrl(ruta);
 				entityManager.persist(f);
-				u.setFotoPerfil(f);
+				b.setFotoPerfil(f);
 			}
 			catch (Exception e) {}
 		}
 		
-		entityManager.persist(u);
+		entityManager.persist(b);
 		
 		entityManager.flush();
-		m.addAttribute("users", entityManager
-				.createQuery("select u from User u").getResultList());
+		m.addAttribute("u", entityManager
+				.createQuery("select u from User u where u.id =" + u.getId()).getResultList());
 		
 		return "profile";
 	}

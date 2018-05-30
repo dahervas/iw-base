@@ -6,11 +6,13 @@
 
 <%@ include file="../jspf/header.jspf"%>
 
+<c:forEach var="u" items="${u}">
+
 <link href="/static/css/profile.css" rel="stylesheet">
 <div class="todoAlCentro">
 	<div class="row text-center text-lg-left ">
 		<img class="img-fluid mb-5 d-block mx-auto text-center"
-			id="fotoperfil" src="${user.fotoPerfil.url}" data-toggle="modal"
+			id="fotoperfil" src="${u.fotoPerfil.url}" data-toggle="modal"
 			data-target="#exampleModal" alt="">
 		<!-- Modal de la foto de perfil-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -18,7 +20,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title" id="exampleModalLabel">${user.login}</h1>
+						<h1 class="modal-title" id="exampleModalLabel">${u.login}</h1>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -227,7 +229,7 @@
 	</section>
 
 </div>
-
+</c:forEach>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
