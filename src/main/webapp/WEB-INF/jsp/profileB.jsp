@@ -8,227 +8,64 @@
 
 <link href="/static/css/profile.css" rel="stylesheet">
 
-<c:forEach items="${usuario}" var="p">
-	
-	PROFILEB
+<c:forEach items="${usuario}" var="u">
+
 	<div class="todoAlCentro">
 		<div class="row text-center text-lg-left ">
 			<img class="img-fluid mb-5 d-block mx-auto text-center"
-				id="fotoperfil" src="" data-toggle="modal"
-				data-target="#exampleModal" alt="">
-			<!-- Modal de la foto de perfil-->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="modal-title" id="exampleModalLabel"></h1>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							Puntuación : <span
-								class="glyphicon glyphicon-star-empty text-center"
-								aria-hidden="true"></span> <span
-								class="glyphicon glyphicon-star-empty text-center"
-								aria-hidden="true"></span> <span
-								class="glyphicon glyphicon-star-empty text-center"
-								aria-hidden="true"></span> <span
-								class="glyphicon glyphicon-star-empty text-center"
-								aria-hidden="true"></span>
-							<div>Comentarios de otros usuarios: ...</div>
-	
-						</div>
-					</div>
-				</div>
-			</div>
+			id="fotoperfil" src="${u.fotoPerfil.url}" data-toggle="modal"
+			data-target="#exampleModal" alt="">
+			
 			<h1 class=" mb-0">
-				${user.login} <span class="glyphicon glyphicon-cog text-center"
-					aria-hidden="true" data-toggle="modal" data-target="#modificaPerfil"></span>
-	
-				<form action="addProfile" enctype="multipart/form-data"
-					method="post" class="form-horizontal">
-	
-					<!-- Modal de la rueda para modificar perfil -->
-					<div class="modal fade" id="modificaPerfil" tabindex="-1"
-						role="dialog" aria-labelledby="modificaPerfilLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h2 class="modal-title" id="exampleModalLabel">Modificar
-										Perfil</h2>
-								</div>
-								<div class="modal-body">
-	
-									<!-- Text input-->
-									<div class="form-group row text-center text-lg-left ">
-										<h4 class="col-md-15" for="nombre">Cambiar nombre:</h4>
-										<div class="col-md-15">
-											<input id="nombre" name="nombre"
-												placeholder="Escriba aquí el nombre"
-												class="form-control input-md" type="text">
-	
-										</div>
-	
-	
-										<h4 class="col-md-15" for="imagenes">Subir foto de perfil:</h4>
-										<div class="col-md-15">
-											<input id="imagenes" name="photo" class="input-file"
-												type="file">
-										</div>
-									</div>
-	
-	
-								</div>
-								
-								<div class="modal-footer">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Cerrar</button>
-									<button type="submit" class="btn btn-primary">Guardar
-										Cambios</button>
-								</div>
-	
-							</div>
-						</div>
-					</div>
-				</form>
+				${u.login} 
 			</h1>
 	
 		</div>
 	
 	
 		<section id="portfolio-container" class="padding-60">
-			<div class="text-center">
-				<div class="toolbar mb2 mt2 padding-b-25" id="botonesPC">
-					<button class="btn fil-cat" data-rel="all">Todo</button>
-					<button class="btn fil-cat" data-rel="producto">Productos</button>
-					<button class="btn fil-cat" data-rel="coleccion">Colecciones</button>
-				</div>
+		<div class="text-center">
+			<div class="toolbar mb2 mt2 padding-b-25" id="botonesPC">
+				<button class="btn fil-cat" data-rel="all">Todo</button>
+				<button class="btn fil-cat" data-rel="producto">Productos</button>
+				<button class="btn fil-cat" data-rel="coleccion">Colecciones</button>
 			</div>
-	
-	
-			<!-- Page Content -->
-	
-			<div style="clear: both;"></div>
-			<div id="portfolio">
-	
-	
-	
+		</div>
+
+
+		<!-- Page Content -->
+
+		<div style="clear: both;"></div>
+		<div id="portfolio">
+			<c:forEach var="p" items="${u.ownedProducts}">
+			
 				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid"
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-					<!-- 				<h3>Nombre producto</h3> -->
-	
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
+					<a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
+		            	<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt=""
+		            	style="width: 300px; height: 200px">
+		            	${p.nombre}
 					</a>
 				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/platos.jpg" alt="">
-					</a>
-				</div>
-	
+				
+			</c:forEach>
+				
+			<c:forEach var="c" items="${u.ownedCollections}">
+			
 				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-	
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
+					<a href="/collection/${c.id}" class="d-block mb-4 h-100">
+		            	<img class="photo img-fluid img-thumbnail" src="../collections/${c.imagenPrincipal.url}" 
+		            	alt="" style="width: 300px; height:200px">
+		            	${c.nombre}
 					</a>
 				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid  "
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-				</div>
-				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-					<a href="#" class=" "> <img class="img-fluid"
-						src="${s}/img/libros.jpg" alt="">
-					</a>
-				</div>
-	
-	
-			</div>
-	
-			<div style="clear: both;"></div>
-	
-		</section>
+				
+			</c:forEach>
+
+		</div>
+
+		<div style="clear: both;"></div>
+
+	</section>
 	
 	</div>
 </c:forEach>

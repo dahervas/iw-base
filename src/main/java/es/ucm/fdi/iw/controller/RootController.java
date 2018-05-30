@@ -309,6 +309,14 @@ public class RootController {
 		return "profile";
 	}
 	
+	@GetMapping("/profile/{id}")
+	public String profileB(@PathVariable int id, Model model) {
+		model.addAttribute("usuario", entityManager
+				.createQuery("select u from User u where u.id = " + id).getResultList());
+		
+		return "profileB";
+	}
+	
 	@GetMapping("/logout")
 	public String logout() {
 		return "logout";
@@ -592,6 +600,36 @@ public class RootController {
 		return "profile";
 	}
 
+	/*AÑADIR UN PRODUCTO A UNA COLECCION*/ 
+	
+	@RequestMapping(value="productoColeccion", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("coleccion") String idColeccion,
+			@RequestParam("producto") String idProducto,
+    		Model m, HttpSession session){
+	
+		
+	Product p = entityManager.getReference(Product.class, idProducto);
+	Collection c = entityManager.getReference(Collection.class, idColeccion);
+	
+	List<Collection> listaColecciones = new ArrayList<>();
+	listaColecciones = p.getColecciones();
+	
+	List<Product> listaProductos = new ArrayList<>();
+	listaProductos = c.getProductos();
+	
+	listaColecciones.add(c);
+	listaProductos.add(p);
+	
+	entityManager.persist(c);
+	entityManager.persist(p);
+	
+	entityManager.flush();
+			
+		return "Todo genial";
+	}
+	
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	
 	private long verificacionUsuario(String name) {

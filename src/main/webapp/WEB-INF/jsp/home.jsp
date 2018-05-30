@@ -36,9 +36,55 @@
 				<div class="col-lg-3 col-md-4 col-xs-6">
 		          <a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
 		            <img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="" style="width: 300px; height: 200px;">
-		            ${p.nombre}
+		            ${p.nombre} 
 		          </a>
+		          <span class="glyphicon glyphicon-plus text-center"
+				aria-hidden="true" data-toggle="modal" data-target="#productoColeccion"></span>
 		        </div>
+		        
+		        <form action="productoColeccion" enctype="multipart/form-data"
+				method="post" class="form-horizontal">
+			        <!-- Modal para añadir a una coleccion un producto -->
+					<div class="modal fade" id="productoColeccion" tabindex="-1"
+						role="dialog" aria-labelledby="productoColeccion"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h2 class="modal-title" id="exampleModalLabel">Añadir a una colección:</h2>
+								</div>
+								<div class="modal-body">
+									<fieldset>
+    									<legend>Elige una colección</legend>
+									
+										<c:forEach items="${user.ownedCollections}" var="col">
+										    
+       										<label>
+         										<input type="radio" name="coleccion" value="${col.id}"> ${col.nombre}
+       										</label>
+										</c:forEach>
+									</fieldset>
+									
+									Lista con las colecciones del usuario conectado
+									
+									Los botones de abajo corresponderán a un formulario que aun no está hecho.
+	
+								</div>
+								
+								<div class="modal-footer">
+								<input tyep="hidden" name="producto" value="${p.id}" />
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Cerrar</button>
+								<button type="submit" class="btn btn-primary">Guardar
+									Cambios</button>
+								</div>
+	
+							</div>
+						</div>
+					</div>
+				</form>	        
+		        
 		    </c:forEach>
 		</c:if>
     </div>

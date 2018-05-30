@@ -24,12 +24,14 @@
             	<h3 class="propietario">
             		${i.propietario.id}
             		${user.id}
-            		<c:if test="${i.propietario.id eq user.id})">
-                   		Propietario: <a href="/profile">${i.propietario.login}</a>
-                   	</c:if>
-                   	<c:if test="${i.propietario.id ne user.id}">
-                   		Propietario: <a href="/user/${i.propietario.id}">${i.propietario.login}</a>
-                   	</c:if>
+            		<c:choose>
+						<c:when test="${i.propietario.id != user.id}">
+							Propietario: <a href="/profile/${i.propietario.id}"> ${i.propietario.id} </a>
+						</c:when>
+						<c:otherwise>
+							Propietario: <a href="/profile)"> ${user.id} </a>
+						</c:otherwise>
+					</c:choose>
                 </h3>
             	<div class="main-text hidden-xs">
 					<h1> ${i.nombre}</h1>
