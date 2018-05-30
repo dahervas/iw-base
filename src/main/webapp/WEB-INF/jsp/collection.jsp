@@ -22,8 +22,6 @@
         	<div class="col-md-12 fotoGuay" style="background-image: url('../collections/${i.imagenPrincipal.url}');"></div>
             <div class="col-md-12 alto">
             	<h3 class="propietario">
-            		${i.propietario.id}
-            		${user.id}
             		<c:choose>
 						<c:when test="${i.propietario.id != user.id}">
 							Propietario: <a href="/profile/${i.propietario.id}"> ${i.propietario.id} </a>
@@ -52,7 +50,8 @@
 
 					<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
 						<a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
-		            		<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="">
+		            		<img class="photo img-fluid img-thumbnail" src="../${p.imagenPrincipal.url}" alt="">
+		            		${p.nombre}
 						</a>
 					</div>
 					

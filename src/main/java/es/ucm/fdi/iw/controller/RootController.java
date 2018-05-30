@@ -609,9 +609,12 @@ public class RootController {
 			@RequestParam("producto") String idProducto,
     		Model m, HttpSession session){
 	
+	long coleccion = new Long(Long.parseLong(idColeccion));
+	long producto = new Long(Long.parseLong(idProducto));
+	
 		
-	Product p = entityManager.getReference(Product.class, idProducto);
-	Collection c = entityManager.getReference(Collection.class, idColeccion);
+	Product p = entityManager.getReference(Product.class, producto);
+	Collection c = entityManager.getReference(Collection.class, coleccion);
 	
 	List<Collection> listaColecciones = new ArrayList<>();
 	listaColecciones = p.getColecciones();
