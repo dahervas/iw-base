@@ -113,114 +113,29 @@
 
 		<div style="clear: both;"></div>
 		<div id="portfolio">
-
-
-
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid"
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-				<!-- 				<h3>Nombre producto</h3> -->
-
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/platos.jpg" alt="">
-				</a>
-			</div>
-
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid  "
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-			<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
-				<a href="#" class=" "> <img class="img-fluid"
-					src="${s}/img/libros.jpg" alt="">
-				</a>
-			</div>
-
+			<c:forEach var="p" items="${u.ownedProducts}">
+			
+				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
+					<a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
+		            	<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt=""
+		            	style="width: 300px; height: 200px">
+		            	${p.nombre}
+					</a>
+				</div>
+				
+			</c:forEach>
+				
+			<c:forEach var="c" items="${u.ownedCollections}">
+			
+				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm coleccion all">
+					<a href="/collection/${c.id}" class="d-block mb-4 h-100">
+		            	<img class="photo img-fluid img-thumbnail" src="../collections/${c.imagenPrincipal.url}" 
+		            	alt="" style="width: 300px; height:200px">
+		            	${c.nombre}
+					</a>
+				</div>
+				
+			</c:forEach>
 
 		</div>
 

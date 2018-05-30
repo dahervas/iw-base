@@ -20,6 +20,7 @@ public class User {
 	//private int puntuacion;
 	private byte enabled;
 	private List<Product> ownedProducts;
+	private List<Collection> ownedCollections;
 	
 	@Id
 	@GeneratedValue
@@ -83,6 +84,15 @@ public class User {
 
 	public void setOwnedProducts(List<Product> ownedProducts) {
 		this.ownedProducts = ownedProducts;
+	}
+
+	@OneToMany(targetEntity=Collection.class)
+	public List<Collection> getOwnedCollections() {
+		return ownedCollections;
+	}
+
+	public void setOwnedCollections(List<Collection> ownedCollections) {
+		this.ownedCollections = ownedCollections;
 	}
 
 	/*public int getPuntuacion() {

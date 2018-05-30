@@ -401,6 +401,10 @@ public class RootController {
     		HttpSession session,
     		Model m){
 		
+		User u = (User)session.getAttribute("user");
+		
+		User b = entityManager.getReference(User.class, u.getId());
+		
 		Collection c = new Collection();
 		
 		c.setDescripcion(descripcion);
@@ -434,6 +438,14 @@ public class RootController {
 		}
 		
 		entityManager.persist(c);
+		
+		List<Collection> lista = new ArrayList<>();
+		lista = b.getOwnedCollections();
+		lista.add(c);
+		
+		b.setOwnedCollections(lista);
+		
+		entityManager.persist(b);
 		
 		entityManager.flush();
 		m.addAttribute("ps", entityManager
@@ -647,6 +659,10 @@ public class RootController {
     		@RequestParam("descripcion") String descripcion,
     		Model m, HttpSession session){
 		
+		User u = (User)session.getAttribute("user");
+		
+		User b = entityManager.getReference(User.class, u.getId());
+				
 		Product p = new Product();
 		p.setCantidad(cantidad);
 		p.setDescripcion(descripcion);
@@ -679,12 +695,19 @@ public class RootController {
 			catch (Exception e) {}
 		}
 		
+		List<Product> lista = new ArrayList<>();
+		lista = b.getOwnedProducts();
+		lista.add(p);
+		
+		b.setOwnedProducts(lista);
+		
+		entityManager.persist(b);
 		entityManager.persist(p);
 		
 		entityManager.flush();
 		m.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		
-		return "";
+		return "home";
 	}
 }

@@ -20,7 +20,7 @@
     <div class="container">
 
       <div class="row text-center text-lg-left">
-		${user}
+		
 		<c:if test="${empty ps}">
 		    <div>
 			        <div class="text-center"><img src="/static/img/losiento.jpg"></div>
@@ -35,7 +35,7 @@
 			<c:forEach items="${ps}" var="p">
 				<div class="col-lg-3 col-md-4 col-xs-6">
 		          <a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
-		            <img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="">
+		            <img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="" style="width: 300px; height: 200px;">
 		            ${p.nombre}
 		          </a>
 		        </div>
