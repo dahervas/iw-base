@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<h1 class=" mb-0">
-			${user.login} <span class="glyphicon glyphicon-cog text-center"
+			${u.login} <span class="glyphicon glyphicon-cog text-center"
 				aria-hidden="true" data-toggle="modal" data-target="#modificaPerfil"></span>
 
 			<form action="addProfile" enctype="multipart/form-data"
