@@ -6,7 +6,7 @@
 
 <%@ include file="../jspf/header.jspf"%>
 
-<div class="starter-template">
+<div class="starter-template todoAlCentro">
 	<h1>Admin</h1>
 	<p class="lead">Información muy confidencial</p>
 

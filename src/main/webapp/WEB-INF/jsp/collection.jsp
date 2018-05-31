@@ -7,10 +7,10 @@
 <%@ include file="../jspf/header.jspf"%>
 
 
-<link href="/static/css/stars.css" rel = "stylesheet">
-<link href="/static/css/product.css" rel = "stylesheet">
-<link href="/static/css/carousel.css" rel = "stylesheet">
-<link href="/static/css/coment.css" rel = "stylesheet">
+<link href="${s}/css/stars.css" rel = "stylesheet">
+<link href="${s}/css/product.css" rel = "stylesheet">
+<link href="${s}/css/carousel.css" rel = "stylesheet">
+<link href="${s}/css/coment.css" rel = "stylesheet">
 
 <link href="${s}/css/coleccion.css" rel ="stylesheet">
  
@@ -27,7 +27,7 @@
 							Propietario: <a href="/profile/${i.propietario.id}"> ${i.propietario.id} </a>
 						</c:when>
 						<c:otherwise>
-							Propietario: <a href="/profile)"> ${user.id} </a>
+							Propietario: <a href="/profile"> ${user.id} </a>
 						</c:otherwise>
 					</c:choose>
                 </h3>

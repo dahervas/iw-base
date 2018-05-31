@@ -258,6 +258,15 @@ public class RootController {
 					.setParameter("login", principal.getName())
 					.getSingleResult()
 		);
+		
+		User usuario = (User)session.getAttribute("user");
+		
+		if(usuario.getRoles().contains("ADMIN")) {
+			return "redirect:admin/";
+		}
+		else if(usuario.getRoles().contains("MODER")) {
+			return "redirect:moder/";
+		}
 		log.info("welcoming back: " + principal.getName());
         log.info("Me gustaría encontrar el usuario: " + principal);
         log.info("El usaurio??? :" + session.getAttribute("user"));
@@ -286,7 +295,7 @@ public class RootController {
 	}
 	
 	@GetMapping("/messages")
-		public String chat(Model model, HttpServletRequest request) {
+	public String chat(Model model, HttpServletRequest request) {
 			model.addAttribute("endpoint", request.getRequestURL().toString()
 					.replaceFirst("[^:]*", "ws")
 					.replace("chat", "chatsocket"));
@@ -612,7 +621,7 @@ public class RootController {
 	
 	@RequestMapping(value="productoColeccion", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("coleccion") String idColeccion,
 			@RequestParam("producto") String idProducto,
     		Model m, HttpSession session){
@@ -630,15 +639,20 @@ public class RootController {
 	List<Product> listaProductos = new ArrayList<>();
 	listaProductos = c.getProductos();
 	
-	listaColecciones.add(c);
-	listaProductos.add(p);
+	if(!listaColecciones.contains(c)) {
+		listaColecciones.add(c);
+	}
+	if(!listaProductos.contains(p)) {
+		listaProductos.add(p);
+	}
+	
 	
 	entityManager.persist(c);
 	entityManager.persist(p);
 	
 	entityManager.flush();
 			
-		return "Todo genial";
+		return "redirect:/collection/" + coleccion;
 	}
 	
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
@@ -699,6 +713,7 @@ public class RootController {
 	    }
 	}
 
+	//AddProduct (inserta un nuevo producto)
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@Transactional
 	public String handleFileUpload(
@@ -757,6 +772,6 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		
-		return "home";
+		return "/product/" + p.getId();
 	}
 }

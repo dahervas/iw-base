@@ -11,6 +11,9 @@
 		document.write(${p.id});
 	}*/
 </script>
+
+
+	
 <div class="starter-template todoAlCentro">
 	<h1>TAMAA</h1>
 	<p class="lead">Kushiriki ni kuishi</p>
@@ -56,23 +59,16 @@
 								<div class="modal-body">
 									<fieldset>
     									<legend>Elige una colección</legend>
-									
 										<c:forEach items="${user.ownedCollections}" var="col">
-										    
-       										<label>
-         										<input type="radio" name="coleccion" value="${col.id}"> ${col.nombre}
-       										</label>
+	       									<label style="display: block;">
+	         									<input type="radio" name="coleccion" value="${col.id}"> ${col.nombre}
+	       									</label>
 										</c:forEach>
 									</fieldset>
-									
-									Lista con las colecciones del usuario conectado
-									
-									Los botones de abajo corresponderán a un formulario que aun no está hecho.
-	
 								</div>
 								
 								<div class="modal-footer">
-								<input tyep="hidden" name="producto" value="${p.id}" />
+								<input type="hidden" name="producto" value="${p.id}" />
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<button type="button" class="btn btn-secondary"
 									data-dismiss="modal">Cerrar</button>
