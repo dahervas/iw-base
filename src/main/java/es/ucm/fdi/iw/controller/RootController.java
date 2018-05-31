@@ -285,6 +285,14 @@ public class RootController {
 		return "login";
 	}
 	
+	@GetMapping("/messages")
+		public String chat(Model model, HttpServletRequest request) {
+			model.addAttribute("endpoint", request.getRequestURL().toString()
+					.replaceFirst("[^:]*", "ws")
+					.replace("chat", "chatsocket"));
+			return "messages";
+		}	
+	
 	/*@GetMapping("/home")
 	public String home(HttpServletRequest request,
 			Model model, HttpSession session, Principal principal) {
