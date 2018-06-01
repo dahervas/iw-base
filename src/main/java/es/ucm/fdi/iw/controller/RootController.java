@@ -41,6 +41,7 @@ import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.Valoration;
 
 @Controller	
 public class RootController {
@@ -65,7 +66,7 @@ public class RootController {
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
 		p.setDescripcion("Ejemplo de producto");
-		p.setEstrellitas(2);
+		//p.setEstrellitas(2);
 		p.setPrestado((byte)0);
 		p.setCantidad(2);
 		//entityManager.persist(p);
@@ -107,7 +108,7 @@ public class RootController {
 		p2.setCantidad(2);
 		p2.setNombre("Zuncho 2");
 		p2.setDescripcion("Ejemplo de producto");
-		p2.setEstrellitas(5);
+	//	p2.setEstrellitas(5);
 		p2.setPrestado((byte)0);
 		p2.setCantidad(3);
 		//entityManager.persist(p2);
@@ -527,6 +528,16 @@ public class RootController {
 			fotos.add(rutaNueva);
 		}
 		m.addAttribute("fotos", fotos);
+
+		
+		
+		String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
+		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
+		
+		String q ="select v.estrellitas from Valoration v where v.IdProduct =" + id;
+		m.addAttribute("estrellitas", entityManager.createQuery(q).getResultList());
+		
+
 		return "product";
 	}
 	
@@ -658,10 +669,10 @@ public class RootController {
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	
 	private long verificacionUsuario(String name) {
-		long id = 0;
-		
-		String query = "select id from User u where u.login = " + name;
-		if(query != null)
+		long id = 0;		
+
+		String query = "select u.id from User u where u.login = " + name;
+		if(query.length()>0)
 			id = new Long(Long.parseLong(query));
 			
 		return id;
@@ -686,6 +697,29 @@ public class RootController {
 			
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
+	
+	
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
+	@RequestMapping(value="addEvaluation", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("Estrellas")int cantidad,
+			@RequestParam("Id")String id,			
+			Model m) {
+		String quer = "select u.id from User u where u.id = " + id;		
+		
+		if(quer.length()>0 && (cantidad >=0 && cantidad <=5)) {
+			Valoration v = new Valoration();
+			v.setId(new Long(Long.parseLong(id)));
+			v.setEstrellitas(cantidad);
+			return "Valoración subida";
+		}
+		
+		return "Valoración no subida";
+	} 
+	
+	
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
 	
 	/*Muestra la foto de un producto*/ 
 
@@ -731,7 +765,7 @@ public class RootController {
 		p.setCantidad(cantidad);
 		p.setDescripcion(descripcion);
 		p.setNombre(nombre);
-		p.setPropietario((User)session.getAttribute("user"));
+		p.setPropietario(u.getId());
 		entityManager.persist(p);
 		entityManager.flush();
 		

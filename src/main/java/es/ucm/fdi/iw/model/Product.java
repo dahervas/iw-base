@@ -14,18 +14,18 @@ import javax.persistence.OneToOne;
 @Entity
 public class Product {
 	private long id;
-	private User propietario;
+	private long propietario; //id propietario
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
-	private int estrellitas; //del 0 al 5
+	private List<Valoration> estrellitas; //del 0 al 5
 	private int cantidad;
 	private Photo imagenPrincipal;
 	private List<Photo> fotos;
 	private List<Collection> colecciones;
 	private List<CommentProduct> comentarios;
 	
-	//idPropietario??
+	
 	
 	@Id
 	@GeneratedValue
@@ -38,11 +38,11 @@ public class Product {
 	}	
 
 	@ManyToOne(targetEntity=User.class)
-	public User getPropietario() {
+	public long getPropietario() {
 		return propietario;
 	}
 	
-	public void setPropietario(User u) {
+	public void setPropietario(long u) {
 		this.propietario = u;
 	}
 	public String getNombre() {
@@ -69,11 +69,12 @@ public class Product {
 		this.prestado = prestado;
 	}
 	
-	public int getEstrellitas() {
+	@OneToMany(targetEntity=Valoration.class)
+	public List<Valoration> getEstrellitas() {
 		return estrellitas;
 	}
 	
-	public void setEstrellitas(int estrellitas) {
+	public void setEstrellitas(List<Valoration> estrellitas) {
 		this.estrellitas = estrellitas;
 	}
 	

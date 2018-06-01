@@ -14,6 +14,7 @@
  
 <c:forEach var="i" items="${elementos}">
 
+
 <div class="todoAlCentro"> 
 <div class="container">
 <!-- Imagenes cabecera del producto -->
@@ -47,6 +48,33 @@
         <span class="sr-only">Next</span>
       </a>
 </div> 
+<!-- VALORACIÓN DEL PRODUCTO -->
+	<div id="wrapper"> 
+        <form action="addValoration" method="post">        	
+        	<p class="clasificacion" id="textoCentrado">
+        		<label>Valoración</label>
+        		<br>
+        		<input id="radio1" name="estrellas" value="5" type="radio">
+        		<label for="radio1"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio2" name="estrellas" value="4" type="radio">
+        		<label for="radio2"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio3" name="estrellas" value="3" type="radio">
+        		<label for="radio3"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio4" name="estrellas" value="2" type="radio">
+        		<label for="radio4"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        		
+        		<input id="radio5" name="estrellas" value="1" type="radio">
+        		<label for="radio5"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
+        	</p>        
+       </form>
+        	<p>
+        		<input type="submit" name="Valorar">
+        	</p>
+    </div>
+
 
 <!-- Menu de selección -->
   <ul class="nav nav-tabs">
@@ -151,7 +179,7 @@
           </div>            
       
   	</div>   	 
-  </div>
+ </div>
  
  <div id="img" class="tab-pane fade">
   		<h3>Imagenes:</h3>
@@ -171,9 +199,6 @@
 		</c:if>
  </div> 
 			
-			
-					
-</div>
 
 </c:forEach>
 <%@ include file="../jspf/footer.jspf"%>
