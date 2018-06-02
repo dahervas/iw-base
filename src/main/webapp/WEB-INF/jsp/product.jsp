@@ -71,11 +71,7 @@
         	</p>   
         	
         	<input type="hidden" name="id" value="${i.id}"/>  
-        	<p>
-        		<input type="submit" name="Valorar">
-        	</p>
        </form>
-        	
     </div>
 
 
@@ -101,28 +97,28 @@
   			<div class="todoAlCentro">
   				<fieldset>
   				<label>Descripción:</label>
-  					<p>{i.descripcion}</p>
+  					<p>${i.descripcion}</p>
   				</fieldset>
   				
   				</br>
   				
   				<fieldset>
   				<label>Valoración:</label>
-  					<p>{i.estrellitas}</p>
+  					<p>${i.estrellas}</p>
   				</fieldset>  
   				
   				</br>
   				
   				<fieldset>
   				<label>Cantidad del producto:</label>
-  					<p>{i.cantidad}</p>
+  					<p>${i.cantidad}</p>
   				</fieldset>			
   			</div>
   		</c:if>
   		
   	</div> 
   	
-  	<!-- <div id="coment" class="tab-pane fade">
+  	<div id="coment" class="tab-pane fade">
   		<fieldset>
   		<legend>Comentarios:</legend>
   			<div class="card my-6">
@@ -139,7 +135,7 @@
   						<c:forEach var = "c" items="${comentarios}">
     						<div class="card-block">
     							<!-- <h3>{c.autor}</h3>-->
-    							<!-- <p>{c.comment}</p>
+    							<p>${c.comment}</p>s
     							</br>
     						</div>
 						</c:forEach> 
@@ -149,45 +145,41 @@
   			</div>
   		</fieldset>
   		
-  	</div> -->
+  	</div> 
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
-  		<form action="addComment" method="post" class="form-horizontal" id="commentForm" role="form"> 
+  		<form action="addComment" enctype = "multipart/form-data" method="post" class="form-horizontal" > 
+        	<!-- Text area -->
           <div class="form-group">
              <label for="comment" class="col-sm-2 control-label">Comment</label>
              <div class="col-sm-10">
                <textarea class="form-control" name="Comment" id="Comment" rows="5" placeholder="Your Message"
                required data-validation-required-message ="Please enter your comment"></textarea>
-               <input id="IdUsuario" name="IdUsuario" class="form-control input-md" type="text">
              </div>
-          </div>
-          
-          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-          
+          </div>         
+          <!-- Text area -->
           <div class="form-group">
              <label for="usuario" class="col-sm-2 control-label">Destinatario</label>
               <div class="col-sm-10">
                <textarea class="form-control" name="Destinatario" id="Destinatario" rows="5" placeholder="Your Message"
                required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
-             
-            <div class="form-group">
-            	<div class="col-sm-offset-2 col-sm-10">                    
-            	  <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
-           		</div>
-         	</div>
+          </div>
+         
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+          <!-- Button -->
+          <div class="form-actions">
+          	<div class="col-sm-offset-2 col-sm-10">                    
+           	  <button class="btn" type="submit"> Enviar comentario</button>
+            </div>
          </div>
+         
         </form>
-   	</div>
-          <!-- <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">                    
-              <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
-            </div>-->
-          </div>            
+   	</div>                   
       
-  	</div>   	 
- </div>
+ </div>   	 
+ 
  
   <div id="img" class="tab-pane fade">
   		<h3>Imagenes:</h3>
@@ -207,7 +199,7 @@
 		</c:forEach>  		
 		</c:if>
  </div> 
-			
+</div>	
 
 </c:forEach>
 <%@ include file="../jspf/footer.jspf"%>
