@@ -18,7 +18,10 @@ public class Product {
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
-	private List<Valoration> estrellitas; //del 0 al 5
+	private int estrellas;
+	private int numValoraciones;
+	private int ultimaValoracion;
+	//private List<Valoration> estrellitas; //del 0 al 5
 	private int cantidad;
 	private Photo imagenPrincipal;
 	private List<Photo> fotos;
@@ -69,14 +72,14 @@ public class Product {
 		this.prestado = prestado;
 	}
 	
-	@OneToMany(targetEntity=Valoration.class)
+	/*@OneToMany(targetEntity=Valoration.class)
 	public List<Valoration> getEstrellitas() {
 		return estrellitas;
 	}
 	
 	public void setEstrellitas(List<Valoration> estrellitas) {
 		this.estrellitas = estrellitas;
-	}
+	}*/
 	
 	public int getCantidad() {
 		return cantidad;
@@ -119,5 +122,29 @@ public class Product {
 
 	public void setComentarios(List<CommentProduct> comentarios) {
 		this.comentarios = comentarios;
+	}
+
+	public int getEstrellas() {
+		return estrellas;
+	}
+
+	public void setEstrellas(int estrellas) {
+		this.estrellas = estrellas;
+	}
+
+	public int getNumValoraciones() {
+		return numValoraciones;
+	}
+
+	public void setNumValoraciones(int numValoraciones) {
+		this.numValoraciones = numValoraciones;
+	}
+
+	public int getUltimaValoracion() {
+		return ultimaValoracion;
+	}
+
+	public void setUltimaValoracion(int ultimaValoracion) {
+		this.ultimaValoracion = ultimaValoracion;
 	}
 }

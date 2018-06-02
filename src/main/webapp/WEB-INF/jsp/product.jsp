@@ -68,11 +68,14 @@
         		
         		<input id="radio5" name="estrellas" value="1" type="radio">
         		<label for="radio5"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        	</p>        
-       </form>
+        	</p>   
+        	
+        	<input type="hidden" name="id" value="${i.id}"/>  
         	<p>
         		<input type="submit" name="Valorar">
         	</p>
+       </form>
+        	
     </div>
 
 
@@ -150,7 +153,7 @@
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
-  		<form action="addComment" method="post" class="form-horizontal" id="commentForm" role="form"> <!-- Hacer la funcion addComment -->
+  		<form action="addComment" method="post" class="form-horizontal" id="commentForm" role="form"> 
           <div class="form-group">
              <label for="comment" class="col-sm-2 control-label">Comment</label>
              <div class="col-sm-10">
@@ -159,23 +162,28 @@
                <input id="IdUsuario" name="IdUsuario" class="form-control input-md" type="text">
              </div>
           </div>
+          
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+          
           <div class="form-group">
              <label for="usuario" class="col-sm-2 control-label">Destinatario</label>
               <div class="col-sm-10">
                <textarea class="form-control" name="Destinatario" id="Destinatario" rows="5" placeholder="Your Message"
                required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
-             <div class="col-sm-10">
-               <textarea class="form-control" name="Sender" id="Sender" rows="5" placeholder="Your Message"
-               required data-validation-required-message ="Please enter your comment"></textarea>
-             </div>
-          </div>
+             
+            <div class="form-group">
+            	<div class="col-sm-offset-2 col-sm-10">                    
+            	  <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
+           		</div>
+         	</div>
+         </div>
         </form>
    	</div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">                    
               <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment"><span class="glyphicon glyphicon-send"></span> Summit comment</button>
-            </div>
+            </div>-->
           </div>            
       
   	</div>   	 

@@ -66,7 +66,7 @@ public class RootController {
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
 		p.setDescripcion("Ejemplo de producto");
-		//p.setEstrellitas(2);
+		p.setEstrellas(2);
 		p.setPrestado((byte)0);
 		p.setCantidad(2);
 		//entityManager.persist(p);
@@ -108,7 +108,7 @@ public class RootController {
 		p2.setCantidad(2);
 		p2.setNombre("Zuncho 2");
 		p2.setDescripcion("Ejemplo de producto");
-	//	p2.setEstrellitas(5);
+		p2.setEstrellas(5);
 		p2.setPrestado((byte)0);
 		p2.setCantidad(3);
 		//entityManager.persist(p2);
@@ -680,17 +680,18 @@ public class RootController {
 	
 	@RequestMapping(value="addComment", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public @ResponseBody String handleFileUpload1(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
-			@RequestParam("Sender")String id,
-			Model m) {
-		long usu, destinatario;
+			Model m, HttpSession session) {
+		long  destinatario;
 		CommentProduct cp = new CommentProduct();
 		
-		if((destinatario = verificacionUsuario(dest)) != 0 && (usu = verificacionUsuario(id)) != 0) {
+		User u = (User)session.getAttribute("user");
+		
+		if((destinatario = verificacionUsuario(dest)) != 0) {
 			cp.setIdAddressee(destinatario);
-			cp.setIdSender(usu);
+			cp.setIdSender(u.getId());
 			cp.setComment(comentario);
 			return "Comentario subido";
 		}else return "No se registro el comentario";
@@ -704,13 +705,13 @@ public class RootController {
 	@Transactional
 	public @ResponseBody String handleFileUpload(
 			@RequestParam("Estrellas")int cantidad,
-			@RequestParam("Id")String id,			
+			@RequestParam("id")long id,			
 			Model m) {
 		String quer = "select u.id from User u where u.id = " + id;		
 		
 		if(quer.length()>0 && (cantidad >=0 && cantidad <=5)) {
 			Valoration v = new Valoration();
-			v.setId(new Long(Long.parseLong(id)));
+			v.setId(id);
 			v.setEstrellitas(cantidad);
 			return "Valoración subida";
 		}
