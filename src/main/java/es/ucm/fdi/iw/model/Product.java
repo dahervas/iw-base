@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,7 +13,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Product {
 	private long id;
-	private long propietario; //id propietario
+	private User propietario; //propietario
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
@@ -41,11 +40,11 @@ public class Product {
 	}	
 
 	@ManyToOne(targetEntity=User.class)
-	public long getPropietario() {
+	public User getPropietario() {
 		return propietario;
 	}
 	
-	public void setPropietario(long u) {
+	public void setPropietario(User u) {
 		this.propietario = u;
 	}
 	public String getNombre() {

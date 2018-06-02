@@ -122,7 +122,7 @@
   		
   	</div> 
   	
-  	<div id="coment" class="tab-pane fade">
+  	<!-- <div id="coment" class="tab-pane fade">
   		<fieldset>
   		<legend>Comentarios:</legend>
   			<div class="card my-6">
@@ -139,7 +139,7 @@
   						<c:forEach var = "c" items="${comentarios}">
     						<div class="card-block">
     							<!-- <h3>{c.autor}</h3>-->
-    							<p>{c.comment}</p>
+    							<!-- <p>{c.comment}</p>
     							</br>
     						</div>
 						</c:forEach> 
@@ -149,7 +149,7 @@
   			</div>
   		</fieldset>
   		
-  	</div> 
+  	</div> -->
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
@@ -189,7 +189,7 @@
   	</div>   	 
  </div>
  
- <div id="img" class="tab-pane fade">
+  <div id="img" class="tab-pane fade">
   		<h3>Imagenes:</h3>
   		
   		<c:if test="${empty fotos}">
@@ -201,7 +201,8 @@
   		<c:if test="${not empty fotos}">
   		<c:forEach var = "f" items="${fotos}">
     		<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
-    			<img src="../photo${f}" class="photo img-responsive" alt="200x200">
+    			<img src="../photo${f}" class="photo" alt="200x200">
+    			
     		</div>
 		</c:forEach>  		
 		</c:if>
