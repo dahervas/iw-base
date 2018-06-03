@@ -27,15 +27,15 @@
       </ul>
      <div class="carousel-inner">     
    		 <div class="carousel-item active">
-     		<!-- <img src="/static/img/losiento.jpg" alt="First slide">-->
+     		 <img src="/static/img/losiento.jpg" alt="First slide">
    		 </div>
    		 
    		 <div class="carousel-item">
-    		<!--  <img src="/static/img/losiento.jpg" alt="Second slide">-->
+    		 <img src="/static/img/losiento.jpg" alt="Second slide">
     	</div>
     	
    		<div class="carousel-item">
-    		 <!-- <img src="/static/img/losiento.jpg" alt="Third slide">-->
+    		  <img src="/static/img/losiento.jpg" alt="Third slide">
   	 	</div>  	 	
  	 </div>
  	 
@@ -89,7 +89,7 @@
   		<p>Informacion sobre el producto</p>
   		
   		<c:if test="${empty elementos }">
-  			<div class="tect-center">
+  			<div class="text-center">
   				<h3>No hay información del producto</h3>
   			</div>  		
   		</c:if>
@@ -149,7 +149,7 @@
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
-  		<form action="addComment" enctype = "multipart/form-data" method="post" class="form-horizontal" > 
+  		<form action="addComment"  enctype="multipart/form-data" method="post" class="form-horizontal" > 
         	<!-- Text area -->
           <div class="form-group">
              <label for="comment" class="col-sm-2 control-label">Comment</label>
@@ -176,29 +176,33 @@
          </div>
          
         </form>
-   	</div>                   
+   	</div>     
+   	
+   	<div id="img" class="tab-pane fade">
+  		<fieldset>
+  		<legend>Imagenes</legend>
+  		<div class="card my-6">
+  			<c:if test="${empty fotos}">
+  				<div class="text-center">
+  					<p>Todavía no hay ninguna foto del producto</p>
+  				</div>
+  			</c:if>
+  		
+  			<c:if test="${not empty fotos}">
+  			<c:forEach var = "f" items="${fotos}">
+    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
+    				<img src="../photo${f}" class="photo img-responsive" alt="200x200">    			
+    			</div>
+			</c:forEach>  		
+			</c:if>
+		</div>
+		</fieldset>
+ 	</div>               
       
  </div>   	 
  
  
-  <div id="img" class="tab-pane fade">
-  		<h3>Imagenes:</h3>
-  		
-  		<c:if test="${empty fotos}">
-  			<div class="text-center">
-  				<p>Todavía no hay ninguna foto del producto</p>
-  			</div>
-  		</c:if>
-  		
-  		<c:if test="${not empty fotos}">
-  		<c:forEach var = "f" items="${fotos}">
-    		<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
-    			<img src="../photo${f}" class="photo" alt="200x200">
-    			
-    		</div>
-		</c:forEach>  		
-		</c:if>
- </div> 
+  
 </div>	
 
 </c:forEach>

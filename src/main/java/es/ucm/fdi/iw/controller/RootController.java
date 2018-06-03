@@ -556,6 +556,11 @@ public class RootController {
 		return "nuevoProducto";
 	}
 	
+	///EJEMPLO NO TENER EN CUENTA
+	@GetMapping("/EjemploCarrousel")
+	public String EjemploCarrousel() {
+		return "EjemploCarrousel";
+	}
 	
 	private int calculaHash(byte[] fichero) {
 		return new Random().nextInt(100000);
