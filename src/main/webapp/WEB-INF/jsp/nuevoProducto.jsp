@@ -27,9 +27,15 @@
 			
 			<!-- File Button --> 
 			<div class="form-group">
-			  <label class="col-md-4 control-label" for="imagenes">Subir imágenes del producto</label>
+			  <label class="col-md-4 control-label" for="imagenes">Subir imagen principal del producto</label>
 			  <div class="col-md-4">
 			    <input id="imagenes" name="photo" class="input-file" type="file">
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="imagenes">Más imágenes</label>
+			  <div class="col-md-4">
+			    <input id="imagenes2" name="imagenes" class="input-file" type="file" multiple>
 			  </div>
 			</div>
 			

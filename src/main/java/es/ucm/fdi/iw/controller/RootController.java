@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+//import com.sun.mail.handlers.handler_base;
+
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.CommentProduct;
@@ -41,7 +43,7 @@ import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
 import es.ucm.fdi.iw.model.User;
-import es.ucm.fdi.iw.model.Valoration;
+//import es.ucm.fdi.iw.model.Valoration;
 
 @Controller	
 public class RootController {
@@ -66,7 +68,7 @@ public class RootController {
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
 		p.setDescripcion("Ejemplo de producto");
-		p.setEstrellas(2);
+		//p.setEstrellas(2);
 		p.setPrestado((byte)0);
 		p.setCantidad(2);
 		//entityManager.persist(p);
@@ -108,7 +110,7 @@ public class RootController {
 		p2.setCantidad(2);
 		p2.setNombre("Zuncho 2");
 		p2.setDescripcion("Ejemplo de producto");
-		p2.setEstrellas(5);
+		//p2.setEstrellas(5);
 		p2.setPrestado((byte)0);
 		p2.setCantidad(3);
 		//entityManager.persist(p2);
@@ -417,6 +419,7 @@ public class RootController {
 		return "nuevaColeccion";
 	}
 
+	/*Añadir coleccion*/
 	@RequestMapping(value="addCollection", method=RequestMethod.POST)
 	@Transactional
 	public String handleFileUpload(
@@ -529,13 +532,20 @@ public class RootController {
 		}
 		m.addAttribute("fotos", fotos);
 
+		//Para poder obtener los comentarios de un producto
 		
 		
-		String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
+		
+		String qu = "select cp from CommentProduct cp where cp.id =" + id;
+		
+		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
+		m.addAttribute("comentarios", result);
+		
+		/*String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
 		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
 		
 		String q ="select v.estrellitas from Valoration v where v.IdProduct =" + id;
-		m.addAttribute("estrellitas", entityManager.createQuery(q).getResultList());
+		m.addAttribute("estrellitas", entityManager.createQuery(q).getResultList());*/
 		
 
 		return "product";
@@ -667,60 +677,56 @@ public class RootController {
 	}
 	
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
-	
-	private long verificacionUsuario(String name) {
-		long id = 0;		
-
-		String query = "select u.id from User u where u.login = " + name;
-		if(query.length()>0)
-			id = new Long(Long.parseLong(query));
-			
-		return id;
-	}
-	
+		
 	@RequestMapping(value="addComment", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload1(
+	public void handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
-			Model m, HttpSession session) {
-		long  destinatario;
+			HttpSession session) {
+	;
 		CommentProduct cp = new CommentProduct();
 		
 		User u = (User)session.getAttribute("user");
 		
-		if((destinatario = verificacionUsuario(dest)) != 0) {
-			cp.setIdAddressee(destinatario);
-			cp.setIdSender(u.getId());
-			cp.setComment(comentario);
-			return "Comentario subido";
-		}else return "No se registro el comentario";
-			
+		String query = "select u.id from User u where u.login = " + dest;
+		
+		long destinatario = new Long(Long.parseLong(query));		
+		
+		cp.setIdAddressee(destinatario);
+		cp.setIdSender(u);
+		cp.setComment(comentario);
+		entityManager.persist(cp);
+		entityManager.flush();				
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	
 	
-	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*
 	@RequestMapping(value="addEvaluation", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
-			@RequestParam("Estrellas")int cantidad,
+			@RequestParam("Estrellas")int valoracion,
 			@RequestParam("id")long id,			
 			Model m) {
-		String quer = "select u.id from User u where u.id = " + id;		
+		int valora;
+		float punt;
 		
-		if(quer.length()>0 && (cantidad >=0 && cantidad <=5)) {
-			Valoration v = new Valoration();
-			v.setId(id);
-			v.setEstrellitas(cantidad);
+		Product p = (Product)entityManager.createQuery("select * from Product p where p.id = " + id);				
+		
+		if((valoracion >=0 && valoracion <=5)) {
+			punt = p.getEstrellas();
+			valora = p.getNumValoraciones();
+			valora +=1;
+			float result = (punt + valoracion)/valora ;
+			p.setEstrellas(result);			
 			return "Valoración subida";
-		}
-		
+		}		
 		return "Valoración no subida";
-	} 
+	} */
 	
 	
-	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*/	
 	
 	/*Muestra la foto de un producto*/ 
 
@@ -753,20 +759,25 @@ public class RootController {
 	@Transactional
 	public String handleFileUpload(
 			@RequestParam("photo") MultipartFile photo,
+			@RequestParam("imagnes") MultipartFile[] fotos,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("cantidadProducto") int cantidad,
     		@RequestParam("descripcion") String descripcion,
     		Model m, HttpSession session){
+		log.info("he entrado en el metodo");
+		log.info("" + fotos);
 		
 		User u = (User)session.getAttribute("user");
 		
 		User b = entityManager.getReference(User.class, u.getId());
-				
+		
+		log.info("Usuario b: " + b.getId());
+		
 		Product p = new Product();
 		p.setCantidad(cantidad);
 		p.setDescripcion(descripcion);
 		p.setNombre(nombre);
-		p.setPropietario(u.getId());
+		p.setPropietario(b);
 		entityManager.persist(p);
 		entityManager.flush();
 		
@@ -794,6 +805,38 @@ public class RootController {
 			catch (Exception e) {}
 		}
 		
+		List<Photo> listaFotos = new ArrayList<>();
+		
+		if(fotos.length > 0) {
+			for(int i = 0; i< fotos.length; i++) {
+				try {
+					byte[] bytes = fotos[i].getBytes();
+					
+					long hash2 = calculaHash(bytes);
+					BufferedOutputStream stream = 
+							new BufferedOutputStream(
+									new FileOutputStream(
+											localData.getFile("product/" + p.getId(), "/"+hash2)));
+					stream.write(bytes);
+					stream.close();
+					
+					Photo t = new Photo();
+					
+					t.setIdExterno(p);
+					String ruta = "photo/" + p.getId() + "/" + hash2;
+					
+					t.setUrl(ruta);
+					entityManager.persist(t);
+					
+					listaFotos.add(t);
+				}
+				catch(Exception e) {}
+			}
+		}
+		if(!listaFotos.isEmpty()) {
+			p.setFotos(listaFotos);
+		}
+		
 		List<Product> lista = new ArrayList<>();
 		lista = b.getOwnedProducts();
 		lista.add(p);
@@ -807,6 +850,6 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select p from Product p").getResultList());
 		
-		return "/product/" + p.getId();
+		return "redirect:/product/" + p.getId();
 	}
 }
