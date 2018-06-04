@@ -299,7 +299,7 @@ public class RootController {
 	public String chat(Model model, HttpServletRequest request) {
 			model.addAttribute("endpoint", request.getRequestURL().toString()
 					.replaceFirst("[^:]*", "ws")
-					.replace("chat", "chatsocket"));
+					.replace("messages", "chatsocket"));
 			return "messages";
 		}	
 	
