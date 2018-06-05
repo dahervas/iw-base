@@ -328,10 +328,19 @@ public class RootController {
 	}
 	
 	@GetMapping("/profile/{id}")
-	public String profileB(@PathVariable int id, Model model) {
+	public String profileB(@PathVariable int id, Model model, HttpSession session) {
 		model.addAttribute("usuario", entityManager
 				.createQuery("select u from User u where u.id = " + id).getResultList());
 		
+		User usuario = (User)session.getAttribute("user");
+		long idUsuario = usuario.getId();
+		
+		log.info(idUsuario + ", " + id);
+		if(idUsuario == id) {
+			log.info("Devuelvo profile");
+			return "redirect:/profile/";
+		}
+		log.info("Devuelvo profileB");		
 		return "profileB";
 	}
 	
@@ -721,7 +730,35 @@ public class RootController {
 	} */
 	
 	
-	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
+	/*AÑADIR VALORACIÓN A UN Usuario*/
+	@RequestMapping(value="profile/addValoracionUsuario", method=RequestMethod.POST)
+	@Transactional
+	public /*@ResponseBody*/ String valoracionUsuario(
+			@RequestParam("estrellas") int estrellas,
+			@RequestParam("id") long id,
+    		HttpSession session,
+    		Model m){
+		
+		User b = entityManager.getReference(User.class, id);
+		
+		int votosAntiguos = b.getVotos();
+		int sumaAntigua = b.getSuma();
+		
+		int sumaNueva = sumaAntigua + estrellas;
+		int votosNuevos = votosAntiguos + 1;
+		
+		int estrellasNuevas = sumaNueva/votosNuevos;
+		
+		b.setVotos(votosNuevos);
+		b.setEstrellas(estrellasNuevas);
+		b.setSuma(sumaNueva);
+		
+		log.info("Votos: " + b.getVotos() + "\n Estrellas: " + b.getEstrellas() + "\n Suma: " + b.getSuma());
+		entityManager.persist(b);
+		entityManager.flush();
+				
+		return "redirect:/profile/" + id;
+	}
 	
 	/*Muestra la foto de un producto*/ 
 

@@ -7,9 +7,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +56,12 @@ public class ModeradorController {
 
 	@GetMapping({"", "/"})
 	public String root(Model m) {
-		m.addAttribute("users", entityManager
-				.createQuery("select u from User u").getResultList());
+		m.addAttribute("productos", entityManager
+				.createQuery("select p from Product p").getResultList());
+		m.addAttribute("colecciones", entityManager
+				.createQuery("select c from Collection c").getResultList());
 		
-		return "admin";	
+		return "moder";	
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)

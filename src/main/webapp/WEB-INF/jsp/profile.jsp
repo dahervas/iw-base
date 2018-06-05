@@ -11,9 +11,18 @@
 <link href="/static/css/profile.css" rel="stylesheet">
 <div class="todoAlCentro">
 	<div class="row text-center text-lg-left ">
-		<img class="img-fluid mb-5 d-block mx-auto text-center"
-			id="fotoperfil" src="${u.fotoPerfil.url}" data-toggle="modal"
-			data-target="#exampleModal" alt="">
+		<c:choose>
+			<c:when test="${empty u.fotoPerfil.url}">
+				<img class="img-fluid mb-5 d-block mx-auto text-center"
+				id="fotoperfil" src="../user/${u.id}/0" data-toggle="modal"
+				data-target="#exampleModal" alt="">
+			</c:when>
+			<c:otherwise>
+				<img class="img-fluid mb-5 d-block mx-auto text-center"
+				id="fotoperfil" src="../${u.fotoPerfil.url}" data-toggle="modal"
+				data-target="#exampleModal" alt="">
+			</c:otherwise>
+		</c:choose>
 		<!-- Modal de la foto de perfil-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,7 +126,7 @@
 			
 				<div class="col-lg-3 col-md-15 col-xs-6 tile scale-anm producto all">
 					<a href="/product/${p.id}" onClick = "aProdcuto(${p})" class="d-block mb-4 h-100">
-		            	<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt=""
+		            	<img class="photo img-fluid img-thumbnail" src="../${p.imagenPrincipal.url}" alt=""
 		            	style="width: 300px; height: 200px">
 		            	${p.nombre}
 					</a>
