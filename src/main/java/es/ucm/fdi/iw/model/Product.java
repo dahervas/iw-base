@@ -17,7 +17,7 @@ public class Product {
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
-	private int estrellas;
+	private float estrellas;
 	private int numValoraciones;
 	private int ultimaValoracion;
 	//private List<Valoration> estrellitas; //del 0 al 5
@@ -124,12 +124,12 @@ public class Product {
 		this.comentarios = comentarios;
 	}
 
-	public int getEstrellas() {
+	public float getEstrellas() {
 		return estrellas;
 	}
 
-	public void setEstrellas(int estrellas) {
-		this.estrellas = estrellas;
+	public void setEstrellas(float result) {
+		this.estrellas = result;
 	}
 
 	public int getNumValoraciones() {

@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+//import com.sun.mail.handlers.handler_base;
+
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.CommentProduct;
@@ -299,7 +301,7 @@ public class RootController {
 	public String chat(Model model, HttpServletRequest request) {
 			model.addAttribute("endpoint", request.getRequestURL().toString()
 					.replaceFirst("[^:]*", "ws")
-					.replace("chat", "chatsocket"));
+					.replace("messages", "chatsocket"));
 			return "messages";
 		}	
 	
@@ -539,7 +541,14 @@ public class RootController {
 		}
 		m.addAttribute("fotos", fotos);
 
+		//Para poder obtener los comentarios de un producto
 		
+		
+		
+		String qu = "select cp from CommentProduct cp where cp.id =" + id;
+		
+		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
+		m.addAttribute("comentarios", result);
 		
 		/*String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
 		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
@@ -677,55 +686,51 @@ public class RootController {
 	}
 	
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
-	
-	private long verificacionUsuario(String name) {
-		long id = 0;		
-
-		String query = "select u.id from User u where u.login = " + name;
-		if(query.length()>0)
-			id = new Long(Long.parseLong(query));
-			
-		return id;
-	}
-	
+		
 	@RequestMapping(value="addComment", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload1(
+	public void handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
-			Model m, HttpSession session) {
-		long  destinatario;
+			HttpSession session) {
+	;
 		CommentProduct cp = new CommentProduct();
 		
 		User u = (User)session.getAttribute("user");
 		
-		if((destinatario = verificacionUsuario(dest)) != 0) {
-			cp.setIdAddressee(destinatario);
-			cp.setIdSender(u.getId());
-			cp.setComment(comentario);
-			return "Comentario subido";
-		}else return "No se registro el comentario";
-			
+		String query = "select u.id from User u where u.login = " + dest;
+		
+		long destinatario = new Long(Long.parseLong(query));		
+		
+		cp.setIdAddressee(destinatario);
+		cp.setIdSender(u);
+		cp.setComment(comentario);
+		entityManager.persist(cp);
+		entityManager.flush();				
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	
 	
-	/*AÑADIR VALORACIÓN A UN PRODUCTO
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*
 	@RequestMapping(value="addEvaluation", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
-			@RequestParam("Estrellas")int cantidad,
+			@RequestParam("Estrellas")int valoracion,
 			@RequestParam("id")long id,			
 			Model m) {
-		String quer = "select u.id from User u where u.id = " + id;		
+		int valora;
+		float punt;
 		
-		if(quer.length()>0 && (cantidad >=0 && cantidad <=5)) {
-			Valoration v = new Valoration();
-			v.setId(id);
-			v.setEstrellitas(cantidad);
+		Product p = (Product)entityManager.createQuery("select * from Product p where p.id = " + id);				
+		
+		if((valoracion >=0 && valoracion <=5)) {
+			punt = p.getEstrellas();
+			valora = p.getNumValoraciones();
+			valora +=1;
+			float result = (punt + valoracion)/valora ;
+			p.setEstrellas(result);			
 			return "Valoración subida";
-		}
-		
+		}		
 		return "Valoración no subida";
 	} */
 	
@@ -759,6 +764,9 @@ public class RootController {
 				
 		return "redirect:/profile/" + id;
 	}
+
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*/	
+
 	
 	/*Muestra la foto de un producto*/ 
 
