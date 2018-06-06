@@ -39,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.CommentProduct;
+import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
@@ -298,11 +299,19 @@ public class RootController {
 	}
 	
 	@GetMapping("/messages")
-	public String chat(Model model, HttpServletRequest request) {
-			model.addAttribute("endpoint", request.getRequestURL().toString()
-					.replaceFirst("[^:]*", "ws")
-					.replace("messages", "chatsocket"));
-			return "messages";
+	public String chat(Model model, HttpServletRequest request, Principal principal) {			
+					
+		model.addAttribute("sentMessages", 
+				entityManager.createQuery("select m from Message where idSender =:login", User.class)
+					.setParameter("login", principal.getName())
+					.getResultList());
+		
+		model.addAttribute("receivedMessages", 
+				entityManager.createQuery("select ms from Message where idAdresser =:login", User.class)
+					.setParameter("login", principal.getName())
+					.getResultList());
+		
+		return "chat";
 		}	
 	
 	/*@GetMapping("/home")
@@ -587,6 +596,25 @@ public class RootController {
 	    }
 	}
 
+	
+	/*ENVIAR MENSAJE*/
+	
+	@RequestMapping(value="sendMessage", method=RequestMethod.POST)
+	@Transactional
+	public String handleFileUpload(
+			@RequestParam("destinatario") String destinatario,
+			@RequestParam("mensaje") String mensaje,
+    		Model m){
+		
+		Message ms = new Message();
+		User u = entityManager.getReference(User.class, destinatario);
+		ms.setIdAddressee(u.getId());
+		ms.setmessage(mensaje);
+		entityManager.persist(ms);
+		entityManager.flush();
+		
+		return "message";
+	}
 
 	
 	/*AÑADIR FOTO DE PERFIL*/ 
