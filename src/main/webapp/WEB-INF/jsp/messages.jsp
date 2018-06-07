@@ -20,7 +20,7 @@
 						</tr>
 						
 						<tr>
-			            	<td>"${receivedMessages.idSender}"</td>
+			                <td>${receivedMessages.idAddressee} </td>
 			            	<td> ${receivedMessages.message} </td>
 			            	<td>" .$msn['Fecha'] ."</td>
 		            	</tr>
@@ -65,49 +65,17 @@
 					<h2 class="título_mensajes"> Mensajes Enviados </h2>
 					<table class="table table-hover font">
 						<tr>
-							<th> Usuario </th>
-							<th> Asunto </th>
+							<th> Para </th>
 							<th> Mensaje </th>
 							<th> Fecha </th>
 						</tr>
-						<?php
 						
-						$db = @mysqli_connect('localhost','root','','bd_melomanos');
-						if ($db) {
-
-				            /*
-				            echo 'Conexión realizada correctamente.<br />';
-				            echo 'Información sobre el servidor: ',
-				            mysqli_get_host_info($db),'<br />';
-				            echo 'Versión del servidor: ',
-				            mysqli_get_server_info($db),'<br />'; */
-
-				            $user = $_SESSION["user_name"];
-
-				            $sql="SELECT Destinatario,Asunto,Contenido,ID_MS,Fecha FROM mensaje WHERE Remitente = '$user'and Destinatario != 'NULL' ORDER BY ID_MS DESC ";
-				            $consulta = mysqli_query($db, $sql);
-				            
-				            while ( $msn = mysqli_fetch_assoc($consulta) ) {
-				            	
-				            	echo '<tr class="warning">';
-				            	echo "<td>" .$msn['Destinatario'] ."</td>";
-				            	echo "<td>" .$msn['Asunto'] . "</td>";
-				            	echo "<td>" .$msn['Contenido'] ."</td>";
-				            	echo "<td>" .$msn['Fecha'] ."</td>";
-				            	echo '</tr>';
-				            	
-							}
-
-						}
-						else {	
-							printf(
-								'Error %d: %s.<br />',
-								mysqli_connect_errno(),mysqli_connect_error());
-						}
-
-  						@mysqli_close($db);	
-
-						?>
+						<tr>
+			            	<td> ${sentMessages.idSender}</td>
+			            	<td> ${sentMessages.message} </td>
+			            	<td>" .$msn['Fecha'] ."</td>
+		            	</tr>
+		            	
 					</table>
 				</div>
 			</div>
