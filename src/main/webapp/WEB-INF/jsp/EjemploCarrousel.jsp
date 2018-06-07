@@ -20,24 +20,24 @@
 		</ol>
 		
 		<div class="carousel-inner">
-			<div class="item active">
-				<img alt="" src="/static/img/losiento.jpg" style="width:100%;">
+			<div class="carousel-item active">
+				<img class="first-slide" alt="First slide" src="/static/img/losiento.jpg" style="width:100%;">
 			</div>
-			<div class="item">
-				<img alt="" src="/static/img/losiento.jpg" style="width:100%;">
+			<div class="carousel-item">
+				<img class="second-slide" alt="Second slide" src="/static/img/losiento.jpg" style="width:100%;">
 			</div>
-			<div class="item">
-				<img alt="" src="/static/img/losiento.jpg" style="width:100%;">
+			<div class="carousel-item">
+				<img class="third-slide" alt="Third slide" src="/static/img/losiento.jpg" style="width:100%;">
 			</div>
 		</div>
 		
-		<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left"></span>
+		<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
 			<span class="sr-only">Previous</span>
 		</a>
 		
-		<a class="right carousel-control" href="#myCarousel" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-right"></span>
+		<a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+			<span class="carousel-control-next-icon"></span>
 			<span class="sr-only">Next</span>
 		</a>
 	</div>

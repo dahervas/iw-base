@@ -689,7 +689,7 @@ public class RootController {
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
 			HttpSession session) {
-	;
+	
 		CommentProduct cp = new CommentProduct();
 		
 		User u = (User)session.getAttribute("user");
@@ -701,6 +701,7 @@ public class RootController {
 		cp.setIdAddressee(destinatario);
 		cp.setIdSender(u);
 		cp.setComment(comentario);
+		
 		entityManager.persist(cp);
 		entityManager.flush();				
 	}

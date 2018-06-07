@@ -149,7 +149,7 @@
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
-  		<form action="addComment"  enctype="multipart/form-data" method="post" class="form-horizontal" > 
+  		<form action="addComment" enctype="multipart/form-data" method="post" class="form-horizontal" > 
         	<!-- Text area -->
           <div class="form-group">
              <label for="comment" class="col-sm-2 control-label">Comment</label>
