@@ -299,19 +299,15 @@ public class RootController {
 	}
 	
 	@GetMapping("/messages")
-	public String chat(Model model, HttpServletRequest request, Principal principal) {			
-					
+	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
+		User u = (User)session.getAttribute("user");
 		model.addAttribute("sentMessages", 
-				entityManager.createQuery("select m from Message where idSender =:login", User.class)
-					.setParameter("login", principal.getName())
-					.getResultList());
-		
+				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList());
 		model.addAttribute("receivedMessages", 
-				entityManager.createQuery("select ms from Message where idAdresser =:login", User.class)
-					.setParameter("login", principal.getName())
-					.getResultList());
+				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
+	
 		
-		return "chat";
+		return "messages";
 		}	
 	
 	/*@GetMapping("/home")
