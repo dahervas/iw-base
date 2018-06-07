@@ -39,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
 import es.ucm.fdi.iw.model.CommentProduct;
+import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Photo;
 import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
@@ -298,11 +299,19 @@ public class RootController {
 	}
 	
 	@GetMapping("/messages")
-	public String chat(Model model, HttpServletRequest request) {
-			model.addAttribute("endpoint", request.getRequestURL().toString()
-					.replaceFirst("[^:]*", "ws")
-					.replace("chat", "chatsocket"));
-			return "messages";
+	public String chat(Model model, HttpServletRequest request, Principal principal) {			
+					
+		model.addAttribute("sentMessages", 
+				entityManager.createQuery("select m from Message where idSender =:login", User.class)
+					.setParameter("login", principal.getName())
+					.getResultList());
+		
+		model.addAttribute("receivedMessages", 
+				entityManager.createQuery("select ms from Message where idAdresser =:login", User.class)
+					.setParameter("login", principal.getName())
+					.getResultList());
+		
+		return "chat";
 		}	
 	
 	/*@GetMapping("/home")
@@ -330,10 +339,19 @@ public class RootController {
 	}
 	
 	@GetMapping("/profile/{id}")
-	public String profileB(@PathVariable int id, Model model) {
+	public String profileB(@PathVariable int id, Model model, HttpSession session) {
 		model.addAttribute("usuario", entityManager
 				.createQuery("select u from User u where u.id = " + id).getResultList());
 		
+		User usuario = (User)session.getAttribute("user");
+		long idUsuario = usuario.getId();
+		
+		log.info(idUsuario + ", " + id);
+		if(idUsuario == id) {
+			log.info("Devuelvo profile");
+			return "redirect:/profile/";
+		}
+		log.info("Devuelvo profileB");		
 		return "profileB";
 	}
 	
@@ -592,6 +610,25 @@ public class RootController {
 	    }
 	}
 
+	
+	/*ENVIAR MENSAJE*/
+	
+	@RequestMapping(value="sendMessage", method=RequestMethod.POST)
+	@Transactional
+	public String handleFileUpload(
+			@RequestParam("destinatario") String destinatario,
+			@RequestParam("mensaje") String mensaje,
+    		Model m){
+		
+		Message ms = new Message();
+		User u = entityManager.getReference(User.class, destinatario);
+		ms.setIdAddressee(u.getId());
+		ms.setmessage(mensaje);
+		entityManager.persist(ms);
+		entityManager.flush();
+		
+		return "message";
+	}
 
 	
 	/*AÑADIR FOTO DE PERFIL*/ 
@@ -732,7 +769,38 @@ public class RootController {
 	} */
 	
 	
+	/*AÑADIR VALORACIÓN A UN Usuario*/
+	@RequestMapping(value="profile/addValoracionUsuario", method=RequestMethod.POST)
+	@Transactional
+	public /*@ResponseBody*/ String valoracionUsuario(
+			@RequestParam("estrellas") int estrellas,
+			@RequestParam("id") long id,
+    		HttpSession session,
+    		Model m){
+		
+		User b = entityManager.getReference(User.class, id);
+		
+		int votosAntiguos = b.getVotos();
+		int sumaAntigua = b.getSuma();
+		
+		int sumaNueva = sumaAntigua + estrellas;
+		int votosNuevos = votosAntiguos + 1;
+		
+		int estrellasNuevas = sumaNueva/votosNuevos;
+		
+		b.setVotos(votosNuevos);
+		b.setEstrellas(estrellasNuevas);
+		b.setSuma(sumaNueva);
+		
+		log.info("Votos: " + b.getVotos() + "\n Estrellas: " + b.getEstrellas() + "\n Suma: " + b.getSuma());
+		entityManager.persist(b);
+		entityManager.flush();
+				
+		return "redirect:/profile/" + id;
+	}
+
 	/*AÑADIR VALORACIÓN A UN PRODUCTO*/	
+
 	
 	/*Muestra la foto de un producto*/ 
 

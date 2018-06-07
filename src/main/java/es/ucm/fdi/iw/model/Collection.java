@@ -19,6 +19,7 @@ public class Collection {
 	private String descripcion;
 	private PhotoCollection imagenPrincipal;
 	private List<Product> productos;
+	private boolean revisado;
 	
 	//idPropietario??
 	
@@ -72,5 +73,13 @@ public class Collection {
 
 	public void setProductos(List<Product> productos) {
 		this.productos = productos;
+	}
+
+	public boolean isRevisado() {
+		return revisado;
+	}
+
+	public void setRevisado(boolean revisado) {
+		this.revisado = revisado;
 	}
 }

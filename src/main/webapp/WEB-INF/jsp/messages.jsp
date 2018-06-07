@@ -6,34 +6,113 @@
 
 <%@ include file="../jspf/header.jspf"%>
 
-<script>
-window.onload = function() {
-	// code in here will only be executed when page fully loaded
-	console.log("entered into chat");
-	
-	var socket = new WebSocket("${endpoint}");
-	$("#escrito").submit(function (e) {
-		var t = $("#texto").val();
-		socket.send(t);
-		$("#texto").val("");
-		e.preventDefault(); // avoid actual submit
-	});
-	socket.onmessage = function(e) {
-		var ta = $("#recibido");
-		ta.val(ta.val() + '\n' + e.data);
-	}
-}
-</script>
+<link href="/static/css/messages.css" rel="stylesheet">
+<div class="cotenido todoAlCentro">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12">
+					<h2 class="título_mensajes"> Mensajes Recibidos </h2>
+					<table class="table table-hover font">
+						<tr>
+							<th> Usuario </th>
+							<th> Mensaje </th>
+							<th> Fecha </th>
+						</tr>
+						
+						<tr>
+			            	<td>"${receivedMessages.idSender}"</td>
+			            	<td> ${receivedMessages.message} </td>
+			            	<td>" .$msn['Fecha'] ."</td>
+		            	</tr>
+		            	
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-2 col-sm-2 col-xs-2">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn" data-toggle="modal" data-target="#myModal">Escribir Mensaje Privado</button>
 
-<div class="starter-template">
-	<h1>Chat</h1>
-	<p class="lead">Ejemplo de uso de websockets</p>
+					<!-- Modal -->
+					<form action="sendMessage" enctype="multipart/form-data"
+				method="post" class="form-horizontal">
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Nuevo Mensaje</h4>
+									</div>
+									<div class="modal-body">
+										<div>Destinatario </div>
+										<input class="form-control" type="text" name="destinatario">
+										<br>
+										<textarea name="mensaje" class="form-control" rows="3"></textarea>              
+									</div>
+									<div class="modal-footer">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+										<input type="submit" class="btn btn-primary" value="Enviar"></input>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12">
+					<h2 class="título_mensajes"> Mensajes Enviados </h2>
+					<table class="table table-hover font">
+						<tr>
+							<th> Usuario </th>
+							<th> Asunto </th>
+							<th> Mensaje </th>
+							<th> Fecha </th>
+						</tr>
+						<?php
+						
+						$db = @mysqli_connect('localhost','root','','bd_melomanos');
+						if ($db) {
 
-	<textarea id="recibido" cols="80" rows="10">
-	</textarea>
-	<form id="escrito">
-	<input id="texto" size="80" placeholder="escribe algo y pulsa enter para enviarlo"/>
-	</form>
+				            /*
+				            echo 'Conexión realizada correctamente.<br />';
+				            echo 'Información sobre el servidor: ',
+				            mysqli_get_host_info($db),'<br />';
+				            echo 'Versión del servidor: ',
+				            mysqli_get_server_info($db),'<br />'; */
+
+				            $user = $_SESSION["user_name"];
+
+				            $sql="SELECT Destinatario,Asunto,Contenido,ID_MS,Fecha FROM mensaje WHERE Remitente = '$user'and Destinatario != 'NULL' ORDER BY ID_MS DESC ";
+				            $consulta = mysqli_query($db, $sql);
+				            
+				            while ( $msn = mysqli_fetch_assoc($consulta) ) {
+				            	
+				            	echo '<tr class="warning">';
+				            	echo "<td>" .$msn['Destinatario'] ."</td>";
+				            	echo "<td>" .$msn['Asunto'] . "</td>";
+				            	echo "<td>" .$msn['Contenido'] ."</td>";
+				            	echo "<td>" .$msn['Fecha'] ."</td>";
+				            	echo '</tr>';
+				            	
+							}
+
+						}
+						else {	
+							printf(
+								'Error %d: %s.<br />',
+								mysqli_connect_errno(),mysqli_connect_error());
+						}
+
+  						@mysqli_close($db);	
+
+						?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <%@ include file="../jspf/footer.jspf"%>

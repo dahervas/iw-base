@@ -26,6 +26,7 @@ public class Product {
 	private List<Photo> fotos;
 	private List<Collection> colecciones;
 	private List<CommentProduct> comentarios;
+	private boolean revisado;
 	
 	
 	
@@ -145,5 +146,13 @@ public class Product {
 
 	public void setUltimaValoracion(int ultimaValoracion) {
 		this.ultimaValoracion = ultimaValoracion;
+	}
+
+	public boolean isRevisado() {
+		return revisado;
+	}
+
+	public void setRevisado(boolean revisado) {
+		this.revisado = revisado;
 	}
 }

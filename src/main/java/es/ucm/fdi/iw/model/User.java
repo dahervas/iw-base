@@ -21,6 +21,9 @@ public class User {
 	private byte enabled;
 	private List<Product> ownedProducts;
 	private List<Collection> ownedCollections;
+	private int estrellas;
+	private int votos;
+	private int suma;
 	
 	@Id
 	@GeneratedValue
@@ -67,7 +70,7 @@ public class User {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-
+	
 	public byte getEnabled() {
 		return enabled;
 	}
@@ -93,6 +96,30 @@ public class User {
 
 	public void setOwnedCollections(List<Collection> ownedCollections) {
 		this.ownedCollections = ownedCollections;
+	}
+
+	public int getEstrellas() {
+		return estrellas;
+	}
+
+	public void setEstrellas(int estrellas) {
+		this.estrellas = estrellas;
+	}
+
+	public int getVotos() {
+		return votos;
+	}
+
+	public void setVotos(int votos) {
+		this.votos = votos;
+	}
+
+	public int getSuma() {
+		return suma;
+	}
+
+	public void setSuma(int suma) {
+		this.suma = suma;
 	}
 
 	/*public int getPuntuacion() {
