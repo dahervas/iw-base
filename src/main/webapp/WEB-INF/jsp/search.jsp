@@ -45,45 +45,24 @@ function showProducts() {
 			
 			</div>
 			
-			<div class="row"><div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+			<div class="row"><div style="overflow:scroll; width: 110px; height: 110px;" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
-<div class="panel panel-default panel-table">
-    <div class="panel-heading">
-        <div class="tr">
-            <div class="td">Productos</div>
-            <div class="td">Descripcion</div>
-            <div class="td">Usuarios</div>
-        </div>
-    </div>
-    <div class="panel-body">
-        <div class="tr">
-            <div class="td">
+
+      
 	            <c:forEach var="p" items="${products}">
-					<tr>
-						<td><a href="../product/${p.id}">${p.nombre}</a></td>
-					</tr>
+					
+						<a href="../product/${p.id}" >${p.nombre}</a>
+							<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="" style="width: 400px; height: 300px;">
+						
+					
 				</c:forEach>
-			</div>
-            <div class="td">
-            	
-            </div>
-            <div class="td">
+
+      
             	<c:forEach var="u" items = "${users}">
-            		<tr>
-						<td><a href="../profile/${u.id}">${u.login}</a></td>
-					</tr>
+            	
+						<a href="../profile/${u.id}">${u.login}</a>
+			
 				</c:forEach>
-            </div>
-        </div>
-    </div>
-    <div class="panel-footer">
-        <div class="tr">
-            <div class="td">NO VOY A DEJAR UNA TABLA</div>
-            <div class="td">NO VOY A DEJAR UNA TABLA</div>
-            <div class="td">NO VOY A DEJAR UNA TABLA</div>
-        </div>
-    </div>
-</div>
 
 </div></div>
 		<!--  <table>	
