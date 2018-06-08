@@ -257,25 +257,29 @@ public class RootController {
 	@GetMapping({"/", "/index", "/home"})
 	public String root(HttpServletRequest request,
 			Model model, HttpSession session, Principal principal) {
-		session.setAttribute("user", 
-				entityManager.createQuery("from User where login = :login", User.class)
-					.setParameter("login", principal.getName())
-					.getSingleResult()
-		);
-		
-		User usuario = (User)session.getAttribute("user");
-		
-		if(usuario.getRoles().contains("ADMIN")) {
-			return "redirect:admin/";
+		if (principal != null) {		
+			session.setAttribute("user", 
+					entityManager.createQuery("from User where login = :login", User.class)
+						.setParameter("login", principal.getName())
+						.getSingleResult()
+			);
+
+			User usuario = (User)session.getAttribute("user");
+			
+			if(usuario.getRoles().contains("ADMIN")) {
+				return "redirect:admin/";
+			}
+			else if(usuario.getRoles().contains("MODER")) {
+				return "redirect:moder/";
+			}
+			log.info("welcoming back: " + principal.getName());
+	        log.info("Me gustaría encontrar el usuario: " + principal);
+	        log.info("El usaurio??? :" + session.getAttribute("user"));
+			log.info(principal.getName() + " de tipo " + principal.getClass());		
+		} else {
+			log.info("Bienvenido, Anónimo!");
 		}
-		else if(usuario.getRoles().contains("MODER")) {
-			return "redirect:moder/";
-		}
-		log.info("welcoming back: " + principal.getName());
-        log.info("Me gustaría encontrar el usuario: " + principal);
-        log.info("El usaurio??? :" + session.getAttribute("user"));
-		log.info(principal.getName() + " de tipo " + principal.getClass());		
-		// org.springframework.security.core.userdetails.User
+			// org.springframework.security.core.userdetails.User
 		/*model.addAttribute("users", entityManager
 				.createQuery("select u from User u").getResultList()); */
 		model.addAttribute("ps", entityManager
@@ -299,19 +303,26 @@ public class RootController {
 	}
 	
 	@GetMapping("/messages")
-	public String chat(Model model, HttpServletRequest request, Principal principal) {			
-					
+	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
+		User u = (User)session.getAttribute("user");
 		model.addAttribute("sentMessages", 
-				entityManager.createQuery("select m from Message where idSender =:login", User.class)
+
+				entityManager.createQuery("select m from Message m where idSender =:login", User.class)
 					.setParameter("login", principal.getName())
 					.getResultList());
 		
 		model.addAttribute("receivedMessages", 
-				entityManager.createQuery("select ms from Message where idAdresser =:login", User.class)
+				entityManager.createQuery("select ms from Message ms where idAdresser =:login", User.class)
 					.setParameter("login", principal.getName())
 					.getResultList());
+
+				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList());
+		model.addAttribute("receivedMessages", 
+				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
+	
+
 		
-		return "chat";
+		return "messages";
 		}	
 	
 	/*@GetMapping("/home")
@@ -375,17 +386,17 @@ public class RootController {
 	//	model.addAttribute("productsDesc", entityManager.
 			//	createQuery(query2).getResultList());
 		List<String> result = (List<String>)entityManager.
-				createQuery("SELECT u.login FROM User u WHERE u.login"
+				createQuery("SELECT u FROM User u WHERE u.login"
 						+ " LIKE CONCAT('%',:login,'%')")
 				.setParameter("login", busqueda).getResultList();
 		model.addAttribute("users", result);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
 		List<String> result2 = (List<String>)entityManager.
-				createQuery("SELECT DISTINCT p.nombre FROM Product p WHERE p.nombre"
+				createQuery("SELECT p FROM Product p WHERE p.nombre"
 						+ " LIKE CONCAT('%',:prod,'%')")
 				.setParameter("prod", busqueda).getResultList();
-		model.addAttribute("productsNombre", result2);
+		model.addAttribute("products", result2);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
 		
 		/*List<String> result3 = (List<String>)entityManager.

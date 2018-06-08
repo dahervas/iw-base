@@ -1,0 +1,14 @@
+.casillaModerador {
+	width: 20%;
+	text-align: center;
+}
+
+.tablaModerador{
+	width: 100%;
+	margin-top: 36px;
+}
+
+#botonBorrar {
+	float: right;
+	margin-right: 27px;
+}
