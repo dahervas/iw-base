@@ -114,7 +114,8 @@
 				<button class="btn fil-cat" data-rel="all">Todo</button>
 				<button class="btn fil-cat" data-rel="producto">Productos</button>
 				<button class="btn fil-cat" data-rel="coleccion">Colecciones</button>
-				<button class="btn btn-success" onclick="window.location.href='nuevoProducto'" >Añadir producto</button>
+				<button class="btn fil-cat" onclick="window.location.href='nuevoProducto'" >Añadir producto</button>
+				<button class="btn fil-cat" onclick="window.location.href='nuevaColeccion'" >Crear Colección</button>
 			</div>
 		</div>
 

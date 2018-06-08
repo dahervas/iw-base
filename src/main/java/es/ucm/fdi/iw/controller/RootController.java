@@ -622,14 +622,18 @@ public class RootController {
 	
 	@RequestMapping(value="sendMessage", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload(
+	public String handleFileUpload2(
 			@RequestParam("destinatario") String destinatario,
 			@RequestParam("mensaje") String mensaje,
-    		Model m){
+    		Model m, HttpSession session){
 		
 		Message ms = new Message();
-		User u = entityManager.getReference(User.class, destinatario);
-		ms.setIdAddressee(u.getId());
+		String query = "select u.id from User u where u.login = " + destinatario;
+		
+		long dest = new Long(Long.parseLong(query));	
+		User s = (User)session.getAttribute("user");
+		ms.setIdAddressee(dest);
+		ms.setIdSender(s.getId());
 		ms.setmessage(mensaje);
 		entityManager.persist(ms);
 		entityManager.flush();
