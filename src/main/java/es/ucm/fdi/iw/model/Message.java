@@ -9,8 +9,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Message {
 	private long idMessage;
-	private long idSender;   //Id del usuario que envía el mensaje
-	private long idAddressee;	//id del usuario que recibe el mensaje
+	private User sender;   //Id del usuario que envía el mensaje
+	private User addressee;	//id del usuario que recibe el mensaje
 	private String message;
 	
 	
@@ -34,21 +34,21 @@ public class Message {
 	
 	
 	@ManyToOne(targetEntity=User.class)
-	public long getIdSender() {
-		return idSender;
+	public User getIdSender() {
+		return sender;
 	}
 
-	public void setIdSender(long idSender) {
-		this.idSender = idSender;
+	public void setIdSender(User idSender) {
+		this.sender = idSender;
 	}
 	
 	@ManyToOne(targetEntity=User.class)
-	public long getIdAddressee() {
-		return idAddressee;
+	public User getIdAddressee() {
+		return addressee;
 	}
 
-	public void setIdAddressee(long idAddressee) {
-		this.idAddressee = idAddressee;
+	public void setIdAddressee(User idAddressee) {
+		this.addressee = idAddressee;
 	}
 	
 }
