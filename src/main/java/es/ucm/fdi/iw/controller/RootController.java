@@ -305,7 +305,7 @@ public class RootController {
 	@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
 		User u = (User)session.getAttribute("user");
-		model.addAttribute("sentMessages", 
+		/*model.addAttribute("sentMessages", 
 
 				entityManager.createQuery("select m from Message m where idSender =:login", User.class)
 					.setParameter("login", principal.getName())
@@ -314,9 +314,9 @@ public class RootController {
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select ms from Message ms where idAdresser =:login", User.class)
 					.setParameter("login", principal.getName())
-					.getResultList());
+					.getResultList());*/
 
-				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList());
+				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
 	
@@ -389,6 +389,7 @@ public class RootController {
 				createQuery("SELECT u FROM User u WHERE u.login"
 						+ " LIKE CONCAT('%',:login,'%')")
 				.setParameter("login", busqueda).getResultList();
+		
 		model.addAttribute("users", result);
 		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
