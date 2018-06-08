@@ -297,9 +297,9 @@ public class RootController {
 		return "login";
 	}
 	
-	@GetMapping("/messages")
+	/*@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
-		User u = (User)session.getAttribute("user");
+		User u = (User)session.getAttribute("user");*/
 		/*model.addAttribute("sentMessages", 
 
 				entityManager.createQuery("select m from Message m where idSender =:login", User.class)
@@ -311,7 +311,7 @@ public class RootController {
 					.setParameter("login", principal.getName())
 					.getResultList());*/
 
-				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
+				/*entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
 	
@@ -552,6 +552,9 @@ public class RootController {
 		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
 		m.addAttribute("comentarios", result);
 		
+		String quer = "select u from User u where u.id = " + id;
+		m.addAttribute("usuario", entityManager.createQuery(quer).getResultList());
+		
 		/*String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
 		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
 		
@@ -731,7 +734,7 @@ public class RootController {
 		
 	@RequestMapping(value="product/addComment", method=RequestMethod.POST)
 	@Transactional
-	public void handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
 			HttpSession session,
@@ -741,33 +744,36 @@ public class RootController {
 		
 		User user = (User)session.getAttribute("user");
 		
-		User u = entityManager.getReference(User.class, dest);
+		String query = "select u.id from User u where u.login = " + dest;
 		
-		/*String query = "select u.id from User u where u.login = " + dest;
+		long desti = new Long(Long.parseLong(query));		
 		
-		long destinatario = new Long(Long.parseLong(query));		
-		*/
-		cp.setIdAddressee(u.getId());
+		cp.setIdAddressee(desti);
 		cp.setIdSender(user);
 		cp.setComment(comentario);
 		
 		entityManager.persist(cp);
-		entityManager.flush();				
+		entityManager.flush();		
+		
+		return "subido";
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
+			@RequestParam("cantidad")int cantidad,
 			@RequestParam("id")long id,	
 			HttpSession session,
 			Model m) {
-		User user = (User)session.getAttribute("user");
 		Product p = entityManager.getReference(Product.class, id);
 		byte prest =1;
 		int cant = p.getCantidad();
 		
-		p.setPrestado(prest);
-		p.setCantidad(cant-1);
+		if(cantidad > 0 && cantidad <=cant) {
+			p.setPrestado(prest);
+			p.setCantidad(cant-cantidad);
+			
+		}else  return "cantidad incorrecta";
 		
 		entityManager.persist(p);
 		entityManager.flush();
@@ -797,12 +803,12 @@ public class RootController {
 		p.setEstrellas(estrellasNuevas);
 		p.setSuma(sumaNueva);
 		
-		//log.info("Votos: " + b.getVotos() + "\n Estrellas: " + b.getEstrellas() + "\n Suma: " + b.getSuma());
+		log.info("Votos: " + p.getVotos() + "\n Estrellas: " + p.getEstrellas() + "\n Suma: " + p.getSuma());
 		entityManager.persist(p);
 		entityManager.flush();
 		
-		//return "redirect:/product/" + id;
-		return "añadido";
+		return "redirect:/product/" + id;
+		//return "añadido";
 	}
 	
 	/*AÑADIR VALORACIÓN A UN Usuario*/
