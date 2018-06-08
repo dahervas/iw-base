@@ -632,18 +632,30 @@ public class RootController {
 			@RequestParam("mensaje") String mensaje,
     		Model m, HttpSession session){
 		
-		Message ms = new Message();
-		String query = "select u.id from User u where u.login = " + destinatario;
+		String query = "select u from User u where u.login = '" + destinatario + "'";
 		
-		long dest = new Long(Long.parseLong(query));	
-		User s = (User)session.getAttribute("user");
+		User dest = (User) entityManager.createQuery(query).getSingleResult();	
+		
+		log.info("Destinatario:" + dest);
+		
+		User s = new User();
+		s= (User)session.getAttribute("user");
+		
+		Message ms = new Message();
+		
 		ms.setIdAddressee(dest);
-		ms.setIdSender(s.getId());
+		log.info("ms: " + ms);
+		
+		ms.setIdSender(s);
+		log.info("ms: " + ms);
+		
 		ms.setmessage(mensaje);
+		log.info("ms: " + ms);
+		
 		entityManager.persist(ms);
 		entityManager.flush();
 		
-		return "message";
+		return "messages";
 	}
 
 	
