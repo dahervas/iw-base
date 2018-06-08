@@ -64,7 +64,6 @@ public class RootController {
     	
 	public void insertarProductosYColecciones() {
 		
-		
 		Product p = new Product();
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
@@ -248,12 +247,8 @@ public class RootController {
 		entityManager.persist(p);
 		entityManager.persist(p2);
 	
-		
-
-
 	}
 		
-
 	@GetMapping({"/", "/index", "/home"})
 	public String root(HttpServletRequest request,
 			Model model, HttpSession session, Principal principal) {
@@ -324,21 +319,7 @@ public class RootController {
 		
 		return "messages";
 		}
-	
-	/*@GetMapping("/home")
-	public String home(HttpServletRequest request,
-			Model model, HttpSession session, Principal principal) {
-        session.setAttribute("user", 
-                entityManager.createQuery("from User where login = :login", User.class)
-                    .setParameter("login", principal.getName())
-                    .getSingleResult()
-        );
-        log.info("welcoming back: " + principal.getName());
-        log.info("Me gustaría encontrar el usuario: " + principal);
-        log.info("El usaurio??? :" + session.getAttribute("user"));
-		return "home";
-	}*/
-	
+		
 	@GetMapping("/profile")
 	public String profile(Model model, HttpSession session) {
 		User u = (User)session.getAttribute("user");
@@ -452,7 +433,7 @@ public class RootController {
 	/*Añadir coleccion*/
 	@RequestMapping(value="addCollection", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload(
+	public String addCollection(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("descripcion") String descripcion,
@@ -510,7 +491,7 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select c from Collection c").getResultList());
 		
-		return "profile";
+		return "redirect:collection/"+ c.getId();
 	}
 	
 	/**
@@ -627,7 +608,7 @@ public class RootController {
 	
 	@RequestMapping(value="sendMessage", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload2(
+	public String sendMessage(
 			@RequestParam("destinatario") String destinatario,
 			@RequestParam("mensaje") String mensaje,
     		Model m, HttpSession session){
