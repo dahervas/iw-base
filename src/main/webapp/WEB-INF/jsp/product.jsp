@@ -15,20 +15,19 @@
  
 <c:forEach var="i" items="${elementos}">
 
-
-
 <div class="todoAlCentro"> 
 <div class="container">
 <!-- Imagenes cabecera del producto -->
 <!-- -->
 	<div class="btn-pedir">
-		<c:if test="${i.cantidad > 0 && i.prestado ==1 }">
+		<c:if test="${i.cantidad > 0 && i.prestado <= 1 }">
 			<form action="prestado" method="post">
 				<input type="hidden" name="id" value="${i.id}"/>
 				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<button class="btn" type="submit"> Tomar prestado</button>
 			</form>
 		</c:if>
+		</br>
 		<!-- Boton de borrar el action puesto de forma provisional -->
 		<c:if test="${i.propietario.id == u.id}">
 			<form action="borrar" method="post">
@@ -37,23 +36,24 @@
 			</form>
 		</c:if>
 	</div> 
+	</br>
 	<div class="row text-center">
 		<div class="col-lg-4">
 			<c:choose>
 			<c:when test="${empty fotos}">
 				<img class="img-fluid mb-5 d-block mx-auto text-center"
-				 src="/static/img/losiento.jpg" alt="Generic placeholder image">			
+				  alt="Generic placeholder image">			
 			</c:when>
 			<c:otherwise>
 				<img class="img-fluid mb-5 d-block mx-auto text-center"
-				 src="/static/img/losiento.jpg" alt="Generic placeholder image">	
+				 src="${p.imagenPrincipal.url}" alt="Generic placeholder image">	
 						
 			</c:otherwise>
 			</c:choose>
 			</br>
 			<p>${i.nombre}</p>
-			<c:if test="${i.cantidad == 0 && i.prestado ==1}">
-				<i class="fa fa-lock"></i>
+			<c:if test="${i.cantidad == 0}">
+				<i class="fa fa-home"></i>
 			</c:if>
 		</div>	
 	</div>

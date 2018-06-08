@@ -738,7 +738,7 @@ public class RootController {
 		
 	@RequestMapping(value="product/addComment", method=RequestMethod.POST)
 	@Transactional
-	public void handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
 			HttpSession session,
@@ -748,18 +748,18 @@ public class RootController {
 		
 		User user = (User)session.getAttribute("user");
 		
-		User u = entityManager.getReference(User.class, dest);
+		String query = "select u.id from User u where u.login = " + dest;
 		
-		/*String query = "select u.id from User u where u.login = " + dest;
+		long desti = new Long(Long.parseLong(query));		
 		
-		long destinatario = new Long(Long.parseLong(query));		
-		*/
-		cp.setIdAddressee(u.getId());
+		cp.setIdAddressee(desti);
 		cp.setIdSender(user);
 		cp.setComment(comentario);
 		
 		entityManager.persist(cp);
-		entityManager.flush();				
+		entityManager.flush();		
+		
+		return "subido";
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
