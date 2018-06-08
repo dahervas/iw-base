@@ -302,9 +302,9 @@ public class RootController {
 		return "login";
 	}
 	
-	@GetMapping("/messages")
+	/*@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
-		User u = (User)session.getAttribute("user");
+		User u = (User)session.getAttribute("user");*/
 		/*model.addAttribute("sentMessages", 
 
 				entityManager.createQuery("select m from Message m where idSender =:login", User.class)

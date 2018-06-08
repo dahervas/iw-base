@@ -9,8 +9,8 @@
 
 <link href="/static/css/stars.css" rel = "stylesheet">
 <link href="/static/css/product.css" rel = "stylesheet">
-<link href="/static/css/carousel.css" rel = "stylesheet">
 <link href="/static/css/coment.css" rel = "stylesheet">
+<link href="/static/css/profile.css" rel="stylesheet">
 
  
 <c:forEach var="i" items="${elementos}">
@@ -37,16 +37,16 @@
 		</c:if>
 	</div> 
 	</br>
-	<div class="row text-center">
+	<div class="row text-center text-lg-left ">
 		<div class="col-lg-4">
 			<c:choose>
 			<c:when test="${empty fotos}">
-				<img class="img-fluid mb-5 d-block mx-auto text-center"
-				  alt="Generic placeholder image">			
+				<img class="img-fluid mb-5 d-block mx-auto text-center"  src="${i.imagenPrincipal.url}"
+				  id="fotoperfil" data-toggle="modal" data-target="#exampleModal">			
 			</c:when>
 			<c:otherwise>
 				<img class="img-fluid mb-5 d-block mx-auto text-center"
-				 src="${p.imagenPrincipal.url}" alt="Generic placeholder image">	
+				 src="${i.imagenPrincipal.url}" id="fotoperfil" data-toggle="modal" data-target="#exampleModal">	
 						
 			</c:otherwise>
 			</c:choose>
