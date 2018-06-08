@@ -35,15 +35,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Collection;
+import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Photo;
+import es.ucm.fdi.iw.model.PhotoCollection;
 import es.ucm.fdi.iw.model.Product;
 import es.ucm.fdi.iw.model.User;
+
+import es.ucm.fdi.iw.controller.RootController;
 
 @Controller	
 @RequestMapping("moder")
 public class ModeradorController {
 	
 	private static Logger log = Logger.getLogger(ModeradorController.class);
+	
+	private RootController rootController = new RootController();
 	
 	@Autowired
 	private LocalData localData;
@@ -69,37 +75,127 @@ public class ModeradorController {
 		return "moder";	
 	}
 
-	@RequestMapping(value = "/rechazarProducto", method = RequestMethod.POST)
+	@RequestMapping(value = "/rechazar", method = RequestMethod.POST)
 	@Transactional
-	public String addUser(
-			@RequestParam("usuario") String cliente, 
-			@RequestParam("producto") String producto, 
+	public String rechazar(
+			@RequestParam("usuario") String usuario, 
+			@RequestParam("eliminar") String eliminar,
+			@RequestParam("tipo") String tipo,
 			Model m, HttpSession session) {
 		
-		long idCliente = Long.parseLong(cliente);
-		long idProducto = Long.parseLong(producto);
+		long idUsuario = Long.parseLong(usuario);
+		long idEliminar = Long.parseLong(eliminar);
 		
-		log.info("idCliente: " + idCliente + "\n idProducto: " + idProducto);
-		//User u = (User)session.getAttribute("user");
-		
-		User b = entityManager.getReference(User.class, idCliente);
-		Product p = entityManager.getReference(Product.class, idProducto);
-		
-		if(p.getPropietario() != null) {
-			b.getOwnedProducts().remove(p);
-			entityManager.persist(b);
+		User b = entityManager.getReference(User.class, idUsuario);
+		if(tipo.equals("coleccion")) {
+			Collection c = entityManager.getReference(Collection.class, idEliminar);
+			
+			if(c.getPropietario() != null) {
+				b.getOwnedCollections().remove(c);
+				entityManager.persist(b);
+			}
+			if(c.getImagenPrincipal() != null) {
+				PhotoCollection f = entityManager.getReference(PhotoCollection.class, c.getImagenPrincipal().getId());
+				f.setIdExterno(null);
+				entityManager.persist(f);
+			}
+			for(Product p: c.getProductos()) {
+				if(p.getColecciones().contains(c)) {
+					p.getColecciones().remove(c);
+					entityManager.persist(p);
+				}
+			}
+			String mensaje = "Hola altruista. \nEstá genial compartir con todos pero tu coleccion " + c.getNombre() + 
+					" no es adecuado para la web. \nEsperemos que la próxima colección que crees sea adecuada." + 
+					"\nUn saludo, el equipo de Tamaa :)";
+			
+					
+			User s = new User();
+			s= (User)session.getAttribute("user");
+			
+			Message ms = new Message();
+			
+			ms.setIdAddressee(b);			
+			ms.setIdSender(s);			
+			ms.setmessage(mensaje);
+			
+			entityManager.persist(ms);
+			entityManager.flush();
+			
+			entityManager.remove(c);
 		}
-		for	(Photo a : p.getFotos()) {
-			a.setIdExterno(null);
-			entityManager.persist(a);
+		else if(tipo.equals("producto")){
+			Product p = entityManager.getReference(Product.class, idEliminar);
+			
+			if(p.getPropietario() != null) {
+				b.getOwnedProducts().remove(p);
+				entityManager.persist(b);
+			}
+			if(p.getImagenPrincipal() != null) {
+				Photo f = entityManager.getReference(Photo.class, p.getImagenPrincipal().getId());
+				f.setIdExterno(null);
+				entityManager.persist(f);
+				
+			}
+			for	(Photo a : p.getFotos()) {
+				a.setIdExterno(null);
+				entityManager.persist(a);
+			}
+			for(Collection c : p.getColecciones()) {
+				if(c.getProductos().contains(p)){
+					c.getProductos().remove(p);
+					entityManager.persist(c);
+				}
+			}
+			
+			String mensaje = "Hola altruista. \nEstá genial compartir con todos pero tu producto " + p.getNombre() + 
+					" no es adecuado para la web. \nEsperemos que el próximo producto que subas sea adecuado." + 
+					"\nUn saludo, el equipo de Tamaa :)";
+			
+					
+			User s = new User();
+			s= (User)session.getAttribute("user");
+			
+			Message ms = new Message();
+			
+			ms.setIdAddressee(b);			
+			ms.setIdSender(s);			
+			ms.setmessage(mensaje);
+			
+			entityManager.persist(ms);
+			entityManager.flush();
+			
+			entityManager.remove(p);
+		}
+		return "redirect:moder/";
+	}
+	
+	@RequestMapping(value = "/validar", method = RequestMethod.POST)
+	@Transactional
+	public String validar(
+			@RequestParam("validar") String validar, 
+			@RequestParam("tipo") String tipo,
+			Model m, HttpSession session) {
+		
+		long idValidar = Long.parseLong(validar);
+		
+		if(tipo.equals("coleccion")) {
+			Collection c = entityManager.getReference(Collection.class, idValidar);
+			c.setRevisado(true);
+			entityManager.persist(c);
+		}
+		else if(tipo.equals("producto")) {
+			Product p = entityManager.getReference(Product.class, idValidar);
+			
+			p.setRevisado(true);
+			
+			entityManager.persist(p);
 		}
 		
-		//Crear mensaje (PREGUNTAR A MARCO)
-		
-		entityManager.remove(p);
+		entityManager.flush();
 		
 		
-		return "moder";
+		return "redirect:moder/";
 	}
 	
 	/**

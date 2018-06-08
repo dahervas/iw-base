@@ -49,7 +49,6 @@
 			
 			<input type="hidden" name="usuario" value='<sec:authentication property="principal.username"/>'>
 			
-			${user}
 			<c:if test="! empty ${user}">
 				${user.login}
 			</c:if>

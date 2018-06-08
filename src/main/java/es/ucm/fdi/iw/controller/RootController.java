@@ -64,7 +64,6 @@ public class RootController {
     	
 	public void insertarProductosYColecciones() {
 		
-		
 		Product p = new Product();
 		p.setCantidad(1);
 		p.setNombre("Zuncho 1");
@@ -248,12 +247,8 @@ public class RootController {
 		entityManager.persist(p);
 		entityManager.persist(p2);
 	
-		
-
-
 	}
 		
-
 	@GetMapping({"/", "/index", "/home"})
 	public String root(HttpServletRequest request,
 			Model model, HttpSession session, Principal principal) {
@@ -302,9 +297,9 @@ public class RootController {
 		return "login";
 	}
 	
-	@GetMapping("/messages")
+	/*@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
-		User u = (User)session.getAttribute("user");
+		User u = (User)session.getAttribute("user");*/
 		/*model.addAttribute("sentMessages", 
 
 				entityManager.createQuery("select m from Message m where idSender =:login", User.class)
@@ -324,21 +319,7 @@ public class RootController {
 		
 		return "messages";
 		}
-	
-	/*@GetMapping("/home")
-	public String home(HttpServletRequest request,
-			Model model, HttpSession session, Principal principal) {
-        session.setAttribute("user", 
-                entityManager.createQuery("from User where login = :login", User.class)
-                    .setParameter("login", principal.getName())
-                    .getSingleResult()
-        );
-        log.info("welcoming back: " + principal.getName());
-        log.info("Me gustaría encontrar el usuario: " + principal);
-        log.info("El usaurio??? :" + session.getAttribute("user"));
-		return "home";
-	}*/
-	
+		
 	@GetMapping("/profile")
 	public String profile(Model model, HttpSession session) {
 		User u = (User)session.getAttribute("user");
@@ -452,7 +433,7 @@ public class RootController {
 	/*Añadir coleccion*/
 	@RequestMapping(value="addCollection", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload(
+	public String addCollection(
 			@RequestParam("photo") MultipartFile photo,
 			@RequestParam("nombre") String nombre,
     		@RequestParam("descripcion") String descripcion,
@@ -510,7 +491,7 @@ public class RootController {
 		m.addAttribute("ps", entityManager
 				.createQuery("select c from Collection c").getResultList());
 		
-		return "profile";
+		return "redirect:collection/"+ c.getId();
 	}
 	
 	/**
@@ -571,6 +552,9 @@ public class RootController {
 		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
 		m.addAttribute("comentarios", result);
 		
+		String quer = "select u from User u where u.id = " + id;
+		m.addAttribute("usuario", entityManager.createQuery(quer).getResultList());
+		
 		/*String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
 		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
 		
@@ -627,7 +611,7 @@ public class RootController {
 	
 	@RequestMapping(value="sendMessage", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload2(
+	public String sendMessage(
 			@RequestParam("destinatario") String destinatario,
 			@RequestParam("mensaje") String mensaje,
     		Model m, HttpSession session){
@@ -777,16 +761,19 @@ public class RootController {
 	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
+			@RequestParam("cantidad")int cantidad,
 			@RequestParam("id")long id,	
 			HttpSession session,
 			Model m) {
-		User user = (User)session.getAttribute("user");
 		Product p = entityManager.getReference(Product.class, id);
 		byte prest =1;
 		int cant = p.getCantidad();
 		
-		p.setPrestado(prest);
-		p.setCantidad(cant-1);
+		if(cantidad > 0 && cantidad <=cant) {
+			p.setPrestado(prest);
+			p.setCantidad(cant-cantidad);
+			
+		}else  return "cantidad incorrecta";
 		
 		entityManager.persist(p);
 		entityManager.flush();
@@ -816,12 +803,12 @@ public class RootController {
 		p.setEstrellas(estrellasNuevas);
 		p.setSuma(sumaNueva);
 		
-		//log.info("Votos: " + b.getVotos() + "\n Estrellas: " + b.getEstrellas() + "\n Suma: " + b.getSuma());
+		log.info("Votos: " + p.getVotos() + "\n Estrellas: " + p.getEstrellas() + "\n Suma: " + p.getSuma());
 		entityManager.persist(p);
 		entityManager.flush();
 		
-		//return "redirect:/product/" + id;
-		return "añadido";
+		return "redirect:/product/" + id;
+		//return "añadido";
 	}
 	
 	/*AÑADIR VALORACIÓN A UN Usuario*/

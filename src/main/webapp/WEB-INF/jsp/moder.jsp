@@ -31,17 +31,58 @@
 					<td> ${p.descripcion} </td>
 					<td> <a href="/profile/${p.propietario.id}">${p.propietario.login} </a></td>
 					<td> <a href="/product/${p.id}">Ver más</a></td>
-					<form action="/moder/rechazarProducto" method="post">
+					<form action="/moder/rechazar" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						<input type="hidden" name="usuario" value="${p.id}"/>
-						<input type="hidden" name="producto" value="${p.propietario.id}"/>
+						<input type="hidden" name="usuario" value="${p.propietario.id}"/>
+						<input type="hidden" name="eliminar" value="${p.id}"/>
+						<input type="hidden" name="tipo" value="producto"/>
 					
 						<td><button type="submit" id="botonBorrar" class="btn">Borrar</button>
 					</form>
 					<form action="/moder/validarProducto" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						<input type="hidden" name="usuario" value="${p.id}"/>
-						<input type="hidden" name="producto" value="${p.propietario.id}"/>
+						<input type="hidden" name="validar" value="${p.id}"/>
+						<input type="hidden" name="tipo" value="producto"/>
+					
+						<button type="submit" class="btn">Aceptar</button></td>
+					</form>
+				</tr>
+			</c:if>
+		</c:forEach>
+		
+	</table>
+	
+	<h4>
+		Colecciones
+	</h4>
+	<table class="tablaModerador">
+		<tr> 
+			<th class="casillaModerador"> Nombre </th>
+			<th class="casillaModerador"> Descripcion </th>
+			<th class="casillaModerador"> Propietario </th>
+			<th class="casillaModerador"> Enlace </th>
+			<th class="casillaModerador"> Acción </th>
+		</tr>
+		<c:forEach items="${colecciones}" var="c">
+			<c:if test="${! c.revisado}">
+				<tr>
+					<td> ${c.nombre} </td>
+					<td> ${c.descripcion} </td>
+					<td> <a href="/profile/${c.propietario.id}">${c.propietario.login} </a></td>
+					<td> <a href="/collection/${c.id}">Ver más</a></td>
+					<form action="/moder/rechazar" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="hidden" name="usuario" value="${c.propietario.id}"/>
+						<input type="hidden" name="eliminar" value="${c.id}"/>
+						<input type="hidden" name="tipo" value="coleccion"/>
+						
+					
+						<td><button type="submit" id="botonBorrar" class="btn">Borrar</button>
+					</form>
+					<form action="/moder/validarProducto" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="hidden" name="validar" value="${c.id}"/>
+						<input type="hidden" name="tipo" value="coleccion"/>
 					
 						<button type="submit" class="btn">Aceptar</button></td>
 					</form>
@@ -49,6 +90,7 @@
 			</c:if>
 		</c:forEach>
 	</table>
+	
 	
  <!-- Page Content -->
     <div class="container">
