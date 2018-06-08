@@ -777,16 +777,19 @@ public class RootController {
 	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
+			@RequestParam("cantidad")int cantidad,
 			@RequestParam("id")long id,	
 			HttpSession session,
 			Model m) {
-		User user = (User)session.getAttribute("user");
 		Product p = entityManager.getReference(Product.class, id);
 		byte prest =1;
 		int cant = p.getCantidad();
 		
-		p.setPrestado(prest);
-		p.setCantidad(cant-1);
+		if(cantidad > 0 && cantidad <=cant) {
+			p.setPrestado(prest);
+			p.setCantidad(cant-cantidad);
+			
+		}else  return "cantidad incorrecta";
 		
 		entityManager.persist(p);
 		entityManager.flush();

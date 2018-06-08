@@ -18,15 +18,8 @@
 <div class="todoAlCentro"> 
 <div class="container">
 <!-- Imagenes cabecera del producto -->
-<!-- -->
-	<div class="btn-pedir">
-		<c:if test="${i.cantidad > 0 && i.prestado <= 1 }">
-			<form action="prestado" method="post">
-				<input type="hidden" name="id" value="${i.id}"/>
-				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				<button class="btn" type="submit"> Tomar prestado</button>
-			</form>
-		</c:if>
+<!-- -->	
+	<div>
 		</br>
 		<!-- Boton de borrar el action puesto de forma provisional -->
 		<c:if test="${i.propietario.id == u.id}">
@@ -35,7 +28,7 @@
 				<button class="btn" type="submit"> Borrar producto</button>
 			</form>
 		</c:if>
-	</div> 
+	</div>
 	</br>
 	<div class="row text-center text-lg-left ">
 		<div class="todoAlCentro">
@@ -64,6 +57,22 @@
      
     </div>
 
+	<hr class="featurette-divider">
+	
+	<div class="btn-pedir">			
+		<c:if test="${i.cantidad > 0 && i.prestado <= 1 }">
+			<form action="prestado" method="post">
+				<label class="col-md-4 control-label" for="nombre">Cantidad:</label>  
+				<div class="col-md-4">
+					<input id="cantidad" name="cantidad" placeholder="Escriba aquí la cantidad " class="form-control input-md" type="text">
+				</div>
+				<input type="hidden" name="id" value="${i.id}"/>
+				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<button class="btn" type="submit"> Tomar prestado</button>
+			</form>
+		</c:if>
+	</div>
+	
 	<hr class="featurette-divider">
 
 <!-- Menu de selección -->
