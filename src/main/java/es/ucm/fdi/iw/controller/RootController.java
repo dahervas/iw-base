@@ -305,7 +305,7 @@ public class RootController {
 	/*@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
 		User u = (User)session.getAttribute("user");
-		model.addAttribute("sentMessages", 
+		/*model.addAttribute("sentMessages", 
 
 				entityManager.createQuery("select m from Message m where idSender =:login", User.class)
 					.setParameter("login", principal.getName())
@@ -314,7 +314,7 @@ public class RootController {
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select ms from Message ms where idAdresser =:login", User.class)
 					.setParameter("login", principal.getName())
-					.getResultList());
+					.getResultList());*/
 
 				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
 		model.addAttribute("receivedMessages", 
@@ -385,19 +385,20 @@ public class RootController {
 			//	createQuery(query1).getResultList());
 	//	model.addAttribute("productsDesc", entityManager.
 			//	createQuery(query2).getResultList());
-		List<String> result = (List<String>)entityManager.
+		List<User> result = entityManager.
 				createQuery("SELECT u FROM User u WHERE u.login"
 						+ " LIKE CONCAT('%',:login,'%')")
 				.setParameter("login", busqueda).getResultList();
-		model.addAttribute("users", result);
-		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
-		List<String> result2 = (List<String>)entityManager.
+		model.addAttribute("users", result);
+		//log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
+		
+		List<Product> result2 = entityManager.
 				createQuery("SELECT p FROM Product p WHERE p.nombre"
 						+ " LIKE CONCAT('%',:prod,'%')")
 				.setParameter("prod", busqueda).getResultList();
 		model.addAttribute("products", result2);
-		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
+		//log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
 		
 		/*List<String> result3 = (List<String>)entityManager.
 				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"
@@ -626,14 +627,18 @@ public class RootController {
 	
 	@RequestMapping(value="sendMessage", method=RequestMethod.POST)
 	@Transactional
-	public String handleFileUpload(
+	public String handleFileUpload2(
 			@RequestParam("destinatario") String destinatario,
 			@RequestParam("mensaje") String mensaje,
-    		Model m){
+    		Model m, HttpSession session){
 		
 		Message ms = new Message();
-		User u = entityManager.getReference(User.class, destinatario);
-		ms.setIdAddressee(u.getId());
+		String query = "select u.id from User u where u.login = " + destinatario;
+		
+		long dest = new Long(Long.parseLong(query));	
+		User s = (User)session.getAttribute("user");
+		ms.setIdAddressee(dest);
+		ms.setIdSender(s.getId());
 		ms.setmessage(mensaje);
 		entityManager.persist(ms);
 		entityManager.flush();

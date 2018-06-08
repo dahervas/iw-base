@@ -19,11 +19,14 @@
 							<th> Fecha </th>
 						</tr>
 						
-						<tr>
-			                <td>${receivedMessages.idAddressee} </td>
-			            	<td> ${receivedMessages.message} </td>
-			            	<td>" .$msn['Fecha'] ."</td>
-		            	</tr>
+						<c:forEach var="m" items="${receivedMessages}">
+							<tr>
+				                <td>${m.idAddressee} </td> 
+				            	<td> ${m.message} </td>
+				            	<td>" .$msn['Fecha'] ."</td>
+			            	</tr>
+			            	
+		            	</c:forEach>
 		            	
 					</table>
 				</div>
@@ -70,11 +73,17 @@
 							<th> Fecha </th>
 						</tr>
 						
-						<tr>
-			            	<td> ${sentMessages.idSender}</td>
-			            	<td> ${sentMessages.message} </td>
-			            	<td>" .$msn['Fecha'] ."</td>
-		            	</tr>
+		            	
+		            	<c:forEach var="m" items="${sentMessage}">
+							<tr>
+				            	<td> ${m.idSender}</td>
+				            	<td> ${m.message} </td>
+				            	<td>" .$msn['Fecha'] ."</td>
+		            		</tr>
+			            	
+		            	</c:forEach>
+		            	
+		            
 		            	
 					</table>
 				</div>

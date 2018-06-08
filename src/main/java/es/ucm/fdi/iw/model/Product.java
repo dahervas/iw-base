@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Product {
-	private long id;
+	private long  id;
 	private User propietario; //propietario
 	private String tomador;
 	private String nombre;
