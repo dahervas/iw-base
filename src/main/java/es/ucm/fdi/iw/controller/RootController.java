@@ -720,7 +720,7 @@ public class RootController {
 	
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 		
-	@RequestMapping(value="addComment", method=RequestMethod.POST)
+	@RequestMapping(value="product/addComment", method=RequestMethod.POST)
 	@Transactional
 	public void handleFileUpload(
 			@RequestParam("Comment")String comentario,
