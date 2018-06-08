@@ -302,7 +302,7 @@ public class RootController {
 		return "login";
 	}
 	
-	/*@GetMapping("/messages")
+	@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
 		User u = (User)session.getAttribute("user");
 		/*model.addAttribute("sentMessages", 
@@ -323,7 +323,7 @@ public class RootController {
 
 		
 		return "messages";
-		}	*/
+		}
 	
 	/*@GetMapping("/home")
 	public String home(HttpServletRequest request,
@@ -632,18 +632,30 @@ public class RootController {
 			@RequestParam("mensaje") String mensaje,
     		Model m, HttpSession session){
 		
-		Message ms = new Message();
-		String query = "select u.id from User u where u.login = " + destinatario;
+		String query = "select u from User u where u.login = '" + destinatario + "'";
 		
-		long dest = new Long(Long.parseLong(query));	
-		User s = (User)session.getAttribute("user");
+		User dest = (User) entityManager.createQuery(query).getSingleResult();	
+		
+		log.info("Destinatario:" + dest);
+		
+		User s = new User();
+		s= (User)session.getAttribute("user");
+		
+		Message ms = new Message();
+		
 		ms.setIdAddressee(dest);
-		ms.setIdSender(s.getId());
+		log.info("ms: " + ms);
+		
+		ms.setIdSender(s);
+		log.info("ms: " + ms);
+		
 		ms.setmessage(mensaje);
+		log.info("ms: " + ms);
+		
 		entityManager.persist(ms);
 		entityManager.flush();
 		
-		return "message";
+		return "messages";
 	}
 
 	
@@ -738,7 +750,7 @@ public class RootController {
 		
 	@RequestMapping(value="product/addComment", method=RequestMethod.POST)
 	@Transactional
-	public void handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
 			HttpSession session,
@@ -748,18 +760,18 @@ public class RootController {
 		
 		User user = (User)session.getAttribute("user");
 		
-		User u = entityManager.getReference(User.class, dest);
+		String query = "select u.id from User u where u.login = " + dest;
 		
-		/*String query = "select u.id from User u where u.login = " + dest;
+		long desti = new Long(Long.parseLong(query));		
 		
-		long destinatario = new Long(Long.parseLong(query));		
-		*/
-		cp.setIdAddressee(u.getId());
+		cp.setIdAddressee(desti);
 		cp.setIdSender(user);
 		cp.setComment(comentario);
 		
 		entityManager.persist(cp);
-		entityManager.flush();				
+		entityManager.flush();		
+		
+		return "subido";
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
@@ -775,7 +787,6 @@ public class RootController {
 		
 		p.setPrestado(prest);
 		p.setCantidad(cant-1);
-		p.setTomador(user.getLogin());
 		
 		entityManager.persist(p);
 		entityManager.flush();
