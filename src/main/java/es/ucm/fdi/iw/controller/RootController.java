@@ -571,6 +571,9 @@ public class RootController {
 		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
 		m.addAttribute("comentarios", result);
 		
+		String quer = "select u from User u where u.id = " + id;
+		m.addAttribute("usuario", entityManager.createQuery(quer).getResultList());
+		
 		/*String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
 		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
 		
@@ -819,12 +822,12 @@ public class RootController {
 		p.setEstrellas(estrellasNuevas);
 		p.setSuma(sumaNueva);
 		
-		//log.info("Votos: " + b.getVotos() + "\n Estrellas: " + b.getEstrellas() + "\n Suma: " + b.getSuma());
+		log.info("Votos: " + p.getVotos() + "\n Estrellas: " + p.getEstrellas() + "\n Suma: " + p.getSuma());
 		entityManager.persist(p);
 		entityManager.flush();
 		
-		//return "redirect:/product/" + id;
-		return "añadido";
+		return "redirect:/product/" + id;
+		//return "añadido";
 	}
 	
 	/*AÑADIR VALORACIÓN A UN Usuario*/
