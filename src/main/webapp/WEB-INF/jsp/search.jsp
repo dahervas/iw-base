@@ -58,9 +58,9 @@ function showProducts() {
     <div class="panel-body">
         <div class="tr">
             <div class="td">
-	            <c:forEach var="p" items="${productsNombre}">
+	            <c:forEach var="p" items="${products}">
 					<tr>
-						<td>${p}</td>
+						<td><a href="../product/${p.id}">${p.nombre}</a></td>
 					</tr>
 				</c:forEach>
 			</div>
@@ -70,7 +70,7 @@ function showProducts() {
             <div class="td">
             	<c:forEach var="u" items = "${users}">
             		<tr>
-						<td>${u}</td>>
+						<td><a href="../profile/${u.id}">${u.login}</a></td>
 					</tr>
 				</c:forEach>
             </div>

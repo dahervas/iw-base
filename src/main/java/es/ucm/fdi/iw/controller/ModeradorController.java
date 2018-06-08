@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.ucm.fdi.iw.LocalData;
+import es.ucm.fdi.iw.model.Collection;
+import es.ucm.fdi.iw.model.Photo;
+import es.ucm.fdi.iw.model.Product;
 import es.ucm.fdi.iw.model.User;
 
 @Controller	
@@ -64,23 +69,37 @@ public class ModeradorController {
 		return "moder";	
 	}
 
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/rechazarProducto", method = RequestMethod.POST)
 	@Transactional
 	public String addUser(
-			@RequestParam String login, 
-			@RequestParam String password, 
-			@RequestParam(required=false) String isAdmin, Model m) {
-		User u = new User();
-		u.setLogin(login);
-		u.setPassword(passwordEncoder.encode(password));
-		u.setRoles("on".equals(isAdmin) ? "ADMIN,USER" : "USER");
-		entityManager.persist(u);
+			@RequestParam("usuario") String cliente, 
+			@RequestParam("producto") String producto, 
+			Model m, HttpSession session) {
 		
-		entityManager.flush();
-		m.addAttribute("users", entityManager
-				.createQuery("select u from User u").getResultList());
+		long idCliente = Long.parseLong(cliente);
+		long idProducto = Long.parseLong(producto);
 		
-		return "admin";
+		log.info("idCliente: " + idCliente + "\n idProducto: " + idProducto);
+		//User u = (User)session.getAttribute("user");
+		
+		User b = entityManager.getReference(User.class, idCliente);
+		Product p = entityManager.getReference(Product.class, idProducto);
+		
+		if(p.getPropietario() != null) {
+			b.getOwnedProducts().remove(p);
+			entityManager.persist(b);
+		}
+		for	(Photo a : p.getFotos()) {
+			a.setIdExterno(null);
+			entityManager.persist(a);
+		}
+		
+		//Crear mensaje (PREGUNTAR A MARCO)
+		
+		entityManager.remove(p);
+		
+		
+		return "moder";
 	}
 	
 	/**
