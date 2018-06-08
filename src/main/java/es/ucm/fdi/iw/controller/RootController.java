@@ -385,20 +385,20 @@ public class RootController {
 			//	createQuery(query1).getResultList());
 	//	model.addAttribute("productsDesc", entityManager.
 			//	createQuery(query2).getResultList());
-		List<String> result = (List<String>)entityManager.
+		List<User> result = entityManager.
 				createQuery("SELECT u FROM User u WHERE u.login"
 						+ " LIKE CONCAT('%',:login,'%')")
 				.setParameter("login", busqueda).getResultList();
 		
 		model.addAttribute("users", result);
-		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
+		//log.info("Result of query for " + busqueda + " is "+ String.join(", ", result));
 		
-		List<String> result2 = (List<String>)entityManager.
+		List<Product> result2 = entityManager.
 				createQuery("SELECT p FROM Product p WHERE p.nombre"
 						+ " LIKE CONCAT('%',:prod,'%')")
 				.setParameter("prod", busqueda).getResultList();
 		model.addAttribute("products", result2);
-		log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
+		//log.info("Result of query for " + busqueda + " is "+ String.join(", ", result2));
 		
 		/*List<String> result3 = (List<String>)entityManager.
 				createQuery("SELECT p.nombre FROM Product p WHERE p.nombre"

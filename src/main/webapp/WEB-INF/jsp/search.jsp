@@ -60,7 +60,7 @@ function showProducts() {
             <div class="td">
 	            <c:forEach var="p" items="${products}">
 					<tr>
-						<td><a href="../home">${p.nombre}</a></td>
+						<td><a href="../product/${p.id}">${p.nombre}</a></td>
 					</tr>
 				</c:forEach>
 			</div>
