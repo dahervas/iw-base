@@ -43,8 +43,11 @@
 							<sec:authorize access="hasRole('MODER') or hasRole('ADMIN')">
 								<li id="products" class=""><a href="/listProducts"><span class="glyphicon glyphicon-tags"></span></a></li>
 							</sec:authorize>
-							<li  id="collections" class=""><a href="/collections"><span class="glyphicon glyphicon-th-large"></span></a></li>
-							<li  id="user" class=""><a href="/messages"><span class="glyphicon glyphicon-envelope"></span></a></li>
+							<sec:authorize access="hasRole('MODER') or hasRole('ADMIN') or hasRole('USER')">
+								<li id="collections" class=""><a href="/collections"><span class="glyphicon glyphicon-th-large"></span></a></li>
+								<li id="messages" class=""><a href="/messages"><span class="glyphicon glyphicon-envelope"></span></a></li>
+							</sec:authorize>
+							
 							<!-- <li><a href="/admin">Admin</a></li> -->
 							
 							

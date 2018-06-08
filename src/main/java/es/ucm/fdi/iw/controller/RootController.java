@@ -297,28 +297,16 @@ public class RootController {
 		return "login";
 	}
 	
-	/*@GetMapping("/messages")
+	@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
-		User u = (User)session.getAttribute("user");*/
-		/*model.addAttribute("sentMessages", 
-
-				entityManager.createQuery("select m from Message m where idSender =:login", User.class)
-					.setParameter("login", principal.getName())
-					.getResultList());
-		
-		model.addAttribute("receivedMessages", 
-				entityManager.createQuery("select ms from Message ms where idAdresser =:login", User.class)
-					.setParameter("login", principal.getName())
-					.getResultList());*/
-
-				/*entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
+		User u = (User)session.getAttribute("user");
+	
+		entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
-	
-
 		
 		return "messages";
-		}
+	}
 		
 	@GetMapping("/profile")
 	public String profile(Model model, HttpSession session) {
@@ -967,5 +955,13 @@ public class RootController {
 				.createQuery("select p from Product p").getResultList());
 		
 		return "redirect:/product/" + p.getId();
+	}
+	
+	@GetMapping({"/listProducts"})
+	public String listProducts(Model model) {
+		model.addAttribute("productos", entityManager
+				.createQuery("select p from Product p").getResultList());
+		
+		return "listProducts";
 	}
 }

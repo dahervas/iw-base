@@ -16,12 +16,12 @@
 
       <div class="row text-center text-lg-left">
 		
-		<c:if test="${empty ps}">
+		<c:if test="${empty productos}">
 		    <div>
 		        <h1 class="text-center">Vaya.. parece que aún no hay ningún producto en Tamaa<p> </p>
 			</div>
 		</c:if>
-		<c:if test="${not empty ps}">				
+		<c:if test="${not empty productos}">				
 			<table class="tablaModerador">
 				<tr> 
 					<th class="casillaModerador"> Nombre </th>
@@ -29,7 +29,7 @@
 					<th class="casillaModerador"> Propietario </th>
 					<th class="casillaModerador"> Enlace </th>
 				</tr>
-				<c:forEach items="${ps}" var="p">
+				<c:forEach items="${productos}" var="p">
 				<hr>
 		          	<td> ${p.nombre} </td>
 					<td> ${p.descripcion} </td>

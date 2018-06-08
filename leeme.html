@@ -7,8 +7,6 @@
 <h1>Tamaa</h1>
 
 Tamaa es un proyecto con el fin de hacer crecer el altruismo en el mundo. Es una página para compartir todas nuestras cosas.
-Hoy por hoy, aún no se puede compartir nada, pero pronto estará lista :)
-
 
 <h2>Integrantes</h2>
 
@@ -21,32 +19,32 @@ Hoy por hoy, aún no se puede compartir nada, pero pronto estará lista :)
 
 <h2>Comentarios al profesor</h2>
 
-No sabemos el porqué, pero aún quitada la seguridad, el home solo nos sale cuando hemos iniciado sesión con el login.
-Para que en la base de datos haya productos, colecciones y alguna imagen asociada, es necesario pasar por la vista /bd.
-Si no te apetece arrancar la visita de la página de la /bd ahora salen unas pantallas bastante amigables, en la vista /home y /collections si no hay nada en la base de datos. Te preguntará si quieres introducir datos. Al seleccionar nuevo producto en /home te creará el producto, almacenará en la carpeta tmp/iw/product la foto pero no la mostrará (falta arreglarlo). Aún no se pueden subir colecciones.
 
 <h2>Vistas</h2>
 
 <ul>
-	<li><a href="localhost:8080/bd"> Base de datos </a>
-	 --> Carga datos en la base de datos para que todo funcione correctamente.
-	 <li><a href="localhost:8080/"> Página principal </a> --> Home, vista donde salen todos los productos insertados en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable.
+	 <li><a href="localhost:8080/"> Página principal </a>
+	Home, vista donde salen todos los productos insertados en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable. Pulsando a los productos veremos información sobre ellos. También aparecerá un + a la derecha del nombre del producto, esto nos permitirá añadir el producto a una colección existente.
+
 	 <li><a href="localhost:8080/collections"> Colecciones </a>
-	 --> Muestra las coleciones insertadas en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable.
+	 Muestra las coleciones insertadas en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable. Al pulsar sobre una colección nos mostrará más información sobre ella.
+
 	 <li><a href="localhost:8080/product/1"> Producto </a> 
-	 --> En esta página se podra observar la información sobre un producto determinado, es decir, imagen de producto, nombre, detalles, cantidad del producto a disposición del usuario... 
-	 --> Muestra las coleciones insertadas en la base de datos => Todavia la página no se actualiza con las colecciones de la base de datos
-	 <li><a href="localhost:8080/product/1"> Producto </a>
-	  --> Se accede desde el home pulsando a cualquier producto.
+	 En esta página se podrá ver la información sobre un producto determinado, es decir, imagen de producto, nombre, detalles, cantidad del producto a disposición del usuario, si está prestado en ese momento o no. También se puede votar un producto pulsando en las estrellas de valoración y se puede comentar el estado o lo que nos apetezca (sin que al moderador le parezca mal nuestro comentario). Desde esta pantalla también podremos agregar el producto a la colección y podremos pedirlo prestado si no está ocupado.
+
 	  <li><a href="localhost:8080/search"> Búsqueda </a>
 	  --> La página de búsqueda tiene una interfaz muy bonita. Ahora sólo hace falta que cumpla su cometido, que realice búsquedas en la base de datos.
 	  <li><a href="localhost:8080/nuevaColeccion"> Nueva colección </a> 
-	  --> Página para añadir una nueva colección (aún sin funcionar)
+	  Página para añadir una nueva colección. Se puede acceder a ella desde la página de <a href="localhost:8080/collections">colecciones si no existe ninguna en el sistema o podemos acceder a través de un botón en la página de perfil.
+
 	  <li><a href="localhost:8080/nuevoProducto"> Nuevo producto </a>
-	   --> Página para añadir un producto. Contiene un formulario para subir una foto y la información del producto. De momento almacena la foto en la carpeta selecionada pero no la muestra cuando buscas el producto.
+	   Página para añadir un producto. Contiene un formulario para subir una foto principal, varias fotos más y la información del producto. Estas imágenes son almacenadas en /tmp/iw. Al igual que con las nuevas colecciones se podrá acceder al formulario para añadir un producto desde la página donde se muestran todos los productos <a href="localhost:8080">home, o desde el perfil de cada usuario.
 	  <li><a href="localhost:8080/profile"> Perfil </a>
-	  --> Página del perfil del usuario donde aparecen todos sus productos y colleciones. En esta página el usuario puede añadir productos y crear colleciones. También puede modificar su perfil.
-	  <li><a href="http://localhost:8080/messages"> Perfil </a>
+	  Página del perfil del usuario donde aparecen todos sus productos y colleciones. En esta página el usuario puede añadir productos y crear colleciones. También puede modificar su perfil.
+
+	  <li><a href="localhost:8080/profile/2"> Perfil de otro usuario </a>
+	  Esta es una página destinada a mostar la información de otro usuario. Sus productos y sus colecciones, también se podrá valorar al usuario con las estrellas, así cualquiera sabe si está haciendo bien en prestarle un objeto a alguien. Si intentas entrar en tu propio perfil a través de esta dirección, la página te mandará al perfil que te corresponde.
+	  <li><a href="http://localhost:8080/messages"> Mensajes </a>
 	  --> Para poder enviar mensajes a otros usuarios.
 
 	  
