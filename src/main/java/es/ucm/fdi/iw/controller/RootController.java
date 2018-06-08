@@ -304,7 +304,7 @@ public class RootController {
 		entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
-		
+
 		return "messages";
 	}
 		

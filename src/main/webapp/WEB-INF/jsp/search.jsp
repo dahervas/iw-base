@@ -45,15 +45,20 @@ function showProducts() {
 			
 			</div>
 			
-			<div class="row"><div style="overflow:scroll; width: 110px; height: 110px;" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+		
+			
+			
+			<!--  <div class="row"><div style="overflow:scroll; width: 110px; height: 110px;" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">-->
 
-
+			 <!--<div class="grid-container"> -->
+		
       
 	            <c:forEach var="p" items="${products}">
-					
-						<a href="../product/${p.id}" >${p.nombre}</a>
-							<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="" style="width: 400px; height: 300px;">
-						
+					<!-- <div class="grid-item"> -->
+					<div class="col-lg-3 col-md-4 col-xs-6">
+						<a href="../product/${p.id}" class="d-block mb-4 h-100">${p.nombre}</a>
+							<img class="photo img-fluid img-thumbnail" src="${p.imagenPrincipal.url}" alt="" style="width: 300px; height: 200px;">
+					</div>
 					
 				</c:forEach>
 
@@ -64,7 +69,7 @@ function showProducts() {
 			
 				</c:forEach>
 
-</div></div>
+			</div>
 		<!--  <table>	
 			<c:forEach var="p" items="${productsNombre}">
 				<tr>
@@ -79,6 +84,12 @@ function showProducts() {
 			<h3>${u}</h3>
 		</c:forEach>-->
 		</div>
+		
+		
+		
+		
+		
+		
 		
 		
 		
