@@ -302,7 +302,7 @@ public class RootController {
 		return "login";
 	}
 	
-	@GetMapping("/messages")
+	/*@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
 		User u = (User)session.getAttribute("user");
 		model.addAttribute("sentMessages", 
@@ -316,14 +316,14 @@ public class RootController {
 					.setParameter("login", principal.getName())
 					.getResultList());
 
-				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList());
+				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
 	
 
 		
 		return "messages";
-		}	
+		}	*/
 	
 	/*@GetMapping("/home")
 	public String home(HttpServletRequest request,
@@ -736,49 +736,77 @@ public class RootController {
 	public void handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
-			HttpSession session) {
+			HttpSession session,
+			Model m) {
 	
 		CommentProduct cp = new CommentProduct();
 		
-		User u = (User)session.getAttribute("user");
+		User user = (User)session.getAttribute("user");
 		
-		String query = "select u.id from User u where u.login = " + dest;
+		User u = entityManager.getReference(User.class, dest);
+		
+		/*String query = "select u.id from User u where u.login = " + dest;
 		
 		long destinatario = new Long(Long.parseLong(query));		
-		
-		cp.setIdAddressee(destinatario);
-		cp.setIdSender(u);
+		*/
+		cp.setIdAddressee(u.getId());
+		cp.setIdSender(user);
 		cp.setComment(comentario);
 		
 		entityManager.persist(cp);
 		entityManager.flush();				
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
-	
-	
-	/*AÑADIR VALORACIÓN A UN PRODUCTO*
-	@RequestMapping(value="addEvaluation", method=RequestMethod.POST)
+	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
 	@Transactional
 	public @ResponseBody String handleFileUpload(
-			@RequestParam("Estrellas")int valoracion,
+			@RequestParam("id")long id,	
+			HttpSession session,
+			Model m) {
+		User user = (User)session.getAttribute("user");
+		Product p = entityManager.getReference(Product.class, id);
+		byte prest =1;
+		int cant = p.getCantidad();
+		
+		p.setPrestado(prest);
+		p.setCantidad(cant-1);
+		p.setTomador(user.getLogin());
+		
+		entityManager.persist(p);
+		entityManager.flush();
+		
+		return "redirect:/product/" + id;
+		
+	}
+	
+	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
+	@RequestMapping(value="product/addValoration", method=RequestMethod.POST)
+	@Transactional
+	public @ResponseBody String handleFileUpload(
+			@RequestParam("estrellas")int estrellas,
 			@RequestParam("id")long id,			
 			Model m) {
-		int valora;
-		float punt;
+		Product p = entityManager.getReference(Product.class, id);
 		
-		Product p = (Product)entityManager.createQuery("select * from Product p where p.id = " + id);				
+		int votosAntiguos = p.getVotos();
+		int sumaAntigua = p.getSuma();
 		
-		if((valoracion >=0 && valoracion <=5)) {
-			punt = p.getEstrellas();
-			valora = p.getNumValoraciones();
-			valora +=1;
-			float result = (punt + valoracion)/valora ;
-			p.setEstrellas(result);			
-			return "Valoración subida";
-		}		
-		return "Valoración no subida";
-	} */
-	
+		int sumaNueva = sumaAntigua + estrellas;
+		int votosNuevos = votosAntiguos + 1;
+		
+		int estrellasNuevas = sumaNueva/votosNuevos;
+		
+		p.setVotos(votosNuevos);
+		p.setEstrellas(estrellasNuevas);
+		p.setSuma(sumaNueva);
+		
+		//log.info("Votos: " + b.getVotos() + "\n Estrellas: " + b.getEstrellas() + "\n Suma: " + b.getSuma());
+		entityManager.persist(p);
+		entityManager.flush();
+		
+		//return "redirect:/product/" + id;
+		return "añadido";
+	}
 	
 	/*AÑADIR VALORACIÓN A UN Usuario*/
 	@RequestMapping(value="profile/addValoracionUsuario", method=RequestMethod.POST)

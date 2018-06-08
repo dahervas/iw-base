@@ -14,12 +14,13 @@ import javax.persistence.OneToOne;
 public class Product {
 	private long id;
 	private User propietario; //propietario
+	private String tomador;
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
-	private float estrellas;
-	private int numValoraciones;
-	private int ultimaValoracion;
+	private int estrellas;
+	private int votos;
+	private int suma;
 	//private List<Valoration> estrellitas; //del 0 al 5
 	private int cantidad;
 	private Photo imagenPrincipal;
@@ -124,28 +125,12 @@ public class Product {
 		this.comentarios = comentarios;
 	}
 
-	public float getEstrellas() {
+	public int getEstrellas() {
 		return estrellas;
 	}
-
-	public void setEstrellas(float result) {
-		this.estrellas = result;
-	}
-
-	public int getNumValoraciones() {
-		return numValoraciones;
-	}
-
-	public void setNumValoraciones(int numValoraciones) {
-		this.numValoraciones = numValoraciones;
-	}
-
-	public int getUltimaValoracion() {
-		return ultimaValoracion;
-	}
-
-	public void setUltimaValoracion(int ultimaValoracion) {
-		this.ultimaValoracion = ultimaValoracion;
+	
+	public void setEstrellas(int estrellas) {
+		this.estrellas = estrellas;
 	}
 
 	public boolean isRevisado() {
@@ -155,4 +140,36 @@ public class Product {
 	public void setRevisado(boolean revisado) {
 		this.revisado = revisado;
 	}
+
+	public int getVotos() {
+		return votos;
+	}
+
+	public void setVotos(int votos) {
+		this.votos = votos;
+	}
+
+	public int getSuma() {
+		return suma;
+	}
+
+	public void setSuma(int suma) {
+		this.suma = suma;
+	}
+
+	public String getTomador() {
+		return tomador;
+	}
+
+	public void setTomador(String tomador) {
+		this.tomador = tomador;
+	}
+
+	/*public User getTomador() {
+		return tomador;
+	}
+
+	public void setTomador(User tomador) {
+		this.tomador = tomador;
+	}*/
 }
