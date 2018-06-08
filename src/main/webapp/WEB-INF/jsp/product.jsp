@@ -38,10 +38,10 @@
 	</div> 
 	</br>
 	<div class="row text-center text-lg-left ">
-		<div class="col-lg-4">
+		<div class="todoAlCentro">
 			<c:choose>
-			<c:when test="${empty fotos}">
-				<img class="img-fluid mb-5 d-block mx-auto text-center"  src="${i.imagenPrincipal.url}"
+			<c:when test="${empty i.imagenPrincipal.url}">
+				<img class="img-fluid mb-5 d-block mx-auto text-center"  src="static/img/losiento.jpg"
 				  id="fotoperfil" data-toggle="modal" data-target="#exampleModal">			
 			</c:when>
 			<c:otherwise>
