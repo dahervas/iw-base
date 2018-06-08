@@ -12,60 +12,15 @@
 <link href="/static/css/carousel.css" rel = "stylesheet">
 <link href="/static/css/coment.css" rel = "stylesheet">
 
-<script>
-function valorar(puntos) {
-	alert("he entrado");
-	alert("puntos: " + puntos);
-	var puntos2 = puntos;
-	var x = document.getElementById("star1");  
-	var y = document.getElementById("star2");
-	var z = document.getElementById("star3");
-	var a = document.getElementById("star4");
-	var b = document.getElementById("star5");
-	if(puntos2 >= 1){
-		x.style.color = "orange";
-		y.style.color = "black";
-		z.style.color = "black";
-		a.style.color = "black";
-		b.style.color = "black";
-	}
-	if(puntos2 >= 2){
-		y.style.color = "orange";
-		z.style.color = "black";
-		a.style.color = "black";
-		b.style.color = "black";
-	}
-	if(puntos2 >= 3){ 
-		z.style.color = "orange";
-		a.style.color = "black";
-		b.style.color = "black";
-	}
-	if(puntos2 >= 4){
-		var x = document.getElementById("star4");  
-		a.style.color = "orange";
-		b.style.color = "black";
-	}
-	if(puntos2 == 5){
-		var x = document.getElementById("star5");  
-		b.style.color = "orange";
-	}
-	
-	var formulario = document.getElementById("formulario");
-	alert("HOLA");
-	formulario.estrellas.value = puntos;
-	formulario.submit();
-}
-</script>
-
  
 <c:forEach var="i" items="${elementos}">
-<c:forEach var="u" items="${usuario}">
+
 
 
 <div class="todoAlCentro"> 
 <div class="container">
 <!-- Imagenes cabecera del producto -->
-<!-- 
+<!-- -->
 	<div class="btn-pedir">
 		<c:if test="${i.cantidad > 0 && i.prestado ==1 }">
 			<form action="prestado" method="post">
@@ -73,15 +28,15 @@ function valorar(puntos) {
 				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<button class="btn" type="submit"> Tomar prestado</button>
 			</form>
-		</c:if>-->
-		<!-- Boton de borrar el action puesto de forma provisional 
+		</c:if>
+		<!-- Boton de borrar el action puesto de forma provisional -->
 		<c:if test="${i.propietario.id == u.id}">
 			<form action="borrar" method="post">
 				<input type="hidden" name="id" value="${i.id}"/>
 				<button class="btn" type="submit"> Borrar producto</button>
 			</form>
 		</c:if>
-	</div> -->
+	</div> 
 	<div class="row text-center">
 		<div class="col-lg-4">
 			<c:choose>
@@ -106,69 +61,7 @@ function valorar(puntos) {
 </div> 
 <!-- VALORACIÓN DEL PRODUCTO -->
 	<div class="row text-center text-lg-left "> 
-       <form action="addValoration" id="formulario" enctype = "multipart/form-data" method="post" class="form-horizontal">
-				<div id="wrapper">        	
-	   				<p class="clasificacion" id="textoCentrado">
-	   					<input id="radio5" name="estrellas" value="5" type="radio">
-	   					${u.estrellas} (${u.votos} votos)
-	   					<c:choose>
-							<c:when test="${u.estrellas >= 5}">
-								<label for="radio5" style="color:orange;">
-							</c:when>
-							<c:otherwise>
-								<label for="radio5">
-							</c:otherwise>
-						</c:choose>
-	      				<span id="star5" class="glyphicon glyphicon-star" aria-hidden="true" onClick="valorar(5)"></span> </label>
-	      				
-	      				<input id="radio4" name="estrellas" value="4" type="radio">
-	      				<c:choose>
-							<c:when test="${u.estrellas >= 4}">
-								<label for="radio4" style="color:orange;">
-							</c:when>
-							<c:otherwise>
-								<label for="radio4">
-							</c:otherwise>
-						</c:choose>
-	      				<span id="star4" class="glyphicon glyphicon-star" aria-hidden="true" onClick="valorar(4)"></span> </label>
-	      				
-	      				<input id="radio3" name="estrellas" value="3" type="radio">
-	      				<c:choose>
-							<c:when test="${u.estrellas >= 3}">
-								<label for="radio3" style="color:orange;">
-							</c:when>
-							<c:otherwise>
-								<label for="radio3">
-							</c:otherwise>
-						</c:choose>
-	      				<span id="star3" class="glyphicon glyphicon-star" aria-hidden="true" onClick="valorar(3)"></span> </label>
-	      				
-	      				<input id="radio2" name="estrellas" value="2" type="radio">
-	      				<c:choose>
-							<c:when test="${u.estrellas >= 2}">
-								<label for="radio2" style="color:orange;">
-							</c:when>
-							<c:otherwise>
-								<label for="radio2">
-							</c:otherwise>
-						</c:choose>
-	      				<span id="star2" class="glyphicon glyphicon-star" aria-hidden="true" onClick="valorar(2)"></span> </label>
-	      				
-	      				<input id="radio1" name="estrellas" value="1" type="radio">
-	      				<c:choose>
-							<c:when test="${u.estrellas >= 1}">
-								<label for="radio1" style="color:orange;">
-							</c:when>
-							<c:otherwise>
-								<label for="radio1">
-							</c:otherwise>
-						</c:choose>
-	      				<span id="star1" class="glyphicon glyphicon-star" aria-hidden="true" onClick="valorar(1)"></span> </label>
-	      			</p> 
-	      			<input type="hidden" name="id" value="${u.id}"/>  
-	      			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	    		</div>
-			</form>
+     
     </div>
 
 	<hr class="featurette-divider">
@@ -302,6 +195,6 @@ function valorar(puntos) {
  
   
 </div>	
-</c:forEach>
+
 </c:forEach>
 <%@ include file="../jspf/footer.jspf"%>

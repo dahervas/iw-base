@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 public class Product {
 	private long  id;
 	private User propietario; //propietario
-	private String tomador;
+	//private String tomador;
 	private String nombre;
 	private String descripcion;
 	private byte prestado; //0 no prestado, 1 si prestado
@@ -157,19 +157,4 @@ public class Product {
 		this.suma = suma;
 	}
 
-	public String getTomador() {
-		return tomador;
-	}
-
-	public void setTomador(String tomador) {
-		this.tomador = tomador;
-	}
-
-	/*public User getTomador() {
-		return tomador;
-	}
-
-	public void setTomador(User tomador) {
-		this.tomador = tomador;
-	}*/
 }

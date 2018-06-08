@@ -302,7 +302,7 @@ public class RootController {
 		return "login";
 	}
 	
-	/*@GetMapping("/messages")
+	@GetMapping("/messages")
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
 		User u = (User)session.getAttribute("user");
 		/*model.addAttribute("sentMessages", 
@@ -323,7 +323,7 @@ public class RootController {
 
 		
 		return "messages";
-		}	*/
+		}
 	
 	/*@GetMapping("/home")
 	public String home(HttpServletRequest request,
@@ -775,7 +775,6 @@ public class RootController {
 		
 		p.setPrestado(prest);
 		p.setCantidad(cant-1);
-		p.setTomador(user.getLogin());
 		
 		entityManager.persist(p);
 		entityManager.flush();
