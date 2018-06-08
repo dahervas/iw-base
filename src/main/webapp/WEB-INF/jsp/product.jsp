@@ -11,69 +11,60 @@
 <link href="/static/css/product.css" rel = "stylesheet">
 <link href="/static/css/carousel.css" rel = "stylesheet">
 <link href="/static/css/coment.css" rel = "stylesheet">
+
  
 <c:forEach var="i" items="${elementos}">
+
 
 
 <div class="todoAlCentro"> 
 <div class="container">
 <!-- Imagenes cabecera del producto -->
-<!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">-->
-      <!-- Indicators -->
-      <ul class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ul>
-     <div class="carousel-inner">     
-   		 <div class="carousel-item active">
-     		<!-- <img src="/static/img/losiento.jpg" alt="First slide">-->
-   		 </div>
-   		 
-   		 <div class="carousel-item">
-    		<!--  <img src="/static/img/losiento.jpg" alt="Second slide">-->
-    	</div>
-    	
-   		<div class="carousel-item">
-    		 <!-- <img src="/static/img/losiento.jpg" alt="Third slide">-->
-  	 	</div>  	 	
- 	 </div>
- 	 
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+<!-- -->
+	<div class="btn-pedir">
+		<c:if test="${i.cantidad > 0 && i.prestado ==1 }">
+			<form action="prestado" method="post">
+				<input type="hidden" name="id" value="${i.id}"/>
+				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<button class="btn" type="submit"> Tomar prestado</button>
+			</form>
+		</c:if>
+		<!-- Boton de borrar el action puesto de forma provisional -->
+		<c:if test="${i.propietario.id == u.id}">
+			<form action="borrar" method="post">
+				<input type="hidden" name="id" value="${i.id}"/>
+				<button class="btn" type="submit"> Borrar producto</button>
+			</form>
+		</c:if>
+	</div> 
+	<div class="row text-center">
+		<div class="col-lg-4">
+			<c:choose>
+			<c:when test="${empty fotos}">
+				<img class="img-fluid mb-5 d-block mx-auto text-center"
+				 src="/static/img/losiento.jpg" alt="Generic placeholder image">			
+			</c:when>
+			<c:otherwise>
+				<img class="img-fluid mb-5 d-block mx-auto text-center"
+				 src="/static/img/losiento.jpg" alt="Generic placeholder image">	
+						
+			</c:otherwise>
+			</c:choose>
+			</br>
+			<p>${i.nombre}</p>
+			<c:if test="${i.cantidad == 0 && i.prestado ==1}">
+				<i class="fa fa-lock"></i>
+			</c:if>
+		</div>	
+	</div>
+    
 </div> 
 <!-- VALORACIÓN DEL PRODUCTO -->
-	<div id="wrapper"> 
-        <form action="addValoration" method="post">        	
-        	<p class="clasificacion" id="textoCentrado">
-        		<label>Valoración</label>
-        		<br>
-        		<input id="radio1" name="estrellas" value="5" type="radio">
-        		<label for="radio1"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        		
-        		<input id="radio2" name="estrellas" value="4" type="radio">
-        		<label for="radio2"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        		
-        		<input id="radio3" name="estrellas" value="3" type="radio">
-        		<label for="radio3"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        		
-        		<input id="radio4" name="estrellas" value="2" type="radio">
-        		<label for="radio4"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        		
-        		<input id="radio5" name="estrellas" value="1" type="radio">
-        		<label for="radio5"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> </label>
-        	</p>   
-        	
-        	<input type="hidden" name="id" value="${i.id}"/>  
-       </form>
+	<div class="row text-center text-lg-left "> 
+     
     </div>
 
+	<hr class="featurette-divider">
 
 <!-- Menu de selección -->
   <ul class="nav nav-tabs">
@@ -89,7 +80,7 @@
   		<p>Informacion sobre el producto</p>
   		
   		<c:if test="${empty elementos }">
-  			<div class="tect-center">
+  			<div class="text-center">
   				<h3>No hay información del producto</h3>
   			</div>  		
   		</c:if>
@@ -100,14 +91,14 @@
   					<p>${i.descripcion}</p>
   				</fieldset>
   				
-  				</br>
+  				<hr class="featurette-divider">
   				
   				<fieldset>
   				<label>Valoración:</label>
   					<p>${i.estrellas}</p>
   				</fieldset>  
   				
-  				</br>
+  				<hr class="featurette-divider">
   				
   				<fieldset>
   				<label>Cantidad del producto:</label>
@@ -126,7 +117,7 @@
   					<c:if test="${empty comentarios}">
   						<div class="text-center">
   							<h2>TODAVÍA NO HAY COMENTARIOS</h2>
-  							</br>
+  							<hr class="featurette-divider">
   							<h3>Si quieres ser el primero ve al apartado de añadir comentarios</h3>  						
   						</div>
   					 </c:if>
@@ -135,8 +126,8 @@
   						<c:forEach var = "c" items="${comentarios}">
     						<div class="card-block">
     							<!-- <h3>{c.autor}</h3>-->
-    							<p>${c.comment}</p>s
-    							</br>
+    							<p>${c.comemtarios}</p>s
+    							<hr class="featurette-divider">
     						</div>
 						</c:forEach> 
 					</c:if>
@@ -149,7 +140,7 @@
   	
   	<div id="añadir" class="tab-pane fade">
   		<h3>Añadir comentarios:</h3>
-  		<form action="addComment" enctype = "multipart/form-data" method="post" class="form-horizontal" > 
+  		<form action="addComment" enctype="multipart/form-data" method="post" class="form-horizontal" > 
         	<!-- Text area -->
           <div class="form-group">
              <label for="comment" class="col-sm-2 control-label">Comment</label>
@@ -176,29 +167,33 @@
          </div>
          
         </form>
-   	</div>                   
+   	</div>     
+   	
+   	<div id="img" class="tab-pane fade">
+  		<fieldset>
+  		<legend>Imagenes</legend>
+  		<div class="card my-6">
+  			<c:if test="${empty fotos}">
+  				<div class="text-center">
+  					<p>Todavía no hay ninguna foto del producto</p>
+  				</div>
+  			</c:if>
+  		
+  			<c:if test="${not empty fotos}">
+  			<c:forEach var = "f" items="${fotos}">
+    			<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
+    				<img src="../photo${f}" class="photo img-responsive" alt="200x200">    			
+    			</div>
+			</c:forEach>  		
+			</c:if>
+		</div>
+		</fieldset>
+ 	</div>               
       
  </div>   	 
  
  
-  <div id="img" class="tab-pane fade">
-  		<h3>Imagenes:</h3>
-  		
-  		<c:if test="${empty fotos}">
-  			<div class="text-center">
-  				<p>Todavía no hay ninguna foto del producto</p>
-  			</div>
-  		</c:if>
-  		
-  		<c:if test="${not empty fotos}">
-  		<c:forEach var = "f" items="${fotos}">
-    		<div class="gallery_product col-lg-4 col-md-4 col-sm4 col-xs-6 filter hdpe" >
-    			<img src="../photo${f}" class="photo" alt="200x200">
-    			
-    		</div>
-		</c:forEach>  		
-		</c:if>
- </div> 
+  
 </div>	
 
 </c:forEach>
