@@ -11,7 +11,7 @@ public class CommentProduct {
 	private long idComment;
 	private Product idProduct;
 	private User idSender;
-	private User idAddressee;	//Nombre del destinatario
+	private User idAddressee;
 	private String comment;
 	
 	
