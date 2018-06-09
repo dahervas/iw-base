@@ -11,6 +11,10 @@
 	border:1px solid transparent;
 	border-radius: 4px 4px 5px 5px;	
 }
+
+#botonBorrar {
+	margin-top:10px;
+}
 .nav-tabs>li.active{
 	margin-top: 10px;
 	margin-right: 2px;
@@ -20,6 +24,7 @@
 	border:1px solid transparent;
 	border-radius: 4px 4px 0 0;
 }
+
 
 .nav>li>a{
 	position:relative;

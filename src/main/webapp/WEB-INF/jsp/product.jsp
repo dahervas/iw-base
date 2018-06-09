@@ -68,14 +68,14 @@ function valorar(puntos) {
 	<div>
 		</br>
 		<!-- Boton de borrar el action puesto de forma provisional -->
-		<c:if test="${i.propietario.id == u.id}">
+		<c:if test="${i.propietario.id == user.id}">
 			<form action="../borrar" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="hidden" name="usuario" value="${i.propietario.id}"/>
 				<input type="hidden" name="eliminar" value="${i.id}"/>
 				<input type="hidden" name="tipo" value="producto"/>
 							
-				<button type="submit" id="botonBorrar" class="btn">Borrar colección</button>
+				<button type="submit" id="botonBorrar" class="btn">Borrar Producto</button>
 			</form>
 		</c:if>
 	</div>
