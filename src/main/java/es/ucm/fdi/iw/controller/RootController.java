@@ -536,7 +536,7 @@ public class RootController {
 		
 		
 		
-		String qu = "select cp from CommentProduct cp where cp.id =" + id;
+		String qu = "select cp from CommentProduct cp where cp.idProduct.id =" + id;
 		
 		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
 		m.addAttribute("comentarios", result);
@@ -722,7 +722,7 @@ public class RootController {
 	@Transactional
 	public String handleFileUpload(
 			@RequestParam("Comment")String comentario,
-			@RequestParam("Destinatario")String dest,
+			//@RequestParam("Destinatario")String dest,
 			@RequestParam("idP")long prod,
 			HttpSession session,
 			Model m) {
@@ -731,11 +731,11 @@ public class RootController {
 		Product p = entityManager.getReference(Product.class, prod);
 		User user = (User)session.getAttribute("user");
 		
-		String query = "select u from User u where u.login = '" + dest + "'";
+		//String query = "select u from User u where u.login = '" + dest + "'";
 		
-		User desti = (User) entityManager.createQuery(query).getSingleResult();
+		//User desti = (User) entityManager.createQuery(query).getSingleResult();
 		
-		//cp.setIdProduct(p);
+		cp.setIdProduct(p);
 		//cp.setIdAddressee(desti);
 		cp.setIdSender(user);		
 		cp.setComment(comentario);

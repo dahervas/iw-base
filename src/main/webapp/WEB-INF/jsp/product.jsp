@@ -182,7 +182,7 @@ function valorar(puntos) {
 				<button class="btn" type="submit"> Prestar</button>
 			</form>
 		</c:if>
-		<c:if test="${i.cantidad > 0 && i.prestado <= 1 && user.id != i.propietario.id}">
+		<c:if test="${i.cantidad > 0 && i.prestado <= 1 && user.id != i.propietario.id && user.roles == 'USER'}">
 			<form action="../prestado" method="post" enctype = "multipart/form-data">
 				<label class="col-md-4 control-label" for="nombre">Cantidad:</label>  
 				<div class="col-md-4">
@@ -224,12 +224,12 @@ function valorar(puntos) {
   				
   				<hr class="featurette-divider">
   				
-  				<fieldset>
+  			<!-- 	<fieldset>
   				<label>Valoración:</label>
   					<p>${i.estrellas}</p>
   				</fieldset>  
   				
-  				<hr class="featurette-divider">
+  				<hr class="featurette-divider">-->
   				
   				<fieldset>
   				<label>Cantidad del producto:</label>
@@ -257,7 +257,7 @@ function valorar(puntos) {
   						<c:forEach var = "c" items="${comentarios}">
   						<c:if test="${c.idProduct.id == i.id }">
     						<div class="card-block">
-    							<h3>{c.idSender.login}</h3>
+    							<label>${c.idSender.login} :</label>
     							<p>${c.comment}</p>
     							<hr class="featurette-divider">
     						</div>
@@ -282,14 +282,14 @@ function valorar(puntos) {
                required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
           </div>         
-          <!-- Text area -->
+          <!-- Text area
           <div class="form-group">
              <label for="usuario" class="col-sm-2 control-label">Destinatario</label>
               <div class="col-sm-10">
                <textarea class="form-control" name="Destinatario" id="Destinatario" rows="5" placeholder="Your Message"
                required data-validation-required-message ="Please enter your comment"></textarea>
              </div>
-          </div>
+          </div>-->
           <input type="hidden" name="idP" value="${i.id}"/>
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
           <!-- Button -->
