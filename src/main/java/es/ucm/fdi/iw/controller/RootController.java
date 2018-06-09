@@ -690,7 +690,7 @@ public class RootController {
 	long coleccion = new Long(Long.parseLong(idColeccion));
 	long producto = new Long(Long.parseLong(idProducto));
 	
-		
+	log.info(coleccion + " " + producto);
 	Product p = entityManager.getReference(Product.class, producto);
 	Collection c = entityManager.getReference(Collection.class, coleccion);
 	

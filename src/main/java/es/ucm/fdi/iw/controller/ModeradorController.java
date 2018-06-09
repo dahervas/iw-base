@@ -167,7 +167,7 @@ public class ModeradorController {
 			
 			entityManager.remove(p);
 		}
-		return "redirect:moder/";
+		return "redirect:/home";
 	}
 	
 	@RequestMapping(value = "/validar", method = RequestMethod.POST)
