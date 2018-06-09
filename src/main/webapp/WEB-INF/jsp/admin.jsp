@@ -13,13 +13,14 @@
 	<hr/>
 
 	<form action="/admin/addUser" method="post">
-		<label for="login">login<input name="login"/></label>
-		<label for="password">password<input type="password" name="password"/></label>
-		<label for="isAdmin">is admin?<input type="checkbox" name="isAdmin"></label>
+		<label for="login">Usuario/login<input name="login"/></label>
+		<label for="password">Contraseña<input type="password" name="password"/></label>
+		<label for="isAdmin">¿Administrador?<input type="checkbox" name="isAdmin"></label>
+		<label fro="isModer">¿Moderador? <input type="checkbox" name="isModer"></label>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             
             <div class="form-actions">
-                <button type="submit" class="btn">Create user</button>
+                <button type="submit" class="btn">Crear usuario</button>
             </div>
 	</form>
 	

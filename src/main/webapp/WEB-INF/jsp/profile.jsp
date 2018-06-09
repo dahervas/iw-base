@@ -104,6 +104,7 @@
 				</div>
 			</form>
 		</h1>
+		Media votaciones: ${u.estrellas}
 
 	</div>
 

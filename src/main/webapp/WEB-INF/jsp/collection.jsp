@@ -28,6 +28,14 @@
 						</c:when>
 						<c:otherwise>
 							Propietario: <a href="/profile"> ${user.id} </a>
+							<form action="../borrar" method="post">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<input type="hidden" name="usuario" value="${i.propietario.id}"/>
+								<input type="hidden" name="eliminar" value="${i.id}"/>
+								<input type="hidden" name="tipo" value="coleccion"/>
+							
+								<button type="submit" id="botonBorrar" class="btn">Borrar colección</button>
+							</form>
 						</c:otherwise>
 					</c:choose>
                 </h3>

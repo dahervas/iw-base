@@ -64,11 +64,23 @@ public class AdminController {
 	public String addUser(
 			@RequestParam String login, 
 			@RequestParam String password, 
-			@RequestParam(required=false) String isAdmin, Model m) {
+			@RequestParam(required=false) String isAdmin, String isModer, Model m) {
 		User u = new User();
 		u.setLogin(login);
 		u.setPassword(passwordEncoder.encode(password));
-		u.setRoles("on".equals(isAdmin) ? "ADMIN,USER" : "USER");
+		if("on".equals(isAdmin) && "on".equals(isModer)) {
+			u.setRoles("ADMIN,MODER");
+		}
+		else if("on".equals(isAdmin) && !"on".equals(isModer)) {
+			u.setRoles("ADMIN");
+		}
+		else if(!"on".equals(isAdmin) && "on".equals(isModer)) {
+			u.setRoles("MODER");
+		}
+		else {
+			u.setRoles("USER");
+		}
+		
 		entityManager.persist(u);
 		
 		entityManager.flush();

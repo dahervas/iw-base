@@ -35,6 +35,7 @@
 					<td> ${p.descripcion} </td>
 					<td> <a href="/profile/${p.propietario.id}">${p.propietario.login} </a></td>
 					<td> <a href="/product/${p.id}">Ver más</a></td>
+				</hr>
 				</c:forEach>
 			</table>
 		</c:if>

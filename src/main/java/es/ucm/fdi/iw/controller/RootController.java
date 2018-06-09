@@ -964,4 +964,64 @@ public class RootController {
 		
 		return "listProducts";
 	}
+	@RequestMapping(value = "/borrar", method = RequestMethod.POST)
+	@Transactional
+	public String rechazar(
+			@RequestParam("usuario") String usuario, 
+			@RequestParam("eliminar") String eliminar,
+			@RequestParam("tipo") String tipo,
+			Model m, HttpSession session) {
+		
+		long idUsuario = Long.parseLong(usuario);
+		long idEliminar = Long.parseLong(eliminar);
+		
+		User b = entityManager.getReference(User.class, idUsuario);
+		if(tipo.equals("coleccion")) {
+			Collection c = entityManager.getReference(Collection.class, idEliminar);
+			
+			if(c.getPropietario() != null) {
+				b.getOwnedCollections().remove(c);
+				entityManager.persist(b);
+			}
+			if(c.getImagenPrincipal() != null) {
+				PhotoCollection f = entityManager.getReference(PhotoCollection.class, c.getImagenPrincipal().getId());
+				f.setIdExterno(null);
+				entityManager.persist(f);
+			}
+			for(Product p: c.getProductos()) {
+				if(p.getColecciones().contains(c)) {
+					p.getColecciones().remove(c);
+					entityManager.persist(p);
+				}
+			}
+			
+			entityManager.remove(c);
+		}
+		else if(tipo.equals("producto")){
+			Product p = entityManager.getReference(Product.class, idEliminar);
+			
+			if(p.getPropietario() != null) {
+				b.getOwnedProducts().remove(p);
+				entityManager.persist(b);
+			}
+			if(p.getImagenPrincipal() != null) {
+				Photo f = entityManager.getReference(Photo.class, p.getImagenPrincipal().getId());
+				f.setIdExterno(null);
+				entityManager.persist(f);
+				
+			}
+			for	(Photo a : p.getFotos()) {
+				a.setIdExterno(null);
+				entityManager.persist(a);
+			}
+			for(Collection c : p.getColecciones()) {
+				if(c.getProductos().contains(p)){
+					c.getProductos().remove(p);
+					entityManager.persist(c);
+				}
+			}
+			entityManager.remove(p);
+		}
+		return "redirect:profile/";
+	}
 }

@@ -13,8 +13,6 @@
 
 <script>
 function valorar(puntos) {
-	alert("he entrado");
-	alert("puntos: " + puntos);
 	var puntos2 = puntos;
 	var x = document.getElementById("star1");  
 	var y = document.getElementById("star2");
@@ -40,17 +38,14 @@ function valorar(puntos) {
 		b.style.color = "black";
 	}
 	if(puntos2 >= 4){
-		var x = document.getElementById("star4");  
 		a.style.color = "orange";
 		b.style.color = "black";
 	}
 	if(puntos2 == 5){
-		var x = document.getElementById("star5");  
 		b.style.color = "orange";
 	}
 	
 	var formulario = document.getElementById("formulario");
-	alert("HOLA");
 	formulario.estrellas.value = puntos;
 	formulario.submit();
 }
@@ -80,7 +75,7 @@ function valorar(puntos) {
 				<div id="wrapper">        	
 	   				<p class="clasificacion" id="textoCentrado">
 	   					<input id="radio5" name="estrellas" value="5" type="radio">
-	   					${u.estrellas} (${u.votos} votos)
+	   					${u.estrellas} (${u.votos} sotoV)
 	   					<c:choose>
 							<c:when test="${u.estrellas >= 5}">
 								<label for="radio5" style="color:orange;">
