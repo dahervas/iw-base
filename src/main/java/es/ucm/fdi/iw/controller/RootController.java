@@ -734,8 +734,8 @@ public class RootController {
 		
 		User desti = (User) entityManager.createQuery(query).getSingleResult();
 		
-		cp.setIdProduct(p);
-		cp.setIdAddressee(desti);
+		//cp.setIdProduct(p);
+		//cp.setIdAddressee(desti);
 		cp.setIdSender(user);		
 		cp.setComment(comentario);
 		
@@ -745,25 +745,26 @@ public class RootController {
 		return "redirect:/product/" + prod;
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
-	@RequestMapping(value="product/prestado", method=RequestMethod.POST)
+	@RequestMapping(value="prestado", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public String handleFileUpload(
 			@RequestParam("cantidad")int cantidad,
 			@RequestParam("id")long id,	
 			HttpSession session,
 			Model m) {
 		Product p = entityManager.getReference(Product.class, id);
-		byte prest =1;
-		int cant = p.getCantidad();
 		
-		if(cantidad > 0 && cantidad <=cant) {
-			p.setPrestado(prest);
-			p.setCantidad(cant-cantidad);
-			
-		}else  return "cantidad incorrecta";
+		User u = p.getPropietario();
+		User t = (User) session.getAttribute("user");
 		
-		entityManager.persist(p);
-		entityManager.flush();
+		if(cantidad == 0) {
+			return "redirect:/product/" + id;
+		}
+		
+		String mensaje = "Hola " + u.getLogin() + " me gustaría que me prestaras " + cantidad + " unidades del producto "+
+				p.getNombre() + ". \nMuchas gracias, nos mantenemos en contacto. \n" + t.getLogin();
+		
+		sendMessage(u.getLogin(), null, m, session);
 		
 		return "redirect:/product/" + id;
 		

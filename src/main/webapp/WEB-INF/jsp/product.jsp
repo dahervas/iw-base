@@ -84,12 +84,12 @@ function valorar(puntos) {
 		<div class="todoAlCentro">
 			<c:choose>
 			<c:when test="${empty i.imagenPrincipal.url}">
-				<img class="img-fluid mb-5 d-block mx-auto text-center"  src="static/img/losiento.jpg"
+				<img class="img-fluid mb-5 d-block mx-auto text-center"  src="../photo/${i.id}/0"
 				  id="fotoperfil" data-toggle="modal" data-target="#exampleModal">			
 			</c:when>
 			<c:otherwise>
 				<img class="img-fluid mb-5 d-block mx-auto text-center"
-				 src="${i.imagenPrincipal.url}" id="fotoperfil" data-toggle="modal" data-target="#exampleModal">	
+				 src="../${i.imagenPrincipal.url}" id="fotoperfil" data-toggle="modal" data-target="#exampleModal">	
 						
 			</c:otherwise>
 			</c:choose>
@@ -108,7 +108,7 @@ function valorar(puntos) {
 				<div id="wrapper">        	
 	   				<p class="clasificacion" id="textoCentrado">
 	   					<input id="radio5" name="estrellas" value="5" type="radio">
-	   					${i.estrellas} (${i.votos} votos)
+	   					${i.estrellas} (${i.votos} sotoV)
 	   					<c:choose>
 							<c:when test="${i.estrellas >= 5}">
 								<label for="radio5" style="color:orange;">
@@ -170,17 +170,27 @@ function valorar(puntos) {
     </div>
 
 	<hr class="featurette-divider">
-	
 	<div class="btn-pedir">			
-		<c:if test="${i.cantidad > 0 && i.prestado <= 1 }">
-			<form action="prestado" method="post">
+		<c:if test="${i.cantidad > 0 && i.prestado <= 1 && user.id == i.propietario.id}">
+			<form action="prestadar" method="post" enctype = "multipart/form-data">
 				<label class="col-md-4 control-label" for="nombre">Cantidad:</label>  
 				<div class="col-md-4">
 					<input id="cantidad" name="cantidad" placeholder="Escriba aquí la cantidad " class="form-control input-md" type="text">
 				</div>
 				<input type="hidden" name="id" value="${i.id}"/>
 				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				<button class="btn" type="submit"> Tomar prestado</button>
+				<button class="btn" type="submit"> Prestar</button>
+			</form>
+		</c:if>
+		<c:if test="${i.cantidad > 0 && i.prestado <= 1 && user.id != i.propietario.id}">
+			<form action="prestado" method="post" enctype = "multipart/form-data">
+				<label class="col-md-4 control-label" for="nombre">Cantidad:</label>  
+				<div class="col-md-4">
+					<input id="cantidad" name="cantidad" placeholder="Escriba aquí la cantidad " class="form-control input-md" type="text">
+				</div>
+				<input type="hidden" name="id" value="${i.id}"/>
+				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<button class="btn" type="submit"> Pedir prestado</button>
 			</form>
 		</c:if>
 	</div>
