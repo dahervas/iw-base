@@ -540,9 +540,6 @@ public class RootController {
 		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
 		m.addAttribute("comentarios", result);
 		
-		String quer = "select u from User u where u.id = " + id;
-		m.addAttribute("usuario", entityManager.createQuery(quer).getResultList());
-		
 		/*String qu ="select c from CommentProduct cp where cp.idProduct =" + id;
 		m.addAttribute("comentarios", entityManager.createQuery(qu).getResultList());
 		
@@ -725,25 +722,27 @@ public class RootController {
 	public String handleFileUpload(
 			@RequestParam("Comment")String comentario,
 			@RequestParam("Destinatario")String dest,
+			@RequestParam("idP")long prod,
 			HttpSession session,
 			Model m) {
 	
 		CommentProduct cp = new CommentProduct();
-		
+		Product p = entityManager.getReference(Product.class, prod);
 		User user = (User)session.getAttribute("user");
 		
-		String query = "select u.id from User u where u.login = " + dest;
+		String query = "select u from User u where u.login = '" + dest + "'";
 		
-		long desti = new Long(Long.parseLong(query));		
+		User desti = (User) entityManager.createQuery(query).getSingleResult();
 		
+		cp.setIdProduct(p);
 		cp.setIdAddressee(desti);
-		cp.setIdSender(user);
+		cp.setIdSender(user);		
 		cp.setComment(comentario);
 		
 		entityManager.persist(cp);
 		entityManager.flush();		
 		
-		return "subido";
+		return "redirect:/product/" + prod;
 	}
 	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
 	@RequestMapping(value="product/prestado", method=RequestMethod.POST)

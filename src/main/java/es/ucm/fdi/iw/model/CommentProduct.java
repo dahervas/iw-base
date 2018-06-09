@@ -9,9 +9,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class CommentProduct {
 	private long idComment;
-	private long idProduct;
+	private Product idProduct;
 	private User idSender;
-	private long idAddressee;	//Nombre del destinatario
+	private User idAddressee;	//Nombre del destinatario
 	private String comment;
 	
 	
@@ -34,11 +34,11 @@ public class CommentProduct {
 	}
 	
 	@ManyToOne(targetEntity=Product.class)
-	public long getIdProduct() {
+	public Product getIdProduct() {
 		return idProduct;
 	}
 
-	public void setIdProduct(long idProduct) {
+	public void setIdProduct(Product idProduct) {
 		this.idProduct = idProduct;
 	}
 	
@@ -52,11 +52,11 @@ public class CommentProduct {
 	}
 	
 	@ManyToOne(targetEntity=User.class)
-	public long getIdAddressee() {
+	public User getIdAddressee() {
 		return idAddressee;
 	}
 
-	public void setIdAddressee(long idAddressee) {
+	public void setIdAddressee(User idAddressee) {
 		this.idAddressee = idAddressee;
 	}
 	
