@@ -536,7 +536,7 @@ public class RootController {
 		
 		
 		
-		String qu = "select cp from CommentProduct cp where cp.id =" + id;
+		String qu = "select cp from CommentProduct cp where cp.idProduct.id =" + id;
 		
 		List<String> result = (List<String>)entityManager.createQuery(qu).getResultList();
 		m.addAttribute("comentarios", result);

@@ -224,12 +224,12 @@ function valorar(puntos) {
   				
   				<hr class="featurette-divider">
   				
-  				<fieldset>
+  			<!-- 	<fieldset>
   				<label>Valoración:</label>
   					<p>${i.estrellas}</p>
   				</fieldset>  
   				
-  				<hr class="featurette-divider">
+  				<hr class="featurette-divider">-->
   				
   				<fieldset>
   				<label>Cantidad del producto:</label>
@@ -257,7 +257,7 @@ function valorar(puntos) {
   						<c:forEach var = "c" items="${comentarios}">
   						<c:if test="${c.idProduct.id == i.id }">
     						<div class="card-block">
-    							<h3>{c.idSender.login}</h3>
+    							<label>${c.idSender.login} :</label>
     							<p>${c.comment}</p>
     							<hr class="featurette-divider">
     						</div>
