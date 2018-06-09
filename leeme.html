@@ -24,29 +24,32 @@ Tamaa es un proyecto con el fin de hacer crecer el altruismo en el mundo. Es una
 <h6> Usuario 'USER' </h6>
 
 <ul>
-	 <li><a href="localhost:8080/"> Página principal </a>
-	Home, vista donde salen todos los productos insertados en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable. Pulsando a los productos veremos información sobre ellos. También aparecerá un + a la derecha del nombre del producto, esto nos permitirá añadir el producto a una colección existente.
+	<li><a href="localhost:8080/"> Página principal </a>
+	 Home, vista donde salen todos los productos insertados en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable. Pulsando a los productos veremos información sobre ellos. También aparecerá un + a la derecha del nombre del producto, esto nos permitirá añadir el producto a una colección existente.
 
-	 <li><a href="localhost:8080/collections"> Colecciones </a>
+	<li><a href="localhost:8080/collections"> Colecciones </a>
 	 Muestra las coleciones insertadas en la base de datos. Si no hay nada en la BD saldrá una pantalla amigable. Al pulsar sobre una colección nos mostrará más información sobre ella.
 
-	 <li><a href="localhost:8080/product/1"> Producto </a> 
-	 En esta página se podrá ver la información sobre un producto determinado, es decir, imagen de producto, nombre, detalles, cantidad del producto a disposición del usuario, si está prestado en ese momento o no. También se puede votar un producto pulsando en las estrellas de valoración y se puede comentar el estado o lo que nos apetezca (sin que al moderador le parezca mal nuestro comentario). Desde esta pantalla también podremos agregar el producto a la colección y podremos pedirlo prestado si no está ocupado.
+	<li><a href="localhost:8080/product/1"> Producto </a> 
+	 En esta página se podrá ver la información sobre un producto determinado, es decir, imagen de producto, nombre, detalles, cantidad del producto a disposición del usuario, si está prestado en ese momento o no. También se puede eliminar ese producto o votarlo pulsando en las estrellas de valoración y se puede comentar el estado o lo que nos apetezca (sin que al moderador le parezca mal nuestro comentario). Desde esta pantalla también podremos agregar el producto a la colección y podremos pedirlo prestado si no está ocupado.
 
-	  <li><a href="localhost:8080/search"> Búsqueda </a>
-	  --> La página de búsqueda tiene una interfaz muy bonita. Ahora sólo hace falta que cumpla su cometido, que realice búsquedas en la base de datos.
-	  <li><a href="localhost:8080/nuevaColeccion"> Nueva colección </a> 
-	  Página para añadir una nueva colección. Se puede acceder a ella desde la página de <a href="localhost:8080/collections">colecciones si no existe ninguna en el sistema o podemos acceder a través de un botón en la página de perfil.
+	<li><a href="localhost:8080/search"> Búsqueda </a>
+	 En la página de búsqueda, se introduce el nombre de un producto que se quiera buscar y mostrará su imagen principal (dependiendo del tamaño) con su nombre con link para acceder a la página de dicho producto.
+	  
+	<li><a href="localhost:8080/nuevaColeccion"> Nueva colección </a> 
+	 Página para añadir una nueva colección. Se puede acceder a ella desde la página de <a href="localhost:8080/collections">colecciones si no existe ninguna en el sistema o podemos acceder a través de un botón en la página de perfil.
 
-	  <li><a href="localhost:8080/nuevoProducto"> Nuevo producto </a>
-	   Página para añadir un producto. Contiene un formulario para subir una foto principal, varias fotos más y la información del producto. Estas imágenes son almacenadas en /tmp/iw. Al igual que con las nuevas colecciones se podrá acceder al formulario para añadir un producto desde la página donde se muestran todos los productos <a href="localhost:8080">home, o desde el perfil de cada usuario.
-	  <li><a href="localhost:8080/profile"> Perfil </a>
-	  Página del perfil del usuario donde aparecen todos sus productos y colleciones. En esta página el usuario puede añadir productos y crear colleciones. También puede modificar su perfil.
+	<li><a href="localhost:8080/nuevoProducto"> Nuevo producto </a>
+	 Página para añadir un producto. Contiene un formulario para subir una foto principal, varias fotos más y la información del producto. Estas imágenes son almacenadas en /tmp/iw. Al igual que con las nuevas colecciones se podrá acceder al formulario para añadir un producto desde la página donde se muestran todos los productos <a href="localhost:8080">home, o desde el perfil de cada usuario.
+	 
+	<li><a href="localhost:8080/profile"> Perfil </a>
+	 Página del perfil del usuario donde aparecen todos sus productos y colleciones. En esta página el usuario puede añadir productos y crear colleciones. También puede modificar su perfil.
 
-	  <li><a href="localhost:8080/profile/2"> Perfil de otro usuario </a>
-	  Esta es una página destinada a mostar la información de otro usuario. Sus productos y sus colecciones, también se podrá valorar al usuario con las estrellas, así cualquiera sabe si está haciendo bien en prestarle un objeto a alguien. Si intentas entrar en tu propio perfil a través de esta dirección, la página te mandará al perfil que te corresponde.
-	  <li><a href="http://localhost:8080/messages"> Mensajes </a>
-	  --> Para poder enviar mensajes a otros usuarios.
+	<li><a href="localhost:8080/profile/2"> Perfil de otro usuario </a>
+	 Esta es una página destinada a mostar la información de otro usuario. Sus productos y sus colecciones, también se podrá valorar al usuario con las estrellas, así cualquiera sabe si está haciendo bien en prestarle un objeto a alguien. Si intentas entrar en tu propio perfil a través de esta dirección, la página te mandará al perfil que te corresponde.
+	 
+	<li><a href="http://localhost:8080/messages"> Mensajes </a>
+	 Para poder enviar mensajes a otros usuarios. También se enviarán mensajes de forma automática cuando un usuario pida prestado un producto.
 
 <h6> Admin 'ADMIN' </h6>
 
@@ -54,13 +57,13 @@ Tamaa es un proyecto con el fin de hacer crecer el altruismo en el mundo. Es una
 	En esta página el adminstrador podrá crear a los diferentes usuarios y borrar los que el quiera. En un trabajo futuro se podría imitar este formulario de crear usuarios en una nueva página y hacer que el administrador pueda modificar los roles.
 </li>
 <li><a href="localhost:8080/listProducts"> Lista de productos </a>
-	Es una tabla con todos los productos del sistema par que pueda ver cualquiera de una manera más rápida.
+		 Es una tabla con todos los productos del sistema para que cualquiera pueda ver dichos productos de una manera más rápida. No tiene un estilo excesivamente agradable pero cumple su cometido.
 </li>
-Los adminsitradores también pueden enviar mensajes.
+Los administradores también pueden enviar mensajes.
 
 <h6> Moder 'MODER' </h6>
 
-<li><a href="loclahost:8080/moder"> Home </a>
+<li><a href="localhost:8080/moder"> Home </a>
 	Pantalla donde aparecen todas las colecciones y productos nuevos para que el moderador les eche un vistado y las valide (aceptar) o las borre (borrar). En caso de borrar un producto se envia un mensaje al propietario explicandole por qué.
 </li>
  <h6> Admin Moder </h6>

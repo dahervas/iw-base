@@ -519,6 +519,7 @@ public class RootController {
 		String query = "select p from Product p where p.id = " + id;
 		m.addAttribute("elementos", entityManager.createQuery(query).getResultList());
 		File[] lista = localData.getFolder("product/" + id).listFiles();
+		
 		List<String> fotos = new ArrayList<>();
 		for(int i = 0; i < lista.length; i++) {
 			int pini = lista[i].getPath().indexOf("product");

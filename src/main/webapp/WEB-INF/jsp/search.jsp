@@ -63,12 +63,12 @@ function showProducts() {
 				</c:forEach>
 
       
-            	<c:forEach var="u" items = "${users}">
+            	<!--<c:forEach var="u" items = "${users}">
             	
 						<a href="../profile/${u.id}">${u.login}</a>
 						<img class="photo img-fluid img-thumbnail" src="${p.fotoPerfil.url}" alt="" style="width: 300px; height: 200px;">
 			
-				</c:forEach>
+				</c:forEach>-->
 
 			</div>
 		<!--  <table>	
