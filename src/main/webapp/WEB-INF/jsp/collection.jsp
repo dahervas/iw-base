@@ -27,7 +27,7 @@
 							Propietario: <a href="/profile/${i.propietario.id}"> ${i.propietario.id} </a>
 						</c:when>
 						<c:otherwise>
-							Propietario: <a href="/profile"> ${user.id} </a>
+							Propietario: <a href="/profile"> ${user.login} </a>
 							<form action="../borrar" method="post">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<input type="hidden" name="usuario" value="${i.propietario.id}"/>

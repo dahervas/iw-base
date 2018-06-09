@@ -133,7 +133,9 @@
 		            	style="width: 300px; height: 200px">
 		            	${p.nombre}
 					</a>
+					
 				</div>
+					    
 				
 			</c:forEach>
 				
