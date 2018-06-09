@@ -301,7 +301,8 @@ public class RootController {
 	public String messages(Model model, HttpServletRequest request,  HttpSession session) {			
 		User u = (User)session.getAttribute("user");
 	
-		entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList();
+		model.addAttribute("sentMessage", 
+				entityManager.createQuery("select m from Message m where idSender =" + u.getId()).getResultList());
 		model.addAttribute("receivedMessages", 
 				entityManager.createQuery("select m from Message m where idAddressee =" + u.getId()).getResultList());
 
@@ -624,7 +625,7 @@ public class RootController {
 		entityManager.persist(ms);
 		entityManager.flush();
 		
-		return "messages";
+		return "redirect:/messages";
 	}
 
 	
@@ -744,7 +745,7 @@ public class RootController {
 		
 		return "redirect:/product/" + prod;
 	}
-	/*AÑADIR UN NUEVO COMENTARIO A LA BASE DE DATOS*/
+	
 	@RequestMapping(value="prestado", method=RequestMethod.POST)
 	@Transactional
 	public String handleFileUpload(
@@ -764,7 +765,7 @@ public class RootController {
 		String mensaje = "Hola " + u.getLogin() + " me gustaría que me prestaras " + cantidad + " unidades del producto "+
 				p.getNombre() + ". \nMuchas gracias, nos mantenemos en contacto. \n" + t.getLogin();
 		
-		sendMessage(u.getLogin(), null, m, session);
+		sendMessage(u.getLogin(), mensaje, m, session);
 		
 		return "redirect:/product/" + id;
 		

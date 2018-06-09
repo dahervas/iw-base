@@ -72,8 +72,10 @@
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<button type="button" class="btn btn-secondary"
 									data-dismiss="modal">Cerrar</button>
+								<c:if test="${!empty user.ownedCollections }">
 								<button type="submit" class="btn btn-primary">Guardar
 									Cambios</button>
+								</c:if>
 								</div>
 	
 							</div>

@@ -16,14 +16,12 @@
 						<tr>
 							<th> Usuario </th>
 							<th> Mensaje </th>
-							<th> Fecha </th>
 						</tr>
 						
 						<c:forEach var="m" items="${receivedMessages}">
 							<tr>
-				                <td>${m.idAddressee} </td> 
+				                <td><a href="profile/${m.idSender.id}">${m.idSender.login}</a> </td> 
 				            	<td> ${m.message} </td>
-				            	<td>" .$msn['Fecha'] ."</td>
 			            	</tr>
 			            	
 		            	</c:forEach>
@@ -70,15 +68,13 @@
 						<tr>
 							<th> Para </th>
 							<th> Mensaje </th>
-							<th> Fecha </th>
 						</tr>
 						
 		            	
 		            	<c:forEach var="m" items="${sentMessage}">
 							<tr>
-				            	<td> ${m.idSender}</td>
+				            	<td> <a href="profile/${m.idAddressee.id}">${m.idAddressee.login}</a></td>
 				            	<td> ${m.message} </td>
-				            	<td>" .$msn['Fecha'] ."</td>
 		            		</tr>
 			            	
 		            	</c:forEach>

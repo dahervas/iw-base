@@ -33,7 +33,12 @@
 	<tbody>
 	<c:forEach items="${users}" var="u">
 		<tr>
-		<td>${u.id}<td>${u.login}<td>${u.roles}
+		<td>${u.id}<td>${u.login}<td>${u.roles}<td>
+		<form action="/admin/deleteUser" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" name="id" value="${u.id}"/>
+			<button type="submit" id="botonBorrar" class="btn">Borrar</button>
+		</form></td>
 		</tr>	
 	</c:forEach>
 	</tbody>

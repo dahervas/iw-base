@@ -29,6 +29,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.ucm.fdi.iw.LocalData;
+import es.ucm.fdi.iw.model.Collection;
+import es.ucm.fdi.iw.model.Photo;
+import es.ucm.fdi.iw.model.PhotoCollection;
+import es.ucm.fdi.iw.model.Product;
 import es.ucm.fdi.iw.model.User;
 
 @Controller	
@@ -83,6 +87,75 @@ public class AdminController {
 		
 		entityManager.persist(u);
 		
+		entityManager.flush();
+		m.addAttribute("users", entityManager
+				.createQuery("select u from User u").getResultList());
+		
+		return "admin";
+	}
+	
+	@RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+	@Transactional
+	public String deleteUser(
+			@RequestParam String id, 
+			Model m) {
+		
+		long idUsuario = Long.parseLong(id);
+				
+		User b = entityManager.getReference(User.class, idUsuario);
+		
+		if(b.getFotoPerfil() != null) {
+			Photo f = entityManager.getReference(Photo.class, b.getFotoPerfil().getId());
+			f.setIdExterno(null);
+			entityManager.persist(f);
+		}
+		for(Collection c : b.getOwnedCollections()) {
+						
+			if(c.getPropietario() != null) {
+				b.getOwnedCollections().remove(c);
+				entityManager.persist(b);
+			}
+			if(c.getImagenPrincipal() != null) {
+				PhotoCollection f = entityManager.getReference(PhotoCollection.class, c.getImagenPrincipal().getId());
+				f.setIdExterno(null);
+				entityManager.persist(f);
+			}
+			for(Product p: c.getProductos()) {
+				if(p.getColecciones().contains(c)) {
+					p.getColecciones().remove(c);
+					entityManager.persist(p);
+				}
+			}
+			
+			entityManager.remove(c);
+		
+		}
+		for(Product p: b.getOwnedProducts()) {
+			if(p.getPropietario() != null) {
+				b.getOwnedProducts().remove(p);
+				entityManager.persist(b);
+			}
+			if(p.getImagenPrincipal() != null) {
+				Photo f = entityManager.getReference(Photo.class, p.getImagenPrincipal().getId());
+				f.setIdExterno(null);
+				entityManager.persist(f);
+				
+			}
+			for	(Photo a : p.getFotos()) {
+				a.setIdExterno(null);
+				entityManager.persist(a);
+			}
+			for(Collection c : p.getColecciones()) {
+				if(c.getProductos().contains(p)){
+					c.getProductos().remove(p);
+					entityManager.persist(c);
+				}
+			}
+			entityManager.remove(p);
+		}
+		
+		entityManager.remove(b);		
+				
 		entityManager.flush();
 		m.addAttribute("users", entityManager
 				.createQuery("select u from User u").getResultList());
