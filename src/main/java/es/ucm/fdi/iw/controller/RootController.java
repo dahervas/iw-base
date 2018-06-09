@@ -746,6 +746,31 @@ public class RootController {
 		return "redirect:/product/" + prod;
 	}
 	
+	@RequestMapping(value="prestar", method=RequestMethod.POST)
+	@Transactional
+	public String handleFileUpload2(
+			@RequestParam("cantidad")int cantidad,
+			@RequestParam("id")long id,	
+			HttpSession session,
+			Model m) {
+		Product p = entityManager.getReference(Product.class, id);
+		
+		User u = p.getPropietario();
+		User t = (User) session.getAttribute("user");
+		
+		if(cantidad == 0) {
+			return "redirect:/product/" + id;
+		}
+		
+		String mensaje = "Te prestaré " + cantidad + " unidades del producto "+
+				p.getNombre() + ". \nMuchas gracias, nos mantenemos en contacto. \n" + t.getLogin();
+		
+		sendMessage(u.getLogin(), mensaje, m, session);
+		
+		return "redirect:/product/" + id;
+		
+	}
+	
 	@RequestMapping(value="prestado", method=RequestMethod.POST)
 	@Transactional
 	public String handleFileUpload(
@@ -774,7 +799,7 @@ public class RootController {
 	/*AÑADIR VALORACIÓN A UN PRODUCTO*/
 	@RequestMapping(value="product/addValoration", method=RequestMethod.POST)
 	@Transactional
-	public @ResponseBody String handleFileUpload(
+	public /*@ResponseBody*/ String handleFileUpload(
 			@RequestParam("estrellas")int estrellas,
 			@RequestParam("id")long id,			
 			Model m) {

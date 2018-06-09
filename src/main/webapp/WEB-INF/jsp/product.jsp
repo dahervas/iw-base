@@ -14,8 +14,8 @@
 
 <script>
 function valorar(puntos) {
-	alert("he entrado");
-	alert("puntos: " + puntos);
+	//alert("he entrado");
+	//alert("puntos: " + puntos);
 	var puntos2 = puntos;
 	var x = document.getElementById("star1");  
 	var y = document.getElementById("star2");
@@ -51,7 +51,7 @@ function valorar(puntos) {
 	}
 	
 	var formulario = document.getElementById("formulario");
-	alert("HOLA");
+	//alert("HOLA");
 	formulario.estrellas.value = puntos;
 	formulario.submit();
 }
@@ -172,7 +172,7 @@ function valorar(puntos) {
 	<hr class="featurette-divider">
 	<div class="btn-pedir">			
 		<c:if test="${i.cantidad > 0 && i.prestado <= 1 && user.id == i.propietario.id}">
-			<form action="prestar" method="post" enctype = "multipart/form-data">
+			<form action="../prestar" method="post" enctype = "multipart/form-data">
 				<label class="col-md-4 control-label" for="nombre">Cantidad:</label>  
 				<div class="col-md-4">
 					<input id="cantidad" name="cantidad" placeholder="Escriba aquí la cantidad " class="form-control input-md" type="text">
